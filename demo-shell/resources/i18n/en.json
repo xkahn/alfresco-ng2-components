@@ -32,6 +32,7 @@
         "APP_NAME": "ADF Demo Application",
         "HOME": "Home",
         "CONTENT_SERVICES": "Content Services",
+        "DOCUMENT_TREE": "Document Tree",
         "PROCESS_SERVICES": "Process Services",
         "LOGIN": "Login",
         "CUSTOM_SOURCES": "Custom Sources",

@@ -38,6 +38,7 @@ import { TagComponent } from './components/tag/tag.component';
 import { SocialComponent } from './components/social/social.component';
 import { FilesComponent } from './components/files/files.component';
 import { FormComponent } from './components/form/form.component';
+import { TreeComponent } from './components/tree/tree.component';
 
 import { FileViewComponent } from './components/file-view/file-view.component';
 import { CustomSourcesComponent } from './components/files/custom-sources.component';
@@ -85,6 +86,11 @@ export const appRoutes: Routes = [
             {
                 path: 'files/:id',
                 component: FilesComponent,
+                canActivate: [AuthGuardEcm]
+            },
+            {
+                path: 'tree',
+                component: TreeComponent,
                 canActivate: [AuthGuardEcm]
             },
             {

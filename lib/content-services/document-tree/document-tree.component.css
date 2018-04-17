@@ -1,0 +1,14 @@
+mat-tree ul,
+mat-tree li {
+    list-style-type: none;
+    margin: 0;
+}
+
+.tree-progress-spinner {
+    margin: auto;
+}
+
+.adf-tree-icon {
+    color: gray;
+    margin-right: 10px;
+}

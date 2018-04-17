@@ -1,0 +1,33 @@
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+        <button mat-icon-button disabled></button>
+        <mat-icon mat-list-icon class="adf-tree-icon">
+            <img [src]="getMimeTypeIcon(node.entry)" />
+        </mat-icon>
+
+        {{node.entry.name}}
+    </mat-tree-node>
+    <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+        <button mat-icon-button
+                [disabled]="node.isLoading"
+                [attr.aria-label]="'toggle ' + node.filename"
+                matTreeNodeToggle>
+            <mat-icon *ngIf="!node.isLoading">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+
+            <mat-spinner class="tree-progress-spinner"
+                         *ngIf="node.isLoading"
+                         [diameter]="20"
+                         [color]="primary"
+                         [mode]="indeterminate">
+            </mat-spinner>
+        </button>
+
+        <mat-icon mat-list-icon class="adf-tree-icon">
+            <img [src]="getMimeTypeIcon(node.entry)" />
+        </mat-icon>
+
+        {{node.entry.name}}
+    </mat-tree-node>
+</mat-tree>

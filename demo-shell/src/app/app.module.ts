@@ -33,6 +33,7 @@ import { AppsViewComponent } from './components/process-service/apps-view.compon
 import { DataTableComponent } from './components/datatable/datatable.component';
 import { TrashcanComponent } from './components/trashcan/trashcan.component';
 import { FilesComponent } from './components/files/files.component';
+import { TreeComponent } from './components/tree/tree.component';
 import { FileViewComponent } from './components/file-view/file-view.component';
 import { WebscriptComponent } from './components/webscript/webscript.component';
 import { TagComponent } from './components/tag/tag.component';
@@ -82,6 +83,7 @@ import { DemoPermissionComponent } from './components/permissions/demo-permissio
         AppsViewComponent,
         DataTableComponent,
         FilesComponent,
+        TreeComponent,
         FileViewComponent,
         TrashcanComponent,
         FormComponent,
@@ -97,8 +99,7 @@ import { DemoPermissionComponent } from './components/permissions/demo-permissio
         OverlayViewerComponent,
         SharedLinkViewComponent,
         FormLoadingComponent,
-        DemoPermissionComponent,
-        FormLoadingComponent
+        DemoPermissionComponent
     ],
     providers: [
         { provide: AppConfigService, useClass: DebugAppConfigService },

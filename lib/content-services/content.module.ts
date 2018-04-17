@@ -44,8 +44,12 @@ import { ContentMetadataConfigFactory } from './content-metadata/services/config
 import { BasicPropertiesService } from './content-metadata/services/basic-properties.service';
 import { PropertyGroupTranslatorService } from './content-metadata/services/property-groups-translator.service';
 import { SearchQueryBuilderService } from './search/search-query-builder.service';
+import { DocumentTreeComponent } from './document-tree/document-tree.component';
 
 @NgModule({
+    declarations: [
+        DocumentTreeComponent
+    ],
     imports: [
         CoreModule,
         SocialModule,
@@ -101,7 +105,8 @@ import { SearchQueryBuilderService } from './search/search-query-builder.service
         FolderDirectiveModule,
         ContentDirectiveModule,
         PermissionManagerModule,
-        VersionManagerModule
+        VersionManagerModule,
+        DocumentTreeComponent
     ]
 })
 export class ContentModule {
