@@ -25,10 +25,10 @@ import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MinimalNodeEntity, NodePaging, Pagination, MinimalNodeEntryEntity, SiteEntry } from 'alfresco-js-api';
 import {
-    AuthenticationService, AppConfigService, ContentService, TranslationService,
+    AlfrescoApiService, AuthenticationService, AppConfigService, ContentService, TranslationService,
     FileUploadEvent, FolderCreatedEvent, LogService, NotificationService,
     UploadService, DataColumn, DataRow, UserPreferencesService,
-    PaginationComponent, FormValues, DisplayMode, UserPreferenceValues
+    PaginationComponent, FormValues, DisplayMode, UserPreferenceValues,
 } from '@alfresco/adf-core';
 
 import { DocumentListComponent, PermissionStyleModel } from '@alfresco/adf-content-services';
@@ -38,6 +38,7 @@ import { SelectAppsDialogComponent } from '@alfresco/adf-process-services';
 import { VersionManagerDialogAdapterComponent } from './version-manager-dialog-adapter.component';
 import { MetadataDialogAdapterComponent } from './metadata-dialog-adapter.component';
 import { Subscription } from 'rxjs/Subscription';
+import { ImageResolver } from '@alfresco/adf-content-services';
 
 const DEFAULT_FOLDER_TO_SHOW = '-my-';
 
@@ -145,6 +146,8 @@ export class FilesComponent implements OnInit, OnChanges, OnDestroy {
     @ViewChild('standardPagination')
     standardPagination: PaginationComponent;
 
+    folderImageResolver: ImageResolver;
+
     permissionsStyle: PermissionStyleModel[] = [];
     infiniteScrolling: boolean;
     supportedPages: number[];
@@ -160,6 +163,7 @@ export class FilesComponent implements OnInit, OnChanges, OnDestroy {
                 private location: Location,
                 private translateService: TranslationService,
                 private router: Router,
+                private apiService: AlfrescoApiService,
                 private logService: LogService,
                 private preference: UserPreferencesService,
                 private appConfig: AppConfigService,
@@ -169,6 +173,18 @@ export class FilesComponent implements OnInit, OnChanges, OnDestroy {
             .subscribe((pages) => {
                 this.supportedPages = pages;
             });
+
+        this.folderImageResolver = (row: any, col: DataColumn) => {
+
+            let previewUrl = this.apiService.getInstance().content.getDocumentPreviewUrl(row.node.entry.id);
+
+            let isFile = <boolean> row.getValue('isFile');
+            if (isFile) {
+                return previewUrl;
+            }
+
+            return null;
+        };
     }
 
     showFile(event) {

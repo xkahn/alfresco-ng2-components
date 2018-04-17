@@ -183,6 +183,8 @@
                 [contextMenuActions]="true"
                 [contentActions]="true"
                 [allowDropFiles]="true"
+                [thumbnails]="true"
+                [imageResolver]="folderImageResolver"
                 [selectionMode]="selectionMode"
                 [multiselect]="multiselect"
                 [display]="displayMode"
@@ -208,61 +210,6 @@
                         [sortable]="false"
                         class="image-table-cell">
                     </data-column>
-                    <data-column
-                        key="name"
-                        title="{{'DOCUMENT_LIST.COLUMNS.DISPLAY_NAME' | translate}}"
-                        [formatTooltip]="getNodeNameTooltip"
-                        class="full-width ellipsis-cell">
-                    </data-column>
-                    <!-- Location column demo -->
-                    <!--
-                    <data-column
-                        key="path"
-                        type="location"
-                        format="/files"
-                        title="Location">
-                    </data-column>
-                    -->
-                    <data-column
-                        key="content.sizeInBytes"
-                        title="{{'DOCUMENT_LIST.COLUMNS.SIZE' | translate}}"
-                        type="fileSize">
-                    </data-column>
-                    <!-- Notes: has performance overhead due to multiple files/folders causing separate HTTP calls to get tags -->
-                    <!--
-                    <data-column
-                        title="{{'DOCUMENT_LIST.COLUMNS.TAG' | translate}}"
-                        key="id"
-                        class="full-width ellipsis-cell">
-                        <ng-template let-entry="$implicit">
-                            <alfresco-tag-node-list  [nodeId]="entry.data.getValue(entry.row, entry.col)"></alfresco-tag-node-list>
-                        </ng-template>
-                    </data-column>
-                    -->
-                    <data-column
-                        class="desktop-only"
-                        title="{{'DOCUMENT_LIST.COLUMNS.IS_LOCKED' | translate}}"
-                        key="id">
-                        <ng-template let-entry="$implicit">
-                            <button mat-icon-button [adf-node-lock]="entry.row.node.entry">
-                                <mat-icon *ngIf="entry.row.getValue('isLocked')">lock</mat-icon>
-                                <mat-icon *ngIf="!entry.row.getValue('isLocked')">lock_open</mat-icon>
-                            </button>
-                        </ng-template>
-                    </data-column>
-                    <data-column
-                        title="{{'DOCUMENT_LIST.COLUMNS.CREATED_BY' | translate}}"
-                        key="createdByUser.displayName"
-                        class="desktop-only">
-                    </data-column>
-                    <data-column
-                        title="{{'DOCUMENT_LIST.COLUMNS.CREATED' | translate}}"
-                        key="createdAt"
-                        type="date"
-                        format="timeAgo"
-                        class="desktop-only">
-                    </data-column>
-
                 </data-columns>
 
                 <content-actions>
