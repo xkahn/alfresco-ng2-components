@@ -1,0 +1,21 @@
+<div>
+    <adf-datatable #dataTable
+        [rows]="processInstances"
+        [loading]="isLoading">
+        <loading-content-template>
+            <ng-template>
+                <!--Add your custom loading template here-->
+                <mat-progress-spinner
+                    class="adf-process-list-loading-margin"
+                    [color]="'primary'"
+                    [mode]="'indeterminate'">
+                </mat-progress-spinner>
+            </ng-template>
+        </loading-content-template>
+        <data-columns>
+            <data-column key="id" title="My Id" class="ellipsis-cell"></data-column>
+            <data-column key="appName" title="App Name" class="ellipsis-cell"> </data-column>
+            <data-column key="serviceName" title="Service Name" class="ellipsis-cell"> </data-column>
+        </data-columns>
+    </adf-datatable>
+</div>

@@ -1,0 +1,53 @@
+{
+  "name": "@alfresco/adf-process-cloud-services",
+  "description": "Alfresco ADF process cloud services",
+  "version": "2.4.0-beta2",
+  "author": "Alfresco Software, Ltd.",
+  "main": "bundles/adf-process-cloud-services.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alfresco/alfresco-ng2-components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Alfresco/alfresco-ng2-components/issues"
+  },
+  "dependencies": {
+  	"@alfresco/adf-core": "2.4.0-beta2",
+    "@alfresco/adf-content-services": "2.4.0-beta2",
+    "@angular/animations": "5.1.1",
+    "@angular/cdk": "5.0.1",
+    "@angular/common": "5.1.1",
+    "@angular/compiler": "5.1.1",
+    "@angular/core": "5.1.1",
+    "@angular/flex-layout": "2.0.0-beta.12",
+    "@angular/forms": "5.1.1",
+    "@angular/http": "5.1.1",
+    "@angular/material": "5.0.1",
+    "@angular/material-moment-adapter": "5.0.1",
+    "@angular/platform-browser": "5.1.1",
+    "@angular/platform-browser-dynamic": "5.1.1",
+    "@angular/router": "5.1.1",
+    "@ngx-translate/core": "9.1.1",
+    "alfresco-js-api": "2.4.0-beta2",
+    "chart.js": "2.5.0",
+    "core-js": "2.4.1",
+    "hammerjs": "2.0.8",
+    "minimatch": "3.0.4",
+    "moment": "2.20.1",
+    "ng2-charts": "1.6.0",
+    "pdfjs-dist": "1.5.404",
+    "raphael": "2.2.7",
+    "reflect-metadata": "0.1.10",
+    "rxjs": "5.5.2",
+    "systemjs": "0.19.27",
+    "zone.js": "0.8.14"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "process-services",
+    "alfresco-component",
+    "angular",
+    "components"
+  ],
+  "license": "Apache-2.0"
+}
