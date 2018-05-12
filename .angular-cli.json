@@ -132,6 +132,11 @@
         },
         {
           "glob": "**/*",
+          "input": "../../lib/process-cloud-services/assets",
+          "output": "./assets"
+        },
+        {
+          "glob": "**/*",
           "input": "../../lib/content-services/assets",
           "output": "./assets"
         },
@@ -148,6 +153,11 @@
         {
           "glob": "**/*",
           "input": "../../lib/process-services/i18n",
+          "output": "./assets/adf-process-services/i18n"
+        },
+        {
+          "glob": "**/*",
+          "input": "../../lib/process-cloud-services/i18n",
           "output": "./assets/adf-process-services/i18n"
         },
         {

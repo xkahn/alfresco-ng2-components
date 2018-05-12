@@ -21,5 +21,14 @@ module.exports = {
       "^/activiti-app/activiti-app": ""
     },
     "changeOrigin": true
-  }
+  },
+  '/query': {
+    'target': "http://localhost:9191",
+    'secure': false,
+    'pathRewrite': {
+      '^/query/query': ''
+    },
+    'changeOrigin': true,
+    'logLevel': 'debug'
+  },
 };
