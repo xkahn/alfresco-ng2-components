@@ -27,6 +27,7 @@ import {
 } from '../events/file.event';
 import { FileModel, FileUploadProgress, FileUploadStatus } from '../models/file.model';
 import { AlfrescoApiService } from './alfresco-api.service';
+import { NodeEntry } from 'alfresco-js-api';
 
 let minimatch: any = (<any> minimatch_).default || minimatch_;
 
@@ -187,6 +188,62 @@ export class UploadService {
 
     private beginUpload(file: FileModel, /* @deprecated */emitter: EventEmitter<any>): any {
 
+        return new Promise((resolve, reject) => {
+
+            const xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+
+            xhr.upload.onabort = (event) => {
+                this.onUploadAborted(file);
+                emitter.emit({ value: 'File aborted' });
+                reject();
+            };
+
+            xhr.upload.onprogress = (event: ProgressEvent) => {
+                const percent = Math.round(event.loaded / event.total * 100);
+
+                this.onUploadProgress(file, {
+                    total: event.total,
+                    loaded: event.loaded,
+                    percent: percent
+                });
+            };
+
+            xhr.upload.onerror = (event: ErrorEvent) => {
+                this.onUploadError(file, event.error);
+                emitter.emit({ value: 'Error file uploaded' });
+                reject(event.error);
+            };
+
+            xhr.onreadystatechange = (e) => {
+                if (xhr.readyState === 4) {
+                    const instance: any = this.apiService.getInstance();
+                    const nodeEntry: NodeEntry = instance.core.NodeEntry.constructFromObject(JSON.parse(xhr.responseText));
+
+                    this.onUploadComplete(file, nodeEntry);
+                    emitter.emit({ value: nodeEntry });
+
+                    resolve(nodeEntry);
+                }
+            };
+
+            const data = new FormData();
+            data.append('filedata', file.file);
+
+            const api = this.apiService.nodesApi;
+            const basePath = (<any> api).apiClient.basePath;
+            const user =  (<any> api).apiClient.authentications.basicAuth.username;
+            const password = (<any> api).apiClient.authentications.basicAuth.password;
+
+            const url = `${basePath}/nodes/${file.options.parentId}/children`;
+
+            xhr.open('POST', url);
+            xhr.setRequestHeader('Authorization', 'Basic ' + btoa(user + ':' + password));
+            xhr.setRequestHeader('Cache-Control', 'no-cache');
+            xhr.send(data);
+        });
+
+        /*
         let promise = this.getUploadPromise(file);
 
         promise.on('progress', (progress: FileUploadProgress) => {
@@ -209,6 +266,7 @@ export class UploadService {
             });
 
         return promise;
+        */
     }
 
     private onUploadStarting(file: FileModel): void {
