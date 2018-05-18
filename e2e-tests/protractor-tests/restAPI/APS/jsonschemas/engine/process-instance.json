@@ -1,0 +1,71 @@
+{
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "$id":"process-instance.json",
+  "type": "object",
+  "title":"Process instance details",
+  "description":"Process instance details schema",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "The Id Schema",
+      "pattern": "[0-9]",
+      "minLength": 1
+    },
+    "url": {
+      "type": "string",
+      "title": "The Url Schema "
+    },
+    "businessKey": {
+      "type": ["string", "null"],
+      "title": "The Businesskey Schema ",
+      "minLength": 1
+    },
+    "suspended": {
+      "type": "boolean",
+      "title": "The Suspended Schema ",
+      "default": false
+    },
+    "ended": {
+      "type": "boolean",
+      "title": "The Ended Schema ",
+      "default": false
+    },
+    "processDefinitionId": {
+      "type": "string",
+      "title": "The Processdefinitionid Schema "
+    },
+    "processDefinitionUrl": {
+      "type": "string",
+      "title": "The Processdefinitionurl Schema "
+    },
+    "processDefinitionKey": {
+      "type": "string",
+      "title": "The Processdefinitionkey Schema "
+    },
+    "activityId": {
+      "type": "string",
+      "title": "The Activityid Schema "
+    },
+    "variables": {
+      "type": "array",
+      "items": {
+        "$ref": "variable.json"
+      }
+    },
+    "tenantId": {
+      "type": "string",
+      "title": "The Tenantid Schema "
+    },
+    "name": {
+      "type": ["string", "null"],
+      "title": "The Name Schema ",
+      "default": null
+    },
+    "completed": {
+      "type": "boolean",
+      "title": "The Completed Schema ",
+      "default": false
+    }
+  },
+  "additionalProperties": false
+}

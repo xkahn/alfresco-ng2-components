@@ -1,0 +1,33 @@
+{
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "$id":"definition.json",
+  "title":"App definition details",
+  "description":"App definition details schema",
+  "type":"object",
+  "properties":{
+    "models":{
+      "description":"app definition models",
+      "type":"array",
+      "items":{
+        "$ref":"app-model.json"
+      }
+    },
+    "theme":{
+      "description":"app definition theme",
+      "type":"string",
+      "minimum":1,
+      "pattern":"[A-Za-z]"
+    },
+    "icon":{
+      "description":"app definition icon",
+      "type":"string",
+      "minimum":1,
+      "pattern":"[A-Za-z]"
+    },
+    "publishIdentityInfo":{
+      "description":"app publish identity information",
+      "type":"array"
+    }
+  },
+  "additionalProperties":false
+}

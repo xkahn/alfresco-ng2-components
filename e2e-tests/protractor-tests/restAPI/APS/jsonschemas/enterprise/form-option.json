@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "form-option.json",
+  "type": "object",
+  "description": "Form option description",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "The Id Schema "
+    },
+    "name": {
+      "type": "string",
+      "title": "The Name Schema "
+    }
+  }
+}

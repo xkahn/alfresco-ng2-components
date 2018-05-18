@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "report-parameter-value.json",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "title": "The Key Schema "
+    },
+    "y": {
+      "type": "integer",
+      "title": "The Y Schema "
+    },
+    "keyAndValue": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "title": "The 0th Schema "
+      }
+    }
+  },
+  "additionalProperties": false
+}

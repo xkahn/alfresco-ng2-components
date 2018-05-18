@@ -1,0 +1,30 @@
+{
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "$id":"lightGroup.json",
+  "title":"light group data",
+  "description":"light group schema",
+  "type":"object",
+  "properties": {
+    "id": {
+      "description": "user id",
+      "type": "integer",
+      "minimum": 1
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-zA-z0-9]+"
+    },
+    "externalId": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "inactive"]
+    },
+    "groups": {
+      "type": "null"
+    }
+  },
+  "additionalProperties": false
+}

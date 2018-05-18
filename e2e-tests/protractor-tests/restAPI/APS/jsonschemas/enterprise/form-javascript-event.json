@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "form-javascript-event.json",
+  "type": "object",
+  "description": "Form javascript event description",
+  "properties": {
+    "event": {
+      "type": "string",
+      "title": "The Event Schema "
+    },
+    "javascriptLogic": {
+      "type": "string",
+      "title": "The Javascriptlogic Schema "
+    }
+  }
+}

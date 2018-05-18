@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "report-task-list.json",
+  "type": "array",
+  "items": {
+    "type": "string",
+    "title": "Report task list Schema ",
+    "minLength": 1
+  }
+}

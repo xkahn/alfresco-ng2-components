@@ -1,0 +1,47 @@
+{
+    "$schema":"http://json-schema.org/draft-07/schema#",
+    "$id":"app-version.json",
+    "title":"About APS",
+    "description":"APS version details",
+    "type":"object",
+    "properties":{
+        "revisionVersion":{
+            "description":"positive string of digits",
+            "type":"string",
+            "pattern":"[0-9]",
+            "minimum":1
+        },
+        "edition":{
+            "description":"APS edition",
+            "type":"string",
+            "minimum":1,
+            "pattern":"[A-Za-z]"
+        },
+        "type":{
+            "description":"APS type",
+            "type":"string",
+            "pattern":"[^bpm]",
+            "minimum":1
+        },
+        "majorVersion":{
+            "description":"string of digits",
+            "type":"string",
+            "pattern":"[0-9]",
+            "minimum":1
+        },
+        "minorVersion":{
+            "description":"string of digits",
+            "type":"string",
+            "pattern":"[0-9]",
+            "minimum":1
+        }
+    },
+    "required":[
+        "revisionVersion",
+        "edition",
+        "type",
+        "majorVersion",
+        "minorVersion"
+    ],
+    "additionalProperties":false
+}

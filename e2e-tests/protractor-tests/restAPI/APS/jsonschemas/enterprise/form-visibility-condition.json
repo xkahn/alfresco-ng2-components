@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "form-visibility-condition.json",
+  "type": "object",
+  "description": "Form visibility condition description",
+  "properties": {
+    "leftFormFieldId": {
+      "type": "string",
+      "title": "The Leftformfieldid Schema "
+    },
+    "leftRestResponseId": {
+      "type": "string",
+      "title": "The Leftrestresponseid Schema "
+    },
+    "nextCondition": {
+      "type": "object"
+    },
+    "nextConditionOperator": {
+      "type": "string",
+      "title": "The Nextconditionoperator Schema "
+    },
+    "operator": {
+      "type": "string",
+      "title": "The Operator Schema "
+    },
+    "rightFormFieldId": {
+      "type": "string",
+      "title": "The Rightformfieldid Schema "
+    },
+    "rightRestResponseId": {
+      "type": "string",
+      "title": "The Rightrestresponseid Schema "
+    },
+    "rightType": {
+      "type": "string",
+      "title": "The Righttype Schema "
+    },
+    "rightValue": {
+      "type": "object"
+    }
+  }
+}

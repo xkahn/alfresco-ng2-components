@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "report-parameter-list.json",
+  "type": "object",
+  "properties": {
+    "elements": {
+      "type": "array",
+      "items": {
+        "$ref": "report-parameter.json"
+      }
+    }
+  },
+  "additionalProperties": false
+}

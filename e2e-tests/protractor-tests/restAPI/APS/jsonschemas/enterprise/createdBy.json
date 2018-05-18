@@ -1,0 +1,28 @@
+{
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "$id":"createdBy.json",
+  "title":"Created by data",
+  "description":"Created by schema",
+  "type":"object",
+  "properties": {
+    "id": {
+      "description": "user id",
+      "type": "integer",
+      "minimum": 1
+    },
+    "firstName": {
+      "type": "string",
+      "pattern": "^[a-zA-z0-9]+"
+    },
+    "lastName": {
+      "type": "string",
+      "pattern": "^[a-zA-z0-9]+"
+    },
+    "email": {
+      "type": "string",
+      "minLength": 4,
+      "format": "email"
+    }
+  },
+  "additionalProperties":false
+}

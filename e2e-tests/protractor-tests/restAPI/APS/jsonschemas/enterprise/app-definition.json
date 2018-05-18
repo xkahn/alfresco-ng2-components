@@ -1,0 +1,41 @@
+{
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "$id":"app-definition.json",
+  "title":"App definition",
+  "description":"APS definition schema",
+  "type":"object",
+  "properties":{
+    "id":{
+      "description":"app identifier",
+      "type":"integer",
+      "pattern":"[0-9]",
+      "minimum":4
+    },
+    "name":{
+      "description":"app name",
+      "type":"string",
+      "minimum":1,
+      "pattern":"^[a-zA-Z]"
+    },
+    "description":{
+      "description":"app description",
+      "type":"string",
+      "minimum":1,
+      "pattern":"^[a-zA-Z]+"
+    },
+    "version":{
+      "description":"app version",
+      "type":"integer",
+      "pattern":"[0-9]",
+      "minimum":1
+    },
+    "created":{
+      "description":"app creation date-time",
+      "$ref": "date.json"
+    },
+    "definition":{
+      "$ref":"definition.json"
+    }
+  },
+  "additionalProperties":false
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "resource.json",
+  "title":"resource details",
+  "description":"resource details schema",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "title": "The Id Schema ",
+        "pattern":"[A-Za-z]"
+      },
+      "url": {
+        "type": "string",
+        "title": "The Url Schema "
+      },
+      "contentUrl": {
+        "type": "string",
+        "title": "The Contenturl Schema "
+      },
+      "mediaType": {
+        "type": "string",
+        "title": "The Mediatype Schema "
+      },
+      "type": {
+        "type": "string",
+        "title": "The Type Schema "
+      }
+    },
+    "additionalProperties": false
+  }

@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "form-layout.json",
+  "type": "object",
+  "description": "Form layout description",
+  "properties": {
+    "colspan": {
+      "type": "integer",
+      "title": "The Colspan Schema "
+    },
+    "column": {
+      "type": "integer",
+      "title": "The Column Schema "
+    },
+    "row": {
+      "type": "integer",
+      "title": "The Row Schema "
+    }
+  }
+}

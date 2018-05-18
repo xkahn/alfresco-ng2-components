@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "variable.json",
+  "type": "object",
+  "description": "Variable description",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "The Name Schema ",
+      "pattern":"[a-zA-Z0-9]+"
+    },
+    "scope": {
+      "type": "string",
+      "title": "The Scope Schema ",
+      "enum": ["local", "global"]
+    },
+    "type": {
+      "type": "string",
+      "title": "The Type Schema ",
+      "pattern": "[a-zA-Z]+"
+    },
+    "value": {
+      "type": ["object", "null", "string"]
+    }
+  },
+  "additionalProperties": false
+}

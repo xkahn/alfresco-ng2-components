@@ -1,0 +1,8 @@
+{
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "$id":"date.json",
+  "type":"string",
+  "description":"date schema",
+  "minLength": 1,
+  "pattern": "^\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d[T][0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d\\+\\d\\d\\d\\d"
+}

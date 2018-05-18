@@ -1,0 +1,53 @@
+{
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "$id":"process-def.json",
+  "type": "object",
+  "title":"Process definition details",
+  "description":"Process definition details schema",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "The Id Schema "
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-zA-z0-9]+"
+    },
+    "description": {
+      "type": ["string", "null"],
+      "title": "The Description Schema ",
+      "minLength": 1
+    },
+    "key": {
+      "type": "string",
+      "title": "The Key Schema "
+    },
+    "category": {
+      "type": "string",
+      "title": "The Category Schema "
+    },
+    "version": {
+      "description": "process model version",
+      "type": "integer",
+      "pattern": "^[0-9]+",
+      "minimum": 1
+    },
+    "deploymentId": {
+      "type": ["string", "null"],
+      "title": "The Deploymentid Schema ",
+      "minLength": 1
+    },
+    "tenantId": {
+      "type": "string",
+      "title": "The Tenantid Schema "
+    },
+    "metaDataValues":{
+      "type": "array"
+    },
+    "hasStartForm":{
+      "type": "boolean",
+      "title": "The Hasstartform Schema "
+    }
+  },
+  "additionalProperties": false
+}

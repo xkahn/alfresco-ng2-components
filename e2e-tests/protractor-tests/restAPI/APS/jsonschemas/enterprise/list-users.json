@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "list-users.json",
+  "type": "object",
+  "title":"List users data",
+  "description":"List users schema",
+  "properties": {
+    "size": {
+      "type": "integer",
+      "title": "The Size Schema ",
+      "minimum": 1
+    },
+    "total": {
+      "type": "integer",
+      "title": "The Total Schema ",
+      "minimum": 1
+    },
+    "start": {
+      "type": "integer",
+      "title": "The Start Schema ",
+      "minimum": 0
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "lightUser.json"
+      }
+    }
+  }
+}

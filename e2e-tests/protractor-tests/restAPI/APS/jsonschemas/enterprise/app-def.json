@@ -1,0 +1,56 @@
+{
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "$id":"app-def.json",
+  "title":"App definition details",
+  "description":"App definition details schema",
+  "type": "object",
+  "properties": {
+    "defaultAppId": {
+      "type": ["string", "null"],
+      "title": "The Defaultappid Schema ",
+      "minLength": 1
+    },
+    "deploymentId": {
+      "type": ["string", "null"],
+      "title": "The Deploymentid Schema ",
+      "minLength": 1
+    },
+    "description": {
+      "type": ["string", "null"],
+      "title": "The Description Schema ",
+      "minLength": 1
+    },
+    "icon": {
+      "type": ["string", "null"],
+      "title": "The Icon Schema ",
+      "minLength": 1
+    },
+    "id": {
+      "type": ["integer", "null"],
+      "title": "The Id Schema ",
+      "pattern":"[0-9]+"
+
+    },
+    "modelId": {
+      "type": ["integer", "null"],
+      "title": "The Modelid Schema ",
+      "pattern":"[0-9]+"
+    },
+    "name": {
+      "type": ["string", "null"],
+      "title": "The Name Schema ",
+      "minLength": 1
+    },
+    "tenantId": {
+      "type": ["integer", "null"],
+      "title": "The Tenantid Schema ",
+      "pattern":"[0-9]+"
+    },
+    "theme": {
+      "type": ["string", "null"],
+      "title": "The Theme Schema ",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}

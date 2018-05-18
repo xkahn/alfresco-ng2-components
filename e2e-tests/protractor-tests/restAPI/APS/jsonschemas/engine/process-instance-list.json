@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "process-instance-list.json",
+  "type": "object",
+  "definitions": {},
+
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "process-instance.json"
+      }
+    },
+    "total": {
+      "type": "integer",
+      "title": "The Total Schema ",
+      "minimum": 0
+    },
+    "start": {
+      "type": "integer",
+      "title": "The Start Schema ",
+      "minimum": 0
+    },
+    "sort": {
+      "type": "string",
+      "title": "The Sort Schema ",
+      "pattern": "[a-zA-z]+"
+    },
+    "order": {
+      "type": "string",
+      "title": "The Order Schema ",
+      "enum": ["asc", "desc"]
+    },
+    "size": {
+      "type": "integer",
+      "title": "The Size Schema ",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "involve-user.json",
+  "description":"Involve users details schema",
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string",
+      "title": "The Url Schema "
+    },
+    "user": {
+      "type": "string",
+      "title": "The User Schema ",
+      "pattern": "^[a-zA-z0-9]+",
+      "minLength": 1
+    },
+    "group": {
+      "type": ["string","null"],
+      "title": "The Group Schema ",
+      "default": null
+    },
+    "type": {
+      "type": "string",
+      "title": "The Type Schema ",
+      "examples": [
+        "participant"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

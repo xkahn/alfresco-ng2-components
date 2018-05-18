@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "default-list.json",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array"
+    },
+    "total": {
+      "type": "integer",
+      "title": "The Total Schema "
+    },
+    "start": {
+      "type": "integer",
+      "title": "The Start Schema "
+    },
+    "sort": {
+      "type": ["string", "null"],
+      "title": "The Sort Schema "
+    },
+    "order": {
+      "type": ["string", "null"],
+      "title": "The Order Schema "
+    },
+    "size": {
+      "type": "integer",
+      "title": "The Size Schema ",
+      "minimum": 0
+    }
+  }
+}

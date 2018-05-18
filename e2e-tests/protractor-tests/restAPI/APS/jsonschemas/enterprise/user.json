@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "user.json",
+  "type": "object",
+  "title":"User data",
+  "description":"User schema",
+  "properties": {
+    "apps": {
+      "type": "array",
+      "items": {
+        "$ref": "light-app.json"
+      }
+    },
+    "capabilities": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "string",
+        "title": "Capabilities Schema ",
+        "minLength": 1
+      }
+    },
+    "company": {
+      "type": ["string", "null"],
+      "title": "The Company Schema ",
+      "minLength": 1
+    },
+    "created": {
+      "title": "The Created Schema ",
+      "$ref": "date.json"
+    },
+    "email": {
+      "type": "string",
+      "minLength": 4,
+      "format": "email"
+    },
+    "externalId": {
+      "type": ["string", "null"],
+      "title": "The Externalid Schema ",
+      "minLength": 1
+    },
+    "firstName": {
+      "type": "string",
+      "title": "The Firstname Schema ",
+      "minLength": 1
+    },
+    "fullname": {
+      "type": "string",
+      "title": "The Fullname Schema ",
+      "minLength": 1
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "$ref": "group.json"
+      }
+    },
+    "id": {
+      "type": "integer",
+      "title": "The Id Schema ",
+      "minimum": 1
+    },
+    "lastName": {
+      "type": "string",
+      "title": "The Lastname Schema ",
+      "minLength": 1
+    },
+    "lastUpdate": {
+      "title": "The Latestsynctimestamp Schema ",
+      "$ref": "date.json"
+    },
+    "latestSyncTimeStamp": {
+      "description":"Latest sync timestamp",
+      "oneOf": [
+        {"$ref": "date.json"},
+        {"type": "null"}
+      ]
+    },
+    "password": {
+      "type": ["string", "null"],
+      "title": "The Password Schema ",
+      "minLength": 1
+    },
+    "pictureId": {
+      "type": ["integer", "null"],
+      "title": "The Pictureid Schema ",
+      "minimum": 1
+    },
+    "primaryGroup": {
+      "oneOf": [
+        {"$ref": "group.json"},
+        {"type": "null"}
+      ]
+    },
+    "status": {
+      "type": "string",
+      "title": "The Status Schema ",
+      "enum": ["active"]
+    },
+    "tenantId": {
+      "type": "integer",
+      "title": "The Tenantid Schema ",
+      "minimum": 1
+    },
+    "tenantName": {
+      "type": ["string", "null"],
+      "title": "The Tenantname Schema ",
+      "minLength": 1
+    },
+    "tenantPictureId": {
+      "type": ["integer", "null"],
+      "title": "The Tenantpictureid Schema ",
+      "minimum": 1
+    },
+    "type": {
+      "type": "string",
+      "title": "The Type Schema ",
+      "enum": ["enterprise"]
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "list-models.json",
+  "type": "object",
+  "description": "process model description",
+  "properties": {
+    "size": {
+      "type": "integer",
+      "title": "The Size Schema "
+    },
+    "total": {
+      "type": "integer",
+      "title": "The Total Schema "
+    },
+    "start": {
+      "type": "integer",
+      "title": "The Start Schema "
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "process-model.json"
+      }
+    }
+  },
+  "additionalProperties": false
+}

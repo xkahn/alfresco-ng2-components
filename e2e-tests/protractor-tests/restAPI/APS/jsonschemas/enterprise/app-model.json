@@ -1,0 +1,70 @@
+{
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "$id":"app-model.json",
+  "type":"object",
+  "description":"model description",
+  "properties":{
+    "id":{
+      "description":"model id",
+      "type":"integer",
+      "pattern":"^[0-9]+",
+      "minimum":4
+    },
+    "name":{
+      "description":"model name",
+      "type":"string",
+      "minimum":1,
+      "pattern":"^[a-zA-Z]+"
+    },
+    "version":{
+      "description":"model version",
+      "type":"integer",
+      "pattern":"^[0-9]+",
+      "minimum":1
+    },
+    "modelType":{
+      "description":"model type",
+      "type":"integer",
+      "pattern":"^[0-9]"
+    },
+    "description":{
+      "description":"model description",
+      "type":"string",
+      "default":""
+    },
+    "stencilSetId":{
+      "description":"model stencil identifier",
+      "type":"integer",
+      "pattern":"^[0-9]"
+    },
+    "createdByFullName":{
+      "description":"model created by fullname",
+      "type":"string",
+      "minimum":1,
+      "pattern":"[A-Za-z]"
+    },
+    "createdBy":{
+      "description":"model created by",
+      "type":"integer",
+      "pattern":"^[0-9]",
+      "minimum":1
+    },
+    "lastUpdatedByFullName":{
+      "description":"model last updated by fullname",
+      "type":"string",
+      "minimum":1,
+      "pattern":"[A-Za-z]"
+    },
+    "lastUpdatedBy":{
+      "description":"model last updated by",
+      "type":"integer",
+      "pattern":"^[0-9]",
+      "minimum":1
+    },
+    "lastUpdated":{
+      "description":"model last updated date-time",
+      "$ref": "date.json"
+    }
+  },
+  "additionalProperties":false
+}

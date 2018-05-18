@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "process-model.json",
+  "type": "object",
+  "description": "process model description",
+  "properties": {
+    "id": {
+      "description": "process model id",
+      "type": "integer",
+      "pattern": "^[0-9]+"
+    },
+    "name": {
+      "description": "process model name",
+      "type": "string",
+      "pattern": "^[0-9a-zA-Z]+"
+    },
+    "description": {
+      "description": "process model description",
+      "type": ["string", "null"]
+    },
+    "createdByFullName": {
+      "description": "process model created by fullname",
+      "type": "string",
+      "minimum": 1,
+      "pattern": "[A-Za-z]"
+    },
+    "createdBy": {
+      "description": "process model created by",
+      "type": "integer",
+      "pattern": "^[0-9]",
+      "minimum": 1
+    },
+    "lastUpdatedByFullName": {
+      "description": "process model last updated by fullname",
+      "type": "string",
+      "minimum": 1,
+      "pattern": "[A-Za-z]"
+    },
+    "lastUpdatedBy": {
+      "description": "process model last updated by",
+      "type": "integer",
+      "pattern": "^[0-9]",
+      "minimum": 1
+    },
+    "lastUpdated": {
+      "$ref": "date.json"
+    },
+    "latestVersion": {
+      "description": "process model last version",
+      "type": "boolean",
+      "default": true
+    },
+    "version": {
+      "description": "process model version",
+      "type": "integer",
+      "pattern": "^[0-9]+",
+      "minimum": 1
+    },
+    "comment": {
+      "description": "process model comment",
+      "type": ["null", "string"]
+    },
+    "stencilSet": {
+      "description": "process model stencil identifier",
+      "type": ["null", "integer"]
+    },
+    "referenceId": {
+      "description": "process model reference",
+      "type": ["null", "integer"]
+    },
+    "modelType": {
+      "description": "process model type",
+      "type": ["integer", "null"],
+      "pattern": "[0-1]"
+    },
+    "favorite": {
+      "type": ["null", "boolean"]
+    },
+    "permission": {
+      "type": ["string", "null"]
+    },
+    "tenantId": {
+      "type": "integer",
+      "pattern":"[1-9]",
+      "minimum":1
+    }
+  },
+  "additionalProperties":false
+}

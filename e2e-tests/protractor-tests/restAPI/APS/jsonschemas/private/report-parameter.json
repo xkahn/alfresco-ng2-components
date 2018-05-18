@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "report-parameter.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "The Id Schema ",
+      "pattern":"[a-zA-Z0-9]+"
+    },
+    "type": {
+      "type": "string",
+      "title": "The Type Schema ",
+      "minLength": 1
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "title": "The 0th Schema ",
+          "pattern":"[a-zA-Z0-9]+"
+        }
+      }
+    },
+    "collapseable": {
+      "type": "boolean",
+      "title": "The Collapseable Schema ",
+      "minLength": 1
+    },
+    "collapsed": {
+      "type": "boolean",
+      "title": "The Collapsed Schema ",
+      "minLength": 1
+    },
+    "showRowIndex": {
+      "type": "boolean",
+      "title": "The Showrowindex Schema ",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "title": "The Title Schema ",
+      "minLength": 1
+    },
+    "titleKey": {
+      "type": "string",
+      "title": "The Titlekey Schema ",
+      "minLength": 1
+    },
+    "values": {
+      "type": "array",
+      "items": {
+        "$ref": "report-parameter-value.json"
+      }
+    },
+    "columnNames": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "title": "The 0th Schema ",
+        "minLength": 1
+      }
+    },
+    "columnNameKeys": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "title": "The 0th Schema ",
+        "minLength": 1
+      }
+    },
+    "columnsCentered": {
+      "type": "array",
+      "items": {
+        "type": "boolean",
+        "title": "The 0th Schema ",
+        "minLength": 1
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,57 @@
+{
+    "title":"Basic-auth",
+    "description":"Basic-auth for rest api",
+    "type":[
+        "object",
+        "array"
+    ],
+    "properties":{
+        "id":{
+            "description":"positive string of digits",
+            "type":"integer",
+            "pattern":"[0-9]",
+            "minimum":1
+        },
+        "tenantId":{
+            "description":"positive string of digits",
+            "type":"integer",
+            "pattern":"[0-9]",
+            "minimum":1
+        },
+        "name":{
+            "description":"Tenant Name",
+            "type":"string",
+            "minimum":1
+        },
+        "username":{
+            "description":"Username (email)",
+            "type":"string",
+            "format":"email",
+            "minimum":1
+        },
+        "created":{
+            "description":"Basic-auth created date",
+            "type":"string",
+            "format":"date-time",
+            "minimum":1
+        },
+        "lastUpdated":{
+            "description":"Basic-auth last modified date",
+            "type":[
+                "string",
+                "null"
+            ],
+            "format":"date-time",
+            "minimum":1
+        }
+    },
+    "required":[
+        "id",
+        "tenantId",
+        "name",
+        "username",
+        "created",
+        "lastUpdated"
+    ],
+    "additionalProperties":false
+}

@@ -1,0 +1,52 @@
+{
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "$id":"auditTask.json",
+  "title":"Audit task data",
+  "description":"Audit task schema",
+  "type":"object",
+  "properties": {
+    "taskId": {
+      "description": "task id",
+      "type": "string",
+      "minLength": 1
+    },
+    "taskName": {
+      "type": "string",
+      "pattern": "^[a-zA-z0-9]+"
+    },
+    "processInstanceId": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "processDefinitionName": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "processDefinitionVersion": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "assignee": {
+      "type": "string",
+      "pattern": "^[a-zA-z0-9]+"
+    },
+    "startTime": {
+      "type": "string",
+      "pattern": "^([a-zA-z]{3}\\s){2}[\\d]{2}\\s([\\d]+:){2}[\\d]+\\s[A-Z]+\\s[\\d]{4}"
+    },
+    "endTime": {
+      "type": "string",
+      "pattern": "^([a-zA-z]{3}\\s){2}[\\d]{2}\\s([\\d]+:){2}[\\d]+\\s[A-Z]+\\s[\\d]{4}"
+    },
+    "formData":{
+      "type": "array"
+    },
+    "comments":{
+      "type": "array"
+    },
+    "selectedOutcome": {
+      "type": "null"
+    }
+  },
+  "additionalProperties": false
+}

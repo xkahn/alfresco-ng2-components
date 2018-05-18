@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "runtime-process-definition.json",
+  "type": "object",
+  "title":"runtime-process-definition details",
+  "description":"runtime process-definition details schema",
+  "properties": {
+    "size": {
+      "type": "integer",
+      "title": "The Size Schema ",
+      "pattern": "[0-9]+"
+    },
+    "total": {
+      "type": "integer",
+      "title": "The Total Schema ",
+      "pattern": "[0-9]+"
+    },
+    "start": {
+      "type": "integer",
+      "title": "The Start Schema ",
+      "pattern": "[0-9]+"
+    },
+    "data": {
+      "type": "array",
+      "items":{
+        "$ref":"process-def.json"
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "group.json",
+  "title": "Group definition details",
+  "description": "Group definition details schema",
+  "type": "object",
+  "properties": {
+    "capabilities": {
+      "type": ["array", "null"],
+      "items": {
+        "$ref": "group-capability.json"
+      }
+    },
+    "externalId": {
+      "type": ["string", "null"],
+      "title": "The Externalid Schema ",
+      "minLength": 1
+    },
+    "groups": {
+      "type": ["array", "null"],
+      "items": {
+        "$ref": "group.json"
+      }
+    },
+    "id": {
+      "type": "integer",
+      "title": "The Id Schema ",
+      "minimum": 1
+    },
+    "lastSyncTimeStamp": {
+      "description":"Last sync timestamp",
+      "oneOf": [
+        {"$ref": "date.json"},
+        {"type": "null"}
+      ]
+    },
+    "manager": {
+      "oneOf": [
+        {"$ref": "user.json"},
+        {"type": "null"}
+      ]
+    },
+    "name": {
+      "type": "string",
+      "title": "The Name Schema ",
+      "minLength": 1
+    },
+    "parentGroupId": {
+      "type": ["integer", "null"],
+      "title": "The Parentgroupid Schema ",
+      "minimum": 1
+    },
+    "status": {
+      "type": "string",
+      "title": "The Status Schema ",
+      "enum": ["active"]
+    },
+    "tenantId": {
+      "type": "integer",
+      "title": "The Tenantid Schema ",
+      "minimum": 1
+    },
+    "type": {
+      "type": "integer",
+      "title": "The Type Schema ",
+      "minimum": 0
+    },
+    "userCount": {
+      "type": ["integer", "null"],
+      "title": "The Usercount Schema ",
+      "minimum": 1
+    },
+    "users": {
+      "type": ["array", "null"],
+      "items": {
+        "$ref": "user.json"
+      }
+    }
+  },
+  "additionalProperties": false
+}

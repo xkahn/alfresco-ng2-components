@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "content.json",
+  "title": "Content details",
+  "description": "Content details schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "content id",
+      "type": "integer",
+      "minimum": 1
+    },
+    "name": {
+      "description":"content name",
+      "type": "string",
+      "minLength": 1
+    },
+    "created": {
+      "$ref": "date.json"
+    },
+    "createdBy": {
+      "$ref": "createdBy.json"
+    },
+    "relatedContent": {
+        "type": "boolean"
+    },
+    "contentAvailable": {
+        "type": "boolean"
+    },
+    "link": {
+        "type": "boolean"
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mimeType": {
+      "type": ["null", "string"]
+    },
+    "simpleType": {
+      "type": "string",
+      "minLength": 1
+    },
+    "previewStatus": {
+      "type": "string",
+      "minLength": 1
+    },
+    "thumbnailStatus": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}

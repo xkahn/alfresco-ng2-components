@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "form-field.json",
+  "type": "object",
+  "description": "Form field description",
+  "properties": {
+    "className": {
+      "type": ["string", "null"],
+      "title": "The Classname Schema "
+    },
+    "col": {
+      "type": "integer",
+      "title": "The Col Schema "
+    },
+    "colspan": {
+      "type": "integer",
+      "title": "The Colspan Schema "
+    },
+    "dateDisplayFormat": {
+      "type": ["string", "null"],
+      "title": "The Datedisplayformat Schema "
+    },
+    "hasEmptyValue": {
+      "type": ["boolean", "null"],
+      "title": "The Hasemptyvalue Schema "
+    },
+    "id": {
+      "type": "string",
+      "title": "The Id Schema ",
+      "minimum": 1,
+      "pattern": "[0-9]+"
+
+    },
+    "layout": {
+      "description":"app creation date-time",
+      "oneOf": [
+        {"$ref": "form-layout.json"},
+
+        {"type": "null"}
+      ]
+    },
+    "maxLength": {
+      "type": "integer",
+      "title": "The Maxlength Schema "
+    },
+    "maxValue": {
+      "type": ["string", "null"],
+      "title": "The Maxvalue Schema "
+    },
+    "minLength": {
+      "type": "integer",
+      "title": "The Minlength Schema "
+    },
+    "minValue": {
+      "type": ["string", "null"],
+      "title": "The Minvalue Schema "
+    },
+    "name": {
+      "type": "string",
+      "title": "The Name Schema "
+    },
+    "optionType": {
+      "type": ["string", "null"],
+      "title": "The Optiontype Schema "
+    },
+    "options": {
+      "type": ["array", "null"],
+      "items": {
+        "$ref": "form-option.json"
+      }
+    },
+    "overrideId": {
+      "type": "boolean",
+      "title": "The Overrideid Schema "
+    },
+    "params": {
+      "type": "object"
+    },
+    "placeholder": {
+      "type": ["string", "null"],
+      "title": "The Placeholder Schema "
+    },
+    "readOnly": {
+      "type": "boolean",
+      "title": "The Readonly Schema "
+    },
+    "regexPattern": {
+      "type": ["string", "null"],
+      "title": "The Regexpattern Schema "
+    },
+    "required": {
+      "type": "boolean",
+      "title": "The Required Schema "
+    },
+    "restIdProperty": {
+      "type": ["string", "null"],
+      "title": "The Restidproperty Schema "
+    },
+    "restLabelProperty": {
+      "type": ["string", "null"],
+      "title": "The Restlabelproperty Schema "
+    },
+    "restResponsePath": {
+      "type": ["string", "null"],
+      "title": "The Restresponsepath Schema "
+    },
+    "restUrl": {
+      "type": ["string", "null"],
+      "title": "The Resturl Schema "
+    },
+    "row": {
+      "type": "integer",
+      "title": "The Row Schema "
+    },
+    "sizeX": {
+      "type": "integer",
+      "title": "The Sizex Schema "
+    },
+    "sizeY": {
+      "type": "integer",
+      "title": "The Sizey Schema "
+    },
+    "tab": {
+      "type": ["string", "null"],
+      "title": "The Tab Schema "
+    },
+    "type": {
+      "type": "string",
+      "title": "The Type Schema "
+    },
+    "value": {
+      "type": ["object", "null"]
+    },
+    "visibilityCondition": {
+      "description": "form visibility condition description",
+      "oneOf": [
+        {
+          "$ref": "form-visibility-condition.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

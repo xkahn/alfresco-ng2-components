@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "process-instance-list.json",
+  "type": "object",
+  "title":"Process instance list",
+  "description":"Process instance list schema",
+  "properties": {
+    "size": {
+      "type": "integer",
+      "title": "The Size Schema ",
+      "minimum": 0
+    },
+    "total": {
+      "type": "integer",
+      "title": "The Total Schema ",
+      "minimum": 0
+    },
+    "start": {
+      "type": "integer",
+      "title": "The Start Schema ",
+      "minimum": 0
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "process-instance.json"
+      }
+    }
+  },
+  "additionalProperties": false
+}

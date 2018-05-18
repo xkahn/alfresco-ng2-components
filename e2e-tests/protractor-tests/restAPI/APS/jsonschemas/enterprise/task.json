@@ -1,0 +1,142 @@
+{
+  "$id": "task.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title":"Task details",
+  "description":"Task details schema",
+  "properties": {
+    "id": {
+      "description": "user id",
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-zA-z0-9]+"
+    },
+    "description": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "category": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "assignee": {
+      "oneOf": [
+        {"type":"null"},
+        {"$ref": "lightUser.json"}
+      ]
+    },
+    "created": {
+      "$ref": "date.json"
+    },
+    "dueDate": {
+      "oneOf": [
+        {"$ref": "date.json"},
+        {"type": "null"}
+      ]
+    },
+    "endDate": {
+      "oneOf": [
+        {"$ref": "date.json"},
+        {"type": "null"}
+      ]
+    },
+    "duration": {
+      "type": ["integer", "null"],
+      "minimum": 1
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "parentTaskId": {
+      "type": ["integer", "null"],
+      "minimum": 1
+    },
+    "parentTaskName": {
+      "type": ["string", "null"],
+      "pattern": "^[a-zA-z0-9]+"
+    },
+    "processInstanceId": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "processInstanceName": {
+      "type": ["string", "null"],
+      "pattern": "^[a-zA-z0-9]+"
+    },
+    "processDefinitionId": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "processDefinitionName": {
+      "type": ["string", "null"],
+      "pattern": "^[a-zA-z0-9]+"
+    },
+    "processDefinitionDescription": {
+      "type": ["string", "null"],
+      "pattern": "^[a-zA-z0-9]+"
+    },
+    "processDefinitionKey": {
+      "type": ["string", "null"]
+    },
+    "processDefinitionCategory": {
+      "type": ["string", "null"],
+      "pattern": "^[a-zA-z0-9]+"
+    },
+    "processDefinitionVersion": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "processDefinitionDeploymentId": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "formKey": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "processInstanceStartUserId": {
+      "type": ["string", "null"],
+      "pattern": "^[a-zA-z0-9]+"
+    },
+    "initiatorCanCompleteTask": {
+      "type": "boolean"
+    },
+    "adhocTaskCanBeReassigned": {
+      "type": "boolean"
+    },
+    "taskDefinitionKey": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "executionId": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "involvedPeople": {
+      "type":"array",
+      "items":{
+        "$ref":"lightUser.json"
+      }
+    },
+    "involvedGroups": {
+      "type": "array",
+      "items":{
+        "$ref":"lightGroup.json"
+      }
+    },
+    "memberOfCandidateGroup": {
+      "type": "boolean"
+    },
+    "memberOfCandidateUsers": {
+      "type": "boolean"
+    },
+    "managerOfCandidateGroup": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}
