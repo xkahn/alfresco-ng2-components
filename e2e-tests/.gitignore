@@ -1,0 +1,33 @@
+#Test Results Folder
+**/results
+**/testResults
+**/logs
+**/browser_downloads_default
+**/aggregateReport.html
+
+# ESLint report
+**/eslintReport.html
+
+
+#git special folder
+.metadata/
+.DS_Store
+*.DS_Store
+**/.DS_Store
+
+## IntelliJ Project Files ##
+.idea*
+*.iml
+
+## node_modules folder
+**/node_modules
+
+## VS Code Files
+.editorconfig
+.project
+.vscode/launch.json
+
+package-lock.json
+
+## Documentation directory ##
+**/doc/

@@ -1,14 +1,3 @@
-/*
- * Copyright 2005-2015 Alfresco Software, Ltd. All rights reserved.
- * License rights for this program may be obtained from Alfresco Software, Ltd.
- * pursuant to a written agreement and any use of this program without such an
- * agreement is prohibited.
- */
-
-/*
- * Created by Lucian Tuca on 9/1/2015.
- */
-
 var TestConfig = require("./test.config.js");
 var availableBrowsers = ['chrome', 'firefox', 'internet explorer', 'Edge', 'safari', 'Opera', 'iPhone', 'iPad', 'android'];
 var defaultBrowser = "chrome";
@@ -614,7 +603,7 @@ module.exports = function (grunt) {
                                 'host': grunt.option("host") ? grunt.option("host") : TestConfig.main.host,
                                 'protocol': grunt.option("protocol") ? grunt.option("protocol") : TestConfig.main.protocol,
                                 'port': grunt.option("port") ? grunt.option("port") : TestConfig.main.port
-                                
+
                             },
                             app: 'main'
                         },

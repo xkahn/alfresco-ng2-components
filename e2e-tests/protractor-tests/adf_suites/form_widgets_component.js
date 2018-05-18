@@ -37,7 +37,7 @@ describe("Form widgets", function () {
     var processServicesPage = new ProcessServicesPage();
     var basicAuthAdmin = new BasicAuthorization(TestConfig.adf_aps.apsAdminEmail, TestConfig.adf_aps.apsAdminPassword);
     var basicAuth, processUserModel;
-    var app = resources.Files.WIDGETS_SMOKE_TEST;
+    var app = resources.Files.PROCESSES.WIDGETS_SMOKE_TEST;
     var appFilds = app.form_fields;
     var taskPage = new TasksPage();
     var appModel, modelId;

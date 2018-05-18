@@ -1,7 +1,3 @@
-/*
- * Created by Lucian Tuca on 13/1/2015.
- */
-
 /**
  * @module config
  */

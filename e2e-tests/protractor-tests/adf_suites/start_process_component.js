@@ -47,7 +47,7 @@ describe('Test Start Process Component', function () {
     var adfAppNavigationBarPage = new AdfAppNavigationBarPage();
     var adfProcessDetailsPage = new AdfProcessDetailsPage();
     baseUrl = new RequestEnterpriseBase().getBaseURL(CONSTANTS.APPLICATION.ADF_APS);
-    var app = resources.Files.APP_WITH_PROCESSES;
+    var app = resources.Files.PROCESSES.APP_WITH_PROCESSES;
     var appId, modelId, secondModelId, response, processModel, procUserModel, secondProcUserModel, basicAuth1, basicAuth2, tenantId;
     var auditLogFile = path.join(browser.downloadDir, 'Audit.pdf');
     var jpgFile = new FileModel({"location" : resources.Files.ADF_DOCUMENTS.JPG.file_location, "name" : resources.Files.ADF_DOCUMENTS.JPG.file_name});

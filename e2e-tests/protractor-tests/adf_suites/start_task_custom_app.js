@@ -38,7 +38,7 @@ describe("Start Task - Custom App", function () {
     var processServicesPage = new ProcessServicesPage();
     var basicAuthAdmin = new BasicAuthorization(TestConfig.adf_aps.apsAdminEmail, TestConfig.adf_aps.apsAdminPassword);
     var basicAuth, processUserModel, assigneeUserModel;
-    var app = resources.Files.SIMPLE_APP_WITH_USER_FORM;
+    var app = resources.Files.PROCESSES.SIMPLE_APP_WITH_USER_FORM;
     var formTextField = app.form_fields.form_fieldId;
     var formFieldValue = "First value ";
     var taskPage = new TasksPage();

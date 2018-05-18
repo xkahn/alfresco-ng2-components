@@ -38,7 +38,7 @@ describe('Process Filters Test', function () {
     var adfAppNavigationBarPage = new AdfAppNavigationBarPage();
     var adfProcessDetailsPage = new AdfProcessDetailsPage();
     baseUrl = new RequestEnterpriseBase().getBaseURL(CONSTANTS.APPLICATION.ADF_APS);
-    var app = resources.Files.APP_WITH_DATE_FIELD_FORM;
+    var app = resources.Files.PROCESSES.APP_WITH_DATE_FIELD_FORM;
     var appId, modelId, response, procUserModel, basicAuth, tenantId;
     // REST API
     var appUtils = new AppDefinitionsAPI();
