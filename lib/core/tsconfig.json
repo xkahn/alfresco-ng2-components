@@ -25,6 +25,9 @@
       ],
       "@alfresco/adf-content-services": [
         "../content-services"
+      ],
+      "alfresco-js-api": [
+        "../node_modules/alfresco-js-api/dist/alfresco-js-api.js"
       ]
     },
     "lib": [

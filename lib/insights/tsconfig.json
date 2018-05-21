@@ -21,7 +21,10 @@
     "paths": {
       "@alfresco/adf-process-services": ["../process-services"],
       "@alfresco/adf-content-services": ["../content-services"],
-      "@alfresco/adf-core": ["../core"]
+      "@alfresco/adf-core": ["../core"],
+      "alfresco-js-api": [
+        "../node_modules/alfresco-js-api/dist/alfresco-js-api.js"
+      ]
     },
     "lib": [
       "es2016",
