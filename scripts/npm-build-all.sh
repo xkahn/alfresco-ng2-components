@@ -125,8 +125,8 @@ if $EXEC_CLEAN == true; then
 fi
 
 if $EXEC_INSTALL == true; then
-    echo "====== Install components dependencies ====="
-    npm install
+  echo "====== Install components dependencies ====="
+  npm install
 fi
 
 if $EXEC_GIT_NPM_INSTALL_JSAPI == true; then
@@ -139,6 +139,7 @@ fi
 
 if $EXEC_VERSION_JSAPI == true; then
   echo "====== Use the alfresco JS-API '$JSAPI_VERSION'====="
+  rimraf -rf "$DIR/../node_modules/@alfresco"
   npm install alfresco-js-api@${JSAPI_VERSION} --no-save
 fi
 
