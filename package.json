@@ -31,7 +31,8 @@
     "clean": "rimraf dist ./node_modules typings",
     "clean-lock": "rimraf package-lock.json",
     "webpack": "node ./node_modules/webpack/bin/webpack.js",
-    "ng-packagr": "node ./node_modules/ng-packagr/cli/main.js"
+    "ng-packagr": "node ./node_modules/ng-packagr/cli/main.js",
+    "spellcheck": "cspell 'demo-shell/src/**/*.ts' 'demo-shell/e2e/**/*.ts' 'lib/**/*.ts'"
   },
   "repository": {
     "type": "git",
@@ -107,6 +108,7 @@
     "commander": "^2.15.1",
     "concurrently": "^3.5.1",
     "copy-webpack-plugin": "4.0.1",
+    "cspell": "^2.1.12",
     "css-loader": "0.25.0",
     "css-to-string-loader": "0.1.2",
     "cssnano": "3.8.1",
