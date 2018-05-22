@@ -1,0 +1,29 @@
+{
+  "content": {
+    "host": "",
+    "username": "",
+    "password": ""
+  },
+  "process": {
+    "host": "",
+    "username": "",
+    "password": ""
+  },
+  "provider": "ALL",
+  "users": [
+   {
+      "email": "",
+      "lastName": "",
+      "firstName": "",
+      "password": "",
+      "company": ""
+    },
+    {
+      "email": "",
+      "lastName": "",
+      "firstName": "",
+      "password": "",
+      "company": ""
+    }
+  ]
+}
