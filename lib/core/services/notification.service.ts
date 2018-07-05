@@ -25,7 +25,7 @@ export class NotificationService {
     static DEFAULT_DURATION_MESSAGE: number = 5000;
 
     constructor(private snackBar: MatSnackBar,
-                private translationService: TranslationService) {
+        private translationService: TranslationService) {
     }
 
     /**
