@@ -30,7 +30,8 @@
     "clean": "rimraf dist ./node_modules typings",
     "clean-lock": "rimraf package-lock.json",
     "webpack": "node ./node_modules/webpack/bin/webpack.js",
-    "ng-packagr": "node ./node_modules/ng-packagr/cli/main.js"
+    "ng-packagr": "node ./node_modules/ng-packagr/cli/main.js",
+    "postinstall": "node patch.js"
   },
   "config": {
     "ghooks": {
