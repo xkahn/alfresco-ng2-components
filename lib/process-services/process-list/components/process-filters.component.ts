@@ -57,7 +57,7 @@ export class ProcessFiltersComponent implements OnChanges {
 
     /** Toggle to show or hide the filter's icon. */
     @Input()
-    showIcon: boolean = true;
+    showIcon: boolean;
 
     @Output()
     filterSelected: EventEmitter<ProcessInstanceFilterRepresentation> = new EventEmitter<ProcessInstanceFilterRepresentation>();
