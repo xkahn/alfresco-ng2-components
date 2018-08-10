@@ -7,8 +7,8 @@ const jasmineReporters = require('jasmine-reporters');
 
 const projectRoot = path.resolve(__dirname);
 
-const width = 1366;
-const height = 768;
+const width = 1600;
+const height = 900;
 
 var HOST = process.env.URL_HOST_ADF;
 var BROWSER_RUN = process.env.BROWSER_RUN;
