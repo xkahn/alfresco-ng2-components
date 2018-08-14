@@ -64,7 +64,7 @@ describe('Modify applications', () => {
         done();
     });
 
-    it('[C260198] Should the app be displayed on dashboard when is deployed on APS', () => {
+    it('[C260198] SShould the app be displayed on dashboard when is deployed on APS', () => {
         navigationBarPage.clickProcessServicesButton();
 
         processServicesPage.checkApsContainer();
