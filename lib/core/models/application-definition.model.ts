@@ -15,21 +15,10 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AppDefinitionRepresentationModel } from '@alfresco/adf-process-services';
+export interface ApplicationDefinitionRepresentation {
 
-@Component({
-    selector: 'app-process-list-view',
-    templateUrl: './apps-view.component.html'
-})
-export class AppsViewComponent {
-
-    constructor(private router: Router) {
-    }
-
-     onAppClicked(app: AppDefinitionRepresentationModel) {
-         this.router.navigate(['/activiti/apps', app.name || 0, 'tasks']);
-     }
-
+    name?: string;
+    connectors?: any;
+    createdAt?: any;
+    status?: string;
 }

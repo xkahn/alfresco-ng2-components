@@ -5,6 +5,7 @@
     "loginRoute": "login",
     "providers": "ALL",
     "contextRootBpm": "activiti-app",
+    "apiHost": "http://aps2dev.envalfresco.com",
     "authType" : "OAUTH",
     "oauth2": {
       "host": "http://aps2dev.envalfresco.com/auth/realms/springboot",

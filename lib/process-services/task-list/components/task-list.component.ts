@@ -45,7 +45,7 @@ export class TaskListComponent extends DataTableSchema implements OnChanges, Aft
 
     /** The id of the app. */
     @Input()
-    appId: number;
+    appId: string;
 
     /** The Instance Id of the process. */
     @Input()

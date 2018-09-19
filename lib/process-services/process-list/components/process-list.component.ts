@@ -58,7 +58,7 @@ export class ProcessInstanceListComponent extends DataTableSchema  implements On
 
     /** The id of the app. */
     @Input()
-    appId: number;
+    appId: string;
 
     /** The Definition Key of the process.
      * @deprecated 2.4.0

@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-import { AppsProcessService, TranslationService, EmptyCustomContentDirective } from '@alfresco/adf-core';
+import { AppsProcessService, EmptyCustomContentDirective } from '@alfresco/adf-core';
 import { AfterContentInit, Component, EventEmitter, Input, OnInit, Output, ContentChild } from '@angular/core';
-import { Observable, Observer, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AppDefinitionRepresentationModel } from '../task-list';
 import { IconModel } from './icon.model';
-import { share } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'adf-apps',
@@ -48,7 +48,7 @@ export class AppsListComponent implements OnInit, AfterContentInit {
 
     /** Provides a way to filter the apps to show. */
     @Input()
-    filtersAppId: any[];
+    filtersAppName: any[];
 
     /** Emitted when an app entry is clicked. */
     @Output()
@@ -58,12 +58,9 @@ export class AppsListComponent implements OnInit, AfterContentInit {
     @Output()
     error: EventEmitter<any> = new EventEmitter<any>();
 
-    private appsObserver: Observer<AppDefinitionRepresentationModel>;
-    apps$: Observable<AppDefinitionRepresentationModel>;
+    apps$: Observable<any>;
 
     currentApp: AppDefinitionRepresentationModel;
-
-    appList: AppDefinitionRepresentationModel [] = [];
 
     private iconsMDL: IconModel;
 
@@ -72,10 +69,7 @@ export class AppsListComponent implements OnInit, AfterContentInit {
     hasEmptyCustomContentTemplate: boolean = false;
 
     constructor(
-        private appsProcessService: AppsProcessService,
-        private translationService: TranslationService) {
-            this.apps$ = new Observable<AppDefinitionRepresentationModel>(observer => this.appsObserver = observer)
-                .pipe(share());
+        private appsProcessService: AppsProcessService) {
     }
 
     ngOnInit() {
@@ -83,9 +77,6 @@ export class AppsListComponent implements OnInit, AfterContentInit {
             this.setDefaultLayoutType();
         }
 
-        this.apps$.subscribe((app: any) => {
-            this.appList.push(app);
-        });
         this.iconsMDL = new IconModel();
         this.load();
     }
@@ -98,20 +89,20 @@ export class AppsListComponent implements OnInit, AfterContentInit {
 
     private load() {
         this.loading = true;
-        this.appsProcessService.getDeployedApplications()
-        .subscribe(
-            (res: AppDefinitionRepresentationModel[]) => {
-                this.filterApps(res).forEach((app: AppDefinitionRepresentationModel) => {
-                    if (this.isDefaultApp(app)) {
-                        app.theme = AppsListComponent.DEFAULT_TASKS_APP_THEME;
-                        app.icon = AppsListComponent.DEFAULT_TASKS_APP_ICON;
-                        this.appsObserver.next(app);
-                    } else if (app.deploymentId) {
-                        this.appsObserver.next(app);
-                    }
-                    this.loading = false;
-                });
-            },
+        this.appsProcessService.getDeployedApplications().subscribe((res: any) => {
+            this.apps$ = res.pipe(
+                map((response: any) => {
+                    const applications: any = [];
+                    this.filterApps(response).forEach(app => {
+                        const application = new AppDefinitionRepresentationModel(app);
+                        application.theme = AppsListComponent.DEFAULT_TASKS_APP_THEME;
+                        application.icon = AppsListComponent.DEFAULT_TASKS_APP_ICON;
+                        applications.push(application);
+                    });
+                    return applications;
+                }));
+            this.loading = false;
+        },
             (err) => {
                 this.error.emit(err);
                 this.loading = false;
@@ -119,14 +110,8 @@ export class AppsListComponent implements OnInit, AfterContentInit {
         );
     }
 
-    isDefaultApp(app) {
-        return app.defaultAppId === AppsListComponent.DEFAULT_TASKS_APP;
-    }
-
     getAppName(app) {
-        return this.isDefaultApp(app)
-            ? this.translationService.get(AppsListComponent.DEFAULT_TASKS_APP_NAME)
-            : of(app.name);
+        return app ? app.name : '';
     }
 
     /**
@@ -142,21 +127,16 @@ export class AppsListComponent implements OnInit, AfterContentInit {
      * Return true if the appId is the current app
      * @param appId
      */
-    isSelected(appId: number): boolean {
-        return (this.currentApp !== undefined && appId === this.currentApp.id);
+    isSelected(applicationName: string): boolean {
+        return (this.currentApp !== undefined && applicationName === this.currentApp.name);
     }
 
     private filterApps(apps: AppDefinitionRepresentationModel []): AppDefinitionRepresentationModel[] {
         let filteredApps: AppDefinitionRepresentationModel[] = [];
-        if (this.filtersAppId) {
+        if (this.filtersAppName) {
             apps.filter((app: AppDefinitionRepresentationModel) => {
-                this.filtersAppId.forEach((filter) => {
-                    if (app.defaultAppId === filter.defaultAppId ||
-                        app.deploymentId === filter.deploymentId ||
-                        app.name === filter.name ||
-                        app.id === filter.id ||
-                        app.modelId === filter.modelId ||
-                        app.tenantId === filter.tenantId) {
+                this.filtersAppName.forEach((filter) => {
+                    if (app.name === filter.name) {
                         filteredApps.push(app);
                     }
                 });
@@ -198,8 +178,8 @@ export class AppsListComponent implements OnInit, AfterContentInit {
         return this.layoutType === AppsListComponent.LAYOUT_GRID;
     }
 
-    isEmpty(): boolean {
-        return this.appList.length === 0;
+    hasList(apps: any): boolean {
+        return apps.length === 0;
     }
 
     isLoading(): boolean {

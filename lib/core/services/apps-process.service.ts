@@ -17,26 +17,35 @@
 
 import { Injectable } from '@angular/core';
 import { AppDefinitionRepresentation } from 'alfresco-js-api';
-import { Observable, from, throwError } from 'rxjs';
+import { Observable, of, from, throwError } from 'rxjs';
 import { AlfrescoApiService } from './alfresco-api.service';
 import { LogService } from './log.service';
 import { map, catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { AppConfigService } from '../app-config/app-config.service';
+import { ApplicationDefinitionRepresentation } from '../models';
 
 @Injectable()
 export class AppsProcessService {
 
+    contextRoot = '';
     constructor(private apiService: AlfrescoApiService,
-                private logService: LogService) {
+                private logService: LogService,
+                private appConfig: AppConfigService,
+                protected http: HttpClient) {
+        this.contextRoot = this.appConfig.get('apiHost', '');
     }
 
     /**
      * Gets a list of deployed apps for this user.
      * @returns The list of deployed apps
      */
-    getDeployedApplications(): Observable<AppDefinitionRepresentation[]> {
-        return from(this.apiService.getInstance().activiti.appsApi.getAppDefinitions())
+    getDeployedApplications(): Observable<ApplicationDefinitionRepresentation[]> {
+        return this.http.get<ApplicationDefinitionRepresentation>(`${this.contextRoot}/alfresco-deployment-service/v1/applications`)
             .pipe(
-                map((response: any) => <AppDefinitionRepresentation[]> response.data),
+                map((response: ApplicationDefinitionRepresentation[]) => {
+                    return of(response);
+                  }),
                 catchError(err => this.handleError(err))
             );
     }
