@@ -247,14 +247,14 @@ export class TaskListComponent extends DataTableSchema implements OnChanges, Aft
 
     private load(requestNode: TaskQueryRequestRepresentationModel) {
         this.isLoading = true;
-        this.loadTasksByState().subscribe(
+        this.taskListService.getTasks(this.requestNode).subscribe(
             (tasks) => {
-                this.rows = this.optimizeNames(tasks.data);
+                this.rows = this.optimizeNames(tasks);
                 this.selectTask(this.landingTaskId);
                 this.success.emit(tasks);
                 this.isLoading = false;
                 this.pagination.next({
-                    count: tasks.data.length,
+                    count: tasks.length,
                     maxItems: this.size,
                     skipCount: this.page * this.size,
                     totalItems: tasks.total
@@ -266,9 +266,7 @@ export class TaskListComponent extends DataTableSchema implements OnChanges, Aft
     }
 
     private loadTasksByState(): Observable<TaskListModel> {
-        return this.requestNode.state === 'all'
-            ? this.taskListService.findAllTasksWithoutState(this.requestNode)
-            : this.taskListService.findTasksByState(this.requestNode);
+        return this.taskListService.getTasks(this.requestNode);
     }
 
     /**

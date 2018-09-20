@@ -106,7 +106,7 @@ export class ProcessServiceComponent implements AfterViewInit, OnDestroy, OnInit
     analyticsreportlist: AnalyticsReportListComponent;
 
     @Input()
-    appId: number = null;
+    appId: any = null;
 
     filterSelected: object = null;
 

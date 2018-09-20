@@ -17,13 +17,12 @@
 
 import { Injectable } from '@angular/core';
 import { AppDefinitionRepresentation } from 'alfresco-js-api';
-import { Observable, of, from, throwError } from 'rxjs';
+import { Observable, from, throwError } from 'rxjs';
 import { AlfrescoApiService } from './alfresco-api.service';
 import { LogService } from './log.service';
 import { map, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../app-config/app-config.service';
-import { ApplicationDefinitionRepresentation } from '../models';
 
 @Injectable()
 export class AppsProcessService {
@@ -40,12 +39,9 @@ export class AppsProcessService {
      * Gets a list of deployed apps for this user.
      * @returns The list of deployed apps
      */
-    getDeployedApplications(): Observable<ApplicationDefinitionRepresentation[]> {
-        return this.http.get<ApplicationDefinitionRepresentation>(`${this.contextRoot}/alfresco-deployment-service/v1/applications`)
+    getDeployedApplications(): Observable<any> {
+        return this.http.get<any>(`${this.contextRoot}/alfresco-deployment-service/v1/applications`)
             .pipe(
-                map((response: ApplicationDefinitionRepresentation[]) => {
-                    return of(response);
-                  }),
                 catchError(err => this.handleError(err))
             );
     }

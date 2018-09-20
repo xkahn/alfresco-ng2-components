@@ -1,5 +1,5 @@
 <div *ngIf="apps$ | async;let appsList">
-    <div class="menu-container" *ngIf="!hasList(appsList)">
+    <div class="menu-container" *ngIf="!isEmpty(appsList)">
         <mat-list *ngIf="isList()" class="adf-app-list">
             <mat-list-item class="adf-app-list-item" (click)="selectApp(app)" (keyup.enter)="selectApp(app)" *ngFor="let app of appsList" tabindex="0" role="button" title="{{app.name}}">
                 <mat-icon matListIcon>touch_app</mat-icon>
@@ -43,7 +43,7 @@
     </ng-container>
 
     <ng-template #empty>
-        <div class="adf-app-list-empty" *ngIf="hasList(appsList)">
+        <div class="adf-app-list-empty" *ngIf="isEmpty(appsList)">
             <ng-content select="adf-empty-custom-content" *ngIf="hasEmptyCustomContentTemplate; else defaultEmptyTemplate" class="adf-custom-empty-template"></ng-content>
 
             <ng-template #defaultEmptyTemplate>

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { AlfrescoApiService, LogService } from '@alfresco/adf-core';
+import { AlfrescoApiService, LogService, AppConfigService } from '@alfresco/adf-core';
 import { Injectable } from '@angular/core';
 import { Observable, from, forkJoin, throwError, of } from 'rxjs';
 import { map, catchError, switchMap, flatMap, filter } from 'rxjs/operators';
@@ -23,12 +23,17 @@ import { FilterRepresentationModel, TaskQueryRequestRepresentationModel } from '
 import { Form } from '../models/form.model';
 import { TaskDetailsModel } from '../models/task-details.model';
 import { TaskListModel } from '../models/task-list.model';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class TaskListService {
 
+    contextRoot = '';
     constructor(private apiService: AlfrescoApiService,
-                private logService: LogService) {
+                private logService: LogService,
+                private appConfig: AppConfigService,
+                protected http: HttpClient) {
+        this.contextRoot = this.appConfig.get('apiHost', '');
     }
 
     /**
@@ -82,11 +87,28 @@ export class TaskListService {
      * @param requestNode Query to search for tasks
      * @returns List of tasks
      */
-    getTasks(requestNode: TaskQueryRequestRepresentationModel): Observable<TaskListModel> {
-        return from<TaskListModel>(this.callApiTasksFiltered(requestNode))
-            .pipe(
-                catchError(err => this.handleError(err))
-            );
+    getTasks(requestNode: any): Observable<any> {
+        const applicationId = requestNode.appDefinitionId;
+        const params = new HttpParams()
+          .set('name', requestNode.text ? requestNode.text : '')
+          .set('status', requestNode.state ? requestNode.state : '')
+          .set('page', requestNode.page + '')
+          .set('size', requestNode.size + '');
+
+        return this.http
+          .get<any>(`${this.contextRoot}/${applicationId}-query/v1/tasks`, { params: params })
+          .pipe(map((response: any) => {
+            const tasks = <any> {
+              data: response.list.entries.map(data => data.entry),
+              size: response.list.pagination.count,
+              total: response.list.pagination.totalItems,
+              start: response.list.pagination.skipCount,
+              length: response.list.pagination.totalItems
+            };
+            return tasks;
+          }),
+            catchError(err => this.handleError(err))
+          );
     }
 
     /**

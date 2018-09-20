@@ -17,10 +17,9 @@
 
 import { AppsProcessService, EmptyCustomContentDirective } from '@alfresco/adf-core';
 import { AfterContentInit, Component, EventEmitter, Input, OnInit, Output, ContentChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AppDefinitionRepresentationModel } from '../task-list';
 import { IconModel } from './icon.model';
-import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'adf-apps',
@@ -89,24 +88,22 @@ export class AppsListComponent implements OnInit, AfterContentInit {
 
     private load() {
         this.loading = true;
-        this.appsProcessService.getDeployedApplications().subscribe((res: any) => {
-            this.apps$ = res.pipe(
-                map((response: any) => {
-                    const applications: any = [];
-                    this.filterApps(response).forEach(app => {
+        this.appsProcessService.getDeployedApplications().subscribe(
+            (response: any) => {
+                const applications: any = [];
+                this.filterApps(response).forEach(app => {
                         const application = new AppDefinitionRepresentationModel(app);
                         application.theme = AppsListComponent.DEFAULT_TASKS_APP_THEME;
                         application.icon = AppsListComponent.DEFAULT_TASKS_APP_ICON;
                         applications.push(application);
                     });
-                    return applications;
-                }));
-            this.loading = false;
-        },
-            (err) => {
-                this.error.emit(err);
+                this.apps$ = of(applications);
                 this.loading = false;
-            }
+            },
+                (err) => {
+                    this.error.emit(err);
+                    this.loading = false;
+                }
         );
     }
 
@@ -131,7 +128,7 @@ export class AppsListComponent implements OnInit, AfterContentInit {
         return (this.currentApp !== undefined && applicationName === this.currentApp.name);
     }
 
-    private filterApps(apps: AppDefinitionRepresentationModel []): AppDefinitionRepresentationModel[] {
+    private filterApps(apps: AppDefinitionRepresentationModel[]): AppDefinitionRepresentationModel[] {
         let filteredApps: AppDefinitionRepresentationModel[] = [];
         if (this.filtersAppName) {
             apps.filter((app: AppDefinitionRepresentationModel) => {
@@ -178,7 +175,7 @@ export class AppsListComponent implements OnInit, AfterContentInit {
         return this.layoutType === AppsListComponent.LAYOUT_GRID;
     }
 
-    hasList(apps: any): boolean {
+    isEmpty(apps: any): boolean {
         return apps.length === 0;
     }
 
@@ -193,5 +190,4 @@ export class AppsListComponent implements OnInit, AfterContentInit {
     getBackgroundIcon(app: AppDefinitionRepresentationModel): string {
         return this.iconsMDL.mapGlyphiconToMaterialDesignIcons(app.icon);
     }
-
 }
