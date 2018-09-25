@@ -56,11 +56,12 @@ import { ReportIssueComponent } from './components/report-issue/report-issue.com
 import { HeaderDataComponent } from './components/header-data/header-data.component';
 import { ConfigEditorComponent } from './components/config-editor/config-editor.component';
 import { AppComponent } from './app.component';
-import { HelloCloudComponent } from '@alfresco/adf-process-services-cloud';
+import { HelloCloudComponent, AppsListCloudComponent } from '@alfresco/adf-process-services-cloud';
 
 export const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'hello', component: HelloCloudComponent },
+    { path: 'appslist', component: AppsListCloudComponent },
     { path: 'logout', component: LogoutComponent },
     { path: 'settings', component: SettingsComponent },
     {

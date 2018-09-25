@@ -14,7 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export * from './process-cloud.module';
 
-export * from './hello/index';
-export * from './apps-list/index';
+import { Component, OnInit } from '@angular/core';
+import { AppsProcessCloudService } from '../services/apps-process-cloud.service';
+
+@Component({
+  selector: 'adf-apps-list-cloud',
+  templateUrl: './apps-list-cloud.component.html',
+  styleUrls: ['./apps-list-cloud.component.scss']
+})
+export class AppsListCloudComponent implements OnInit {
+
+  constructor(private appsProcessCloudService: AppsProcessCloudService) { }
+
+  ngOnInit() {
+    this.appsProcessCloudService.getDeployedApplications().subscribe();
+  }
+
+}

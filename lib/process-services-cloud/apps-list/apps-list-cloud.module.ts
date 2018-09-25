@@ -14,7 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export * from './process-cloud.module';
 
-export * from './hello/index';
-export * from './apps-list/index';
+import { NgModule } from '@angular/core';
+import { MaterialModule } from '../material.module';
+import { CoreModule } from '@alfresco/adf-core';
+import { AppsListCloudComponent } from './components/apps-list-cloud.component';
+import { AppsProcessCloudService } from './services/apps-process-cloud.service';
+
+@NgModule({
+    imports: [
+        CoreModule.forChild(),
+        MaterialModule
+    ],
+    declarations: [
+        AppsListCloudComponent
+    ],
+     providers: [
+        AppsProcessCloudService
+     ],
+    exports: [
+        AppsListCloudComponent
+    ]
+})
+export class AppsListCloudModule {}
