@@ -20,6 +20,7 @@ import { Observable, from, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { AlfrescoApiService } from '@alfresco/adf-core';
 import { AppConfigService, LogService } from '@alfresco/adf-core';
+import { ApplicationInstanceModel } from '../model/application-instance.model';
 
 @Injectable()
 export class AppsProcessCloudService {
@@ -35,10 +36,10 @@ export class AppsProcessCloudService {
      * Gets a list of deployed apps for this user.
      * @returns The list of deployed apps
      */
-    getDeployedApplications(): Observable<any> {
+    getDeployedApplications(): Observable<ApplicationInstanceModel[]> {
         const api: any = this.apiService.getInstance().oauth2Auth;
-        api.basePath = 'http://aps2dev.envalfresco.com';
-        const path = 'alfresco-modeling-service/v1/applications';
+        api.basePath = this.contextRoot;
+        const path = 'alfresco-deployment-service/v1/applications';
         const httpMethod = 'GET', pathParams = {}, queryParams = {},
             headerParams = {}, formParams = {}, bodyParam = {}, authNames = [],
             contentTypes = ['application/json'], accepts = ['application/json'];
@@ -47,17 +48,16 @@ export class AppsProcessCloudService {
             pathParams, queryParams, headerParams, formParams, bodyParam,
             authNames, contentTypes, accepts, { 'String': 'String' }, ''
         )).pipe(
-            map((response: any) => {
-            return response;
+            map(response => {
+                return <ApplicationInstanceModel[]> response;
             }),
             catchError(err => this.handleError(err))
         );
 
     }
 
-    private handleError(error: any) {
+    private handleError(error?: any) {
         this.logService.error(error);
         return throwError(error || 'Server error');
     }
-
 }
