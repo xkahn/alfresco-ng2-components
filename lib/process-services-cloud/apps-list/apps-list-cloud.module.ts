@@ -16,6 +16,7 @@
  */
 
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '../material.module';
 import { CoreModule } from '@alfresco/adf-core';
 import { AppsListCloudComponent } from './components/apps-list-cloud.component';
@@ -24,7 +25,8 @@ import { AppsProcessCloudService } from './services/apps-process-cloud.service';
 @NgModule({
     imports: [
         CoreModule.forChild(),
-        MaterialModule
+        MaterialModule,
+        FlexLayoutModule
     ],
     declarations: [
         AppsListCloudComponent

@@ -49,7 +49,8 @@ export class AppsProcessCloudService {
             authNames, contentTypes, accepts, { 'String': 'String' }, ''
         )).pipe(
             map(response => {
-                return <ApplicationInstanceModel[]> response;
+                const applications = Object.keys(response).map(key => response[key]);
+                return <ApplicationInstanceModel[]> applications;
             }),
             catchError(err => this.handleError(err))
         );
