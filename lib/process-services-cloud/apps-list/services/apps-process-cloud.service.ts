@@ -25,6 +25,9 @@ import { ApplicationInstanceModel } from '../model/application-instance.model';
 @Injectable()
 export class AppsProcessCloudService {
 
+    public static DEFAULT_THEME: string = 'theme-2';
+    public static DEFAULT_ICON: string = 'favorite_border';
+
     contextRoot = '';
     constructor(private apiService: AlfrescoApiService,
                 private logService: LogService,
@@ -50,11 +53,23 @@ export class AppsProcessCloudService {
         )).pipe(
             map(response => {
                 const applications = Object.keys(response).map(key => response[key]);
-                return <ApplicationInstanceModel[]> applications;
+                return this.createApplicationInstances(applications);
             }),
             catchError(err => this.handleError(err))
         );
 
+    }
+
+    createApplicationInstances(response: ApplicationInstanceModel[]): ApplicationInstanceModel[] {
+        let applications: ApplicationInstanceModel[] = [];
+        if (response && response.length > 0) {
+            applications = response.map((application: ApplicationInstanceModel) => {
+                application.theme = AppsProcessCloudService.DEFAULT_THEME;
+                application.icon = AppsProcessCloudService.DEFAULT_ICON;
+                return application;
+            });
+        }
+        return applications;
     }
 
     private handleError(error?: any) {

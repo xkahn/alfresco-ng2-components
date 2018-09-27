@@ -15,13 +15,5 @@
  * limitations under the License.
  */
 
-export interface ApplicationInstanceModel {
-
-    name?: string;
-    createdAt?: any;
-    status?: string;
-    theme?: string;
-    icon?: string;
-    description?: string;
-    connectors?: any;
-}
+export * from './apps-view-cloud.component';
+export * from './process-service-cloud.component';

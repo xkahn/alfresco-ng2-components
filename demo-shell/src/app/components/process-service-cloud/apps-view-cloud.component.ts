@@ -15,13 +15,19 @@
  * limitations under the License.
  */
 
-export interface ApplicationInstanceModel {
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
-    name?: string;
-    createdAt?: any;
-    status?: string;
-    theme?: string;
-    icon?: string;
-    description?: string;
-    connectors?: any;
+@Component({
+    selector: 'app-process-apps-cloud-view',
+    templateUrl: './apps-view-cloud.component.html'
+})
+export class AppsViewCloudComponent {
+
+    constructor(private router: Router) {
+    }
+
+    onAppClicked(app: any): void {
+        this.router.navigate(['/activiti/cloud/apps', app.name, 'tasks']);
+    }
 }

@@ -29,7 +29,6 @@ export class AppsViewComponent {
     }
 
      onAppClicked(app: AppDefinitionRepresentationModel) {
-        //  console.log(app);
          this.router.navigate(['/activiti/apps', app.id || 0, 'tasks']);
      }
 

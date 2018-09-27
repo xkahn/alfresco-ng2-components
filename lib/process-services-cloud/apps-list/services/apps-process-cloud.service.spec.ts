@@ -17,6 +17,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { setupTestBed } from '@alfresco/adf-core';
+// import { AlfrescoApiService, AppConfigService, LogService  } from '@alfresco/adf-core';
 import { AppsProcessCloudService } from './apps-process-cloud.service';
 import { fakeApplicationInstance } from '../mock/application-instance.mock';
 import { ProcessTestingModule } from './../../../process-services/testing/process.testing.module';
@@ -48,8 +49,8 @@ describe('AppsProcessCloudService', () => {
             (res: any) => {
                 expect(res).toBeDefined();
                 expect(res.length).toEqual(2);
-                expect(res[0].name).toEqual('Sales-Fakes-App');
-                expect(res[1].name).toEqual('health-care-Fake');
+                expect(res[0].name).toEqual('application-new-1');
+                expect(res[1].name).toEqual('application-new-2');
                 done();
             }
         );

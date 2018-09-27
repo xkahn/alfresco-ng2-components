@@ -17,8 +17,7 @@
 
 import { EmptyCustomContentDirective } from '@alfresco/adf-core';
 import { AfterContentInit, Component, EventEmitter, Input, OnInit, Output, ContentChild } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { IconModel } from './icon.model';
+import { Observable } from 'rxjs';
 import { AppsProcessCloudService } from '../services/apps-process-cloud.service';
 import { ApplicationInstanceModel } from '../model/application-instance.model';
 
@@ -31,8 +30,6 @@ export class AppsListCloudComponent implements OnInit, AfterContentInit {
 
     public static LAYOUT_LIST: string = 'LIST';
     public static LAYOUT_GRID: string = 'GRID';
-    public static DEFAULT_THEME: string = 'theme-2';
-    public static DEFAULT_ICON: string = 'glyphicon-asterisk';
 
     @ContentChild(EmptyCustomContentDirective)
     emptyCustomContent: EmptyCustomContentDirective;
@@ -47,17 +44,9 @@ export class AppsListCloudComponent implements OnInit, AfterContentInit {
     @Output()
     appClick: EventEmitter<ApplicationInstanceModel> = new EventEmitter<ApplicationInstanceModel>();
 
-    /** Emitted when an error occurs. */
-    @Output()
-    error: EventEmitter<any> = new EventEmitter<any>();
-
     apps$: Observable<any>;
 
     currentApp: ApplicationInstanceModel;
-
-    private iconsMDL: IconModel;
-
-    loading: boolean = false;
 
     hasEmptyCustomContentTemplate: boolean = false;
 
@@ -68,7 +57,6 @@ export class AppsListCloudComponent implements OnInit, AfterContentInit {
             this.setDefaultLayoutType();
         }
 
-        this.iconsMDL = new IconModel();
         this.load();
     }
 
@@ -79,33 +67,7 @@ export class AppsListCloudComponent implements OnInit, AfterContentInit {
     }
 
     private load() {
-        this.loading = true;
-        this.appsProcessCloudService.getDeployedApplications().subscribe(
-            (response: ApplicationInstanceModel[]) => {
-                this.apps$ = of(this.createApplicationInstances(response));
-                this.loading = false;
-            },
-            (err) => {
-                this.error.emit(err);
-                this.loading = false;
-            }
-        );
-    }
-
-    createApplicationInstances(response: ApplicationInstanceModel[]): ApplicationInstanceModel[] {
-        let applications: ApplicationInstanceModel[] = [];
-        if (response && response.length > 0) {
-            applications = response.map((application: ApplicationInstanceModel) => {
-                application.theme = AppsListCloudComponent.DEFAULT_THEME;
-                application.icon = AppsListCloudComponent.DEFAULT_ICON;
-                return application;
-            });
-        }
-        return applications;
-    }
-
-    getAppName(app) {
-        return app ? app.name : '';
+        this.apps$ = this.appsProcessCloudService.getDeployedApplications();
     }
 
     /**
@@ -118,8 +80,8 @@ export class AppsListCloudComponent implements OnInit, AfterContentInit {
     }
 
     /**
-     * Return true if the appId is the current app
-     * @param appId
+     * Return true if the applicationName is the current app
+     * @param applicationName
      */
     isSelected(applicationName: string): boolean {
         return (this.currentApp !== undefined && applicationName === this.currentApp.name);
@@ -154,21 +116,5 @@ export class AppsListCloudComponent implements OnInit, AfterContentInit {
      */
     isGrid(): boolean {
         return this.layoutType === AppsListCloudComponent.LAYOUT_GRID;
-    }
-
-    isEmpty(apps: any): boolean {
-        return apps.length === 0;
-    }
-
-    isLoading(): boolean {
-        return this.loading;
-    }
-
-    getTheme(app: ApplicationInstanceModel): string {
-        return app.theme ? app.theme : '';
-    }
-
-    getBackgroundIcon(app: ApplicationInstanceModel): string {
-        return this.iconsMDL.mapGlyphiconToMaterialDesignIcons(app.icon);
     }
 }

@@ -56,12 +56,12 @@ import { ReportIssueComponent } from './components/report-issue/report-issue.com
 import { HeaderDataComponent } from './components/header-data/header-data.component';
 import { ConfigEditorComponent } from './components/config-editor/config-editor.component';
 import { AppComponent } from './app.component';
-import { HelloCloudComponent, AppsListCloudComponent } from '@alfresco/adf-process-services-cloud';
+import { HelloCloudComponent } from '@alfresco/adf-process-services-cloud';
+import { AppsViewCloudComponent, ProcessServiceCloudComponent } from './components/process-service-cloud';
 
 export const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'hello', component: HelloCloudComponent },
-    { path: 'appslist', component: AppsListCloudComponent },
     { path: 'logout', component: LogoutComponent },
     { path: 'settings', component: SettingsComponent },
     {
@@ -308,6 +308,21 @@ export const appRoutes: Routes = [
             {
                 path: 'process-list/:id',
                 component: ProcessListDemoComponent,
+                canActivate: [AuthGuardBpm]
+            },
+            {
+                path: 'activiti/cloud',
+                component: AppsViewCloudComponent,
+                canActivate: [AuthGuardBpm]
+            },
+            {
+                path: 'activiti/cloud/apps',
+                component: AppsViewCloudComponent,
+                canActivate: [AuthGuardBpm]
+            },
+            {
+                path: 'activiti/cloud/apps/:applicationName/tasks',
+                component: ProcessServiceCloudComponent,
                 canActivate: [AuthGuardBpm]
             },
             {

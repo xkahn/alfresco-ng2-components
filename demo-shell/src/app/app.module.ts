@@ -56,6 +56,8 @@ import { SocialComponent } from './components/social/social.component';
 import { VersionManagerDialogAdapterComponent } from './components/files/version-manager-dialog-adapter.component';
 import { MetadataDialogAdapterComponent } from './components/files/metadata-dialog-adapter.component';
 
+import { AppsViewCloudComponent, ProcessServiceCloudComponent } from './components/process-service-cloud';
+
 import { ThemePickerModule } from './components/theme-picker/theme-picker';
 
 import { routing } from './app.routes';
@@ -144,7 +146,9 @@ import { ProcessCloudModule } from '@alfresco/adf-process-services-cloud';
         TaskListDemoComponent,
         ProcessListDemoComponent,
         HeaderDataComponent,
-        ConfigEditorComponent
+        ConfigEditorComponent,
+        AppsViewCloudComponent,
+        ProcessServiceCloudComponent
     ],
     providers: [
         {

@@ -15,13 +15,23 @@
  * limitations under the License.
  */
 
-export interface ApplicationInstanceModel {
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-    name?: string;
-    createdAt?: any;
-    status?: string;
-    theme?: string;
-    icon?: string;
-    description?: string;
-    connectors?: any;
+@Component({
+  selector: 'app-process-service-cloud',
+  templateUrl: './process-service-cloud.component.html',
+  styleUrls: ['./process-service-cloud.component.scss']
+})
+export class ProcessServiceCloudComponent implements OnInit {
+
+  applicationName: string;
+  constructor(private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.applicationName = params['applicationName'];
+    });
+  }
+
 }
