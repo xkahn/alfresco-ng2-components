@@ -200,7 +200,7 @@ describe('Upload component', () => {
         contentServicesPage.checkContentIsNotDisplayed(largeFile.name);
     });
 
-    xit('[C260169] Cancel a big file through the cancel uploads button', () => {
+    it('[C260169] Cancel a big file through the cancel uploads button', () => {
         contentServicesPage.uploadFile(largeFile.location);
         expect(uploadDialog.getTitleText()).toEqual('Uploading 0 / 1');
         expect(uploadDialog.getConfirmationDialogTitleText()).toEqual('Cancel Upload');
@@ -211,7 +211,7 @@ describe('Upload component', () => {
         contentServicesPage.checkContentIsNotDisplayed(largeFile.name);
     });
 
-    xit('[C272793] Cancel uploading multiple files', () => {
+    it('[C272793] Cancel uploading multiple files', () => {
         uploadToggles.enableMultipleFileUpload();
         contentServicesPage.uploadMultipleFile([pngFileModel.location, largeFile.location]);
         uploadDialog.cancelUploads();
@@ -336,7 +336,7 @@ describe('Upload component', () => {
         uploadToggles.disableMultipleFileUpload();
     });
 
-    xit('[C279919] Enable max size and set it to 400', () => {
+    it('[C260174] Enable max size and set it to 400', () => {
         contentServicesPage.goToDocumentList();
         contentServicesPage.checkAcsContainer();
         uploadToggles.enableMaxSize();
@@ -354,7 +354,7 @@ describe('Upload component', () => {
         uploadToggles.disableMaxSize();
     });
 
-    xit('[C272796] Enable max size and set it to 0', () => {
+    it('[C272796] Enable max size and set it to 0', () => {
         contentServicesPage.goToDocumentList();
         uploadToggles.enableMaxSize();
         uploadToggles.addMaxSize('0');
