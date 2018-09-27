@@ -25,14 +25,12 @@ import { ApplicationInstanceModel } from '../model/application-instance.model';
 @Injectable()
 export class AppsProcessCloudService {
 
-    public static DEFAULT_THEME: string = 'theme-2';
-    public static DEFAULT_ICON: string = 'favorite_border';
-
     contextRoot = '';
+
     constructor(private apiService: AlfrescoApiService,
                 private logService: LogService,
                 private appConfig: AppConfigService) {
-        this.contextRoot = this.appConfig.get('apiHost', '');
+        this.contextRoot = this.appConfig.get('bpmHost', '');
     }
 
     /**
@@ -51,9 +49,8 @@ export class AppsProcessCloudService {
             pathParams, queryParams, headerParams, formParams, bodyParam,
             authNames, contentTypes, accepts, { 'String': 'String' }, ''
         )).pipe(
-            map(response => {
-                const applications = Object.keys(response).map(key => response[key]);
-                return this.createApplicationInstances(applications);
+            map((response: ApplicationInstanceModel[]) => {
+                return this.createApplicationInstances(Object.keys(response).map(key => response[key]));
             }),
             catchError(err => this.handleError(err))
         );
@@ -63,10 +60,9 @@ export class AppsProcessCloudService {
     createApplicationInstances(response: ApplicationInstanceModel[]): ApplicationInstanceModel[] {
         let applications: ApplicationInstanceModel[] = [];
         if (response && response.length > 0) {
-            applications = response.map((application: ApplicationInstanceModel) => {
-                application.theme = AppsProcessCloudService.DEFAULT_THEME;
-                application.icon = AppsProcessCloudService.DEFAULT_ICON;
-                return application;
+            response.forEach((application: ApplicationInstanceModel) => {
+                const applicationInstanceModel = new ApplicationInstanceModel(application);
+                applications.push(applicationInstanceModel);
             });
         }
         return applications;

@@ -46,8 +46,6 @@ export class AppsListCloudComponent implements OnInit, AfterContentInit {
 
     apps$: Observable<any>;
 
-    currentApp: ApplicationInstanceModel;
-
     hasEmptyCustomContentTemplate: boolean = false;
 
     constructor(private appsProcessCloudService: AppsProcessCloudService) { }
@@ -57,7 +55,7 @@ export class AppsListCloudComponent implements OnInit, AfterContentInit {
             this.setDefaultLayoutType();
         }
 
-        this.load();
+        this.apps$ = this.appsProcessCloudService.getDeployedApplications();
     }
 
     ngAfterContentInit() {
@@ -66,25 +64,8 @@ export class AppsListCloudComponent implements OnInit, AfterContentInit {
         }
     }
 
-    private load() {
-        this.apps$ = this.appsProcessCloudService.getDeployedApplications();
-    }
-
-    /**
-     * Pass the selected app as next
-     * @param app
-     */
-    public selectApp(app: ApplicationInstanceModel) {
-        this.currentApp = app;
+    onSelectApp(app: ApplicationInstanceModel): void {
         this.appClick.emit(app);
-    }
-
-    /**
-     * Return true if the applicationName is the current app
-     * @param applicationName
-     */
-    isSelected(applicationName: string): boolean {
-        return (this.currentApp !== undefined && applicationName === this.currentApp.name);
     }
 
     /**
@@ -104,17 +85,19 @@ export class AppsListCloudComponent implements OnInit, AfterContentInit {
         this.layoutType = AppsListCloudComponent.LAYOUT_GRID;
     }
 
+
     /**
-     * Return true if the layout type is LIST
-     */
+    * Return true if the layout type is LIST
+    */
     isList(): boolean {
         return this.layoutType === AppsListCloudComponent.LAYOUT_LIST;
     }
 
     /**
-     * Return true if the layout type is GRID
-     */
+    * Return true if the layout type is GRID
+    */
     isGrid(): boolean {
+
         return this.layoutType === AppsListCloudComponent.LAYOUT_GRID;
     }
 }

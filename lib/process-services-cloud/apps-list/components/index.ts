@@ -15,6 +15,5 @@
  * limitations under the License.
  */
 
-export * from './components';
-
-export * from './apps-list-cloud.module';
+export * from './application-instance-cloud.component';
+export * from './apps-list-cloud.component';

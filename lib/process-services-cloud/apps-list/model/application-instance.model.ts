@@ -15,13 +15,28 @@
  * limitations under the License.
  */
 
-export interface ApplicationInstanceModel {
+export class ApplicationInstanceModel {
 
-    name?: string;
-    createdAt?: any;
-    status?: string;
+    public static DEFAULT_THEME: string = 'theme-2';
+    public static DEFAULT_ICON: string = 'favorite_border';
+
+    name: string;
+    createdAt: any;
+    status: string;
     theme?: string;
     icon?: string;
     description?: string;
     connectors?: any;
+
+    constructor(obj?: any) {
+    if (obj) {
+        this.name = obj.name ? obj.name : null;
+        this.status = obj.status ? obj.status : null;
+        this.createdAt = obj.createdAt ? obj.createdAt : null;
+        this.theme = obj.theme ? obj.theme : ApplicationInstanceModel.DEFAULT_THEME;
+        this.icon = obj.icon ? obj.icon :  ApplicationInstanceModel.DEFAULT_ICON;
+        this.description = obj.description ? obj.description : null;
+        this.connectors = obj.connectors ? obj.connectors : null;
+    }
+}
 }
