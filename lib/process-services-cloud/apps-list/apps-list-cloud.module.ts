@@ -18,14 +18,18 @@
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '../material.module';
-import { CoreModule } from '@alfresco/adf-core';
+import { CommonModule } from '@angular/common';
 import { AppDetailsCloudComponent } from './components/app-details-cloud.component';
 import { AppListCloudComponent } from './components/app-list-cloud.component';
 import { AppsProcessCloudService } from './services/apps-process-cloud.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { TemplateModule } from '@alfresco/adf-core';
 
 @NgModule({
     imports: [
-        CoreModule.forChild(),
+        CommonModule,
+        TranslateModule,
+        TemplateModule,
         MaterialModule,
         FlexLayoutModule
     ],

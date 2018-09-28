@@ -51,9 +51,6 @@ export function providers() {
         }
     ],
     exports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
         HelloCloudModule,
         AppListCloudModule
     ]
