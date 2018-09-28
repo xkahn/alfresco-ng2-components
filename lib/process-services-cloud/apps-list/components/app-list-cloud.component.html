@@ -14,8 +14,12 @@
                     <span matLine>{{app.name}}</span>
                 </mat-list-item>
             </mat-list>
-            <div *ngIf="isGrid()">
-                <adf-cloud-app-details *ngFor="let app of appsList"
+            <div *ngIf="isGrid()" fxLayout="row wrap">
+                <adf-cloud-app-details
+                    fxFlex="33.33333%"
+                    fxFlex.lt-md="50%"
+                    fxFlex.lt-sm="100%"
+                    *ngFor="let app of appsList"
                     [applicationInstance]="app"
                     (selectedApp)="onSelectApp($event)">
                 </adf-cloud-app-details>
