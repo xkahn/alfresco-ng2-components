@@ -19,7 +19,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-process-service-cloud',
+  selector: 'app-cloud-process-service',
   templateUrl: './process-service-cloud.component.html',
   styleUrls: ['./process-service-cloud.component.scss']
 })

@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-import { Component, Input, Output, EventEmitter} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ApplicationInstanceModel } from '../model/application-instance.model';
 
 @Component({
-  selector: 'adf-application-instance-cloud',
+  selector: 'adf-cloud-application-instance',
   templateUrl: './application-instance-cloud.component.html',
   styleUrls: ['./application-instance-cloud.component.scss']
 })
@@ -33,7 +33,7 @@ export class ApplicationInstanceCloudComponent {
   selectedApp: EventEmitter<ApplicationInstanceModel> = new EventEmitter<ApplicationInstanceModel>();
 
   constructor() {}
-  
+
   /**
    * Pass the selected app as next
    * @param app

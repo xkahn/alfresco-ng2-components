@@ -19,7 +19,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-process-apps-cloud-view',
+    selector: 'app-cloud-apps-view',
     templateUrl: './apps-view-cloud.component.html'
 })
 export class AppsViewCloudComponent {

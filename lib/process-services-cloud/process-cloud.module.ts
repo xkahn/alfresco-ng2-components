@@ -22,7 +22,7 @@ import { CoreModule, TRANSLATION_PROVIDER } from '@alfresco/adf-core';
 
 import { MaterialModule } from './material.module';
 import { HelloCloudModule } from './hello';
-import { AppsListCloudModule } from './apps-list';
+import { AppsListCloudModule } from './apps-list/apps-list-cloud.module';
 
 export function providers() {
     return [

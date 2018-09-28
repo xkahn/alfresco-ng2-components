@@ -14,10 +14,10 @@
                     <span matLine>{{app.name}}</span>
                 </mat-list-item>
             </mat-list>
-            <adf-application-instance-cloud *ngIf="isGrid()"
+            <adf-cloud-application-instance *ngIf="isGrid()"
                 [applicationInstances]="appsList"
                 (selectedApp)="onSelectApp($event)">
-            </adf-application-instance-cloud>
+            </adf-cloud-application-instance>
         </ng-template>
          <ng-template #noApps>
             <div class="adf-app-list-empty">

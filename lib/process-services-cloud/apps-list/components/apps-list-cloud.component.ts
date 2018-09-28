@@ -22,7 +22,7 @@ import { AppsProcessCloudService } from '../services/apps-process-cloud.service'
 import { ApplicationInstanceModel } from '../model/application-instance.model';
 
 @Component({
-    selector: 'adf-apps-list-cloud',
+    selector: 'adf-cloud-apps-list',
     templateUrl: './apps-list-cloud.component.html',
     styleUrls: ['./apps-list-cloud.component.scss']
 })
@@ -85,17 +85,16 @@ export class AppsListCloudComponent implements OnInit, AfterContentInit {
         this.layoutType = AppsListCloudComponent.LAYOUT_GRID;
     }
 
-
     /**
-    * Return true if the layout type is LIST
-    */
+     * Return true if the layout type is LIST
+     */
     isList(): boolean {
         return this.layoutType === AppsListCloudComponent.LAYOUT_LIST;
     }
 
     /**
-    * Return true if the layout type is GRID
-    */
+     * Return true if the layout type is GRID
+     */
     isGrid(): boolean {
 
         return this.layoutType === AppsListCloudComponent.LAYOUT_GRID;
