@@ -19,8 +19,8 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '../material.module';
 import { CoreModule } from '@alfresco/adf-core';
-import { ApplicationInstanceCloudComponent } from './components/application-instance-cloud.component';
-import { AppsListCloudComponent } from './components/apps-list-cloud.component';
+import { AppDetailsCloudComponent } from './components/app-details-cloud.component';
+import { AppListCloudComponent } from './components/app-list-cloud.component';
 import { AppsProcessCloudService } from './services/apps-process-cloud.service';
 
 @NgModule({
@@ -30,15 +30,15 @@ import { AppsProcessCloudService } from './services/apps-process-cloud.service';
         FlexLayoutModule
     ],
     declarations: [
-        AppsListCloudComponent,
-        ApplicationInstanceCloudComponent
+        AppListCloudComponent,
+        AppDetailsCloudComponent
     ],
      providers: [
         AppsProcessCloudService
      ],
     exports: [
-        AppsListCloudComponent,
-        ApplicationInstanceCloudComponent
+        AppListCloudComponent,
+        AppDetailsCloudComponent
     ]
 })
-export class AppsListCloudModule {}
+export class AppListCloudModule {}

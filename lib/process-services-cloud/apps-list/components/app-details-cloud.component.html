@@ -1,6 +1,5 @@
 <div fxLayout="row wrap" class="adf-app-listgrid">
-  <div *ngFor="let app of applicationInstances"
-      class="adf-app-listgrid-item"
+  <div class="adf-app-listgrid-item"
       fxFlex="33.33333%"
       fxFlex.lt-md="50%"
       fxFlex.lt-sm="100%">
@@ -8,18 +7,18 @@
           fxLayout="column"
           role="button"
           class="adf-app-listgrid-item-card"
-          title="{{app.name}}"
-          [ngClass]="[app.theme]"
-          (click)="onSelectApp(app)"
-          (keyup.enter)="onSelectApp(app)">
+          title="{{applicationInstance.name}}"
+          [ngClass]="[applicationInstance.theme]"
+          (click)="onSelectApp(applicationInstance)"
+          (keyup.enter)="onSelectApp(applicationInstance)">
           <div class="adf-app-listgrid-item-card-logo">
-              <mat-icon class="adf-app-listgrid-item-card-logo-icon">{{app.icon}}</mat-icon>
+              <mat-icon class="adf-app-listgrid-item-card-logo-icon">{{applicationInstance.icon}}</mat-icon>
           </div>
           <div mat-card-title class="adf-app-listgrid-item-card-title">
-              <h1>{{app.name}}</h1>
+              <h1>{{applicationInstance.name}}</h1>
           </div>
           <mat-card-subtitle class="adf-app-listgrid-item-card-subtitle" fxFlex="1 0 auto">
-              <div class="line-clamp">{{app.description}}</div>
+              <div class="line-clamp">{{applicationInstance.description}}</div>
           </mat-card-subtitle>
       </mat-card>
   </div>
