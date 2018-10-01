@@ -16,7 +16,7 @@
  */
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { ApplicationInstanceModel } from '../model/application-instance.model';
+import { ApplicationInstanceModel } from '../models/application-instance.model';
 
 @Component({
   selector: 'adf-cloud-app-details',

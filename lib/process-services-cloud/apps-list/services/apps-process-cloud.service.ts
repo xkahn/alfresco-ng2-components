@@ -20,7 +20,7 @@ import { Observable, from, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { AlfrescoApiService } from '@alfresco/adf-core';
 import { AppConfigService, LogService } from '@alfresco/adf-core';
-import { ApplicationInstanceModel } from '../model/application-instance.model';
+import { ApplicationInstanceModel } from '../models/application-instance.model';
 
 @Injectable()
 export class AppsProcessCloudService {
