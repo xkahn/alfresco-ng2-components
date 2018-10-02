@@ -27,17 +27,18 @@ export class AppsProcessCloudService {
 
     contextRoot = '';
 
-    constructor(private apiService: AlfrescoApiService,
-                private logService: LogService,
-                private appConfig: AppConfigService) {
+    constructor(
+        private apiService: AlfrescoApiService,
+        private logService: LogService,
+        private appConfig: AppConfigService) {
         this.contextRoot = this.appConfig.get('bpmHost', '');
     }
 
     /**
-     * Gets a list of deployed apps for this user.
+     * Gets a list of deployed apps for this user by status.
      * @returns The list of deployed apps
      */
-    getDeployedApplications(): Observable<ApplicationInstanceModel[]> {
+    getDeployedApplicationsByStatus(status: string): Observable<ApplicationInstanceModel[]> {
         const api: any = this.apiService.getInstance().oauth2Auth;
         api.basePath = this.contextRoot;
         const path = 'alfresco-deployment-service/v1/applications';
@@ -47,25 +48,18 @@ export class AppsProcessCloudService {
         return from(api.callApi(
             path, httpMethod,
             pathParams, queryParams, headerParams, formParams, bodyParam,
-            authNames, contentTypes, accepts, { 'String': 'String' }, ''
-        )).pipe(
-            map((response: ApplicationInstanceModel[]) => {
-                return this.createApplicationInstances(Object.keys(response).map(key => response[key]));
-            }),
-            catchError(err => this.handleError(err))
-        );
-
-    }
-
-    createApplicationInstances(response: ApplicationInstanceModel[]): ApplicationInstanceModel[] {
-        let applications: ApplicationInstanceModel[] = [];
-        if (response && response.length > 0) {
-            response.forEach((application: ApplicationInstanceModel) => {
-                const applicationInstanceModel = new ApplicationInstanceModel(application);
-                applications.push(applicationInstanceModel);
-            });
-        }
-        return applications;
+            authNames, contentTypes, accepts, [], ''
+        ))
+            .pipe(
+                map((apps: Array<{}>) => {
+                    return apps.filter((app: ApplicationInstanceModel) => app.status === status)
+                        .map((app) => {
+                            return new ApplicationInstanceModel(app);
+                        });
+                }
+                ),
+                catchError(err => this.handleError(err))
+            );
     }
 
     private handleError(error?: any) {

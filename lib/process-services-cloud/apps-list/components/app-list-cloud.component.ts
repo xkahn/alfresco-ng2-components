@@ -30,6 +30,7 @@ export class AppListCloudComponent implements OnInit, AfterContentInit {
 
     public static LAYOUT_LIST: string = 'LIST';
     public static LAYOUT_GRID: string = 'GRID';
+    public static RUNNING_STATUS: string = 'Running';
 
     @ContentChild(EmptyCustomContentDirective)
     emptyCustomContent: EmptyCustomContentDirective;
@@ -55,7 +56,7 @@ export class AppListCloudComponent implements OnInit, AfterContentInit {
             this.setDefaultLayoutType();
         }
 
-        this.apps$ = this.appsProcessCloudService.getDeployedApplications();
+        this.apps$ = this.appsProcessCloudService.getDeployedApplicationsByStatus(AppListCloudComponent.RUNNING_STATUS);
     }
 
     ngAfterContentInit() {
