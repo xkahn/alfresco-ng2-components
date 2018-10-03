@@ -99,6 +99,9 @@ describe('Search Filters', () => {
         searchFiltersPage.checkShowLessButtonIsDisplayed();
 
         searchFiltersPage.clickSizeShowLessButtonUntilIsNotDisplayed();
+
+        await browser.driver.sleep(2000);
+
         searchFiltersPage.checkShowLessButtonIsNotDisplayed();
     });
 
