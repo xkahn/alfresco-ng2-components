@@ -2,6 +2,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { CloudProcessService } from '../cloud-process.service';
 
 // TODO: Replace this with your own data model type
 export interface CloudTableItem {
@@ -41,7 +42,7 @@ const EXAMPLE_DATA: CloudTableItem[] = [
 export class CloudTableDataSource extends DataSource<CloudTableItem> {
   data: CloudTableItem[] = EXAMPLE_DATA;
 
-  constructor(private paginator: MatPaginator, private sort: MatSort) {
+  constructor(private paginator: MatPaginator, private sort: MatSort, private service: CloudProcessService) {
     super();
   }
 
@@ -58,6 +59,11 @@ export class CloudTableDataSource extends DataSource<CloudTableItem> {
       this.paginator.page,
       this.sort.sortChange
     ];
+
+    this.service.findAll({appName: 'simple-app', page: 0, size: 10}).subscribe( (res) => {
+        //tslint:disable
+        console.log({res});
+    });
 
     // Set the paginators length
     this.paginator.length = this.data.length;

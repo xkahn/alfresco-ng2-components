@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { CloudTableDataSource } from './cloud-table-datasource';
+import { CloudProcessService } from '../cloud-process.service';
 
 @Component({
   selector: 'app-cloud-table',
@@ -15,7 +16,11 @@ export class CloudTableComponent implements OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name'];
 
+  constructor(private service: CloudProcessService) {
+
+  }
+
   ngOnInit() {
-    this.dataSource = new CloudTableDataSource(this.paginator, this.sort);
+    this.dataSource = new CloudTableDataSource(this.paginator, this.sort, this.service);
   }
 }
