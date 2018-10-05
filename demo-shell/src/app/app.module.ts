@@ -80,6 +80,13 @@ import { ContentModule } from '@alfresco/adf-content-services';
 import { InsightsModule } from '@alfresco/adf-insights';
 import { ProcessModule } from '@alfresco/adf-process-services';
 import { AuthBearerInterceptor } from './services';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule,
+    MatListModule, MatGridListModule, MatCardModule, MatMenuModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { CloudNavComponent } from './cloud-nav/cloud-nav.component';
+import { CloudDashboardComponent } from './cloud-dashboard/cloud-dashboard.component';
+import { CloudTableComponent } from './cloud-table/cloud-table.component';
+import { CloudProcessComponent } from './cloud-process/cloud-process.component';
 
 @NgModule({
     imports: [
@@ -97,7 +104,19 @@ import { AuthBearerInterceptor } from './services';
         ProcessModule.forRoot(),
         ThemePickerModule,
         ChartsModule,
-        MonacoEditorModule.forRoot()
+        MonacoEditorModule.forRoot(),
+        LayoutModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatGridListModule,
+        MatCardModule,
+        MatMenuModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule
     ],
     declarations: [
         AppComponent,
@@ -142,7 +161,11 @@ import { AuthBearerInterceptor } from './services';
         TaskListDemoComponent,
         ProcessListDemoComponent,
         HeaderDataComponent,
-        ConfigEditorComponent
+        ConfigEditorComponent,
+        CloudNavComponent,
+        CloudDashboardComponent,
+        CloudTableComponent,
+        CloudProcessComponent
     ],
     providers: [
         {
