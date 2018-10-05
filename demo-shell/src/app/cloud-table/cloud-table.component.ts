@@ -1,21 +1,67 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
-import { CloudTableDataSource } from './cloud-table-datasource';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Params, ActivatedRoute } from '@angular/router';
+export interface Process {
+  id: string;
+  appName: string;
+  initiator: string;
+  status: string;
+  processDefinitionId: string;
+  lastModified: string;
+}
+
+const PROCESSES: Process[] = [
+  {id: '1', appName: '', initiator: '', status: '', processDefinitionId: '', lastModified: ''},
+  {id: '2', appName: '', initiator: '', status: '', processDefinitionId: '', lastModified: ''},
+  {id: '3', appName: '', initiator: '', status: '', processDefinitionId: '', lastModified: ''},
+  {id: '4', appName: '', initiator: '', status: '', processDefinitionId: '', lastModified: ''},
+  {id: '5', appName: '', initiator: '', status: '', processDefinitionId: '', lastModified: ''},
+  {id: '6', appName: '', initiator: '', status: '', processDefinitionId: '', lastModified: ''},
+  {id: '7', appName: '', initiator: '', status: '', processDefinitionId: '', lastModified: ''},
+  {id: '8', appName: '', initiator: '', status: '', processDefinitionId: '', lastModified: ''}
+];
 
 @Component({
   selector: 'app-cloud-table',
   templateUrl: './cloud-table.component.html',
-  styleUrls: ['./cloud-table.component.css']
+  styleUrls: ['./cloud-table.component.scss']
 })
 export class CloudTableComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  dataSource: CloudTableDataSource;
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  processes: Process[] = PROCESSES;
+
+  displayedColumns: string[] = ['id', 'appName', 'initiator', 'status'];
+  dataSource = new MatTableDataSource<Process>();
+
+  appName: string;
+
+  constructor(private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
-    this.dataSource = new CloudTableDataSource(this.paginator, this.sort);
+      if (this.route) {
+          this.route.params.forEach((params: Params) => {
+              if (params['appName']) {
+                  this.appName = params['appName'];
+              } else {
+                  this.appName = 'my-app-1';
+              }
+          });
+      }
+
+      this.getProcesses();
+      this.setProcesses();
+
+      this.dataSource.paginator = this.paginator;
+  }
+
+  getProcesses() {
+      this.processes.forEach((process) => process.appName = this.appName);
+  }
+
+  setProcesses() {
+      this.dataSource = new MatTableDataSource<Process>(this.processes);
   }
 }

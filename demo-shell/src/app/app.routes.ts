@@ -60,6 +60,7 @@ import { CloudProcessComponent } from './cloud-process/cloud-process.component';
 
 export const appRoutes: Routes = [
     { path: 'cloud', component: CloudProcessComponent },
+    { path: 'cloud/:appName', component: CloudProcessComponent },
     { path: 'login', component: LoginComponent },
     { path: 'logout', component: LogoutComponent },
     { path: 'settings', component: SettingsComponent },

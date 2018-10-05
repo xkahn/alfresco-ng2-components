@@ -28,7 +28,9 @@ import {
     MatMenuModule,
     MatToolbarModule,
     MatSnackBarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatPaginatorModule,
+    MatTableModule
 } from '@angular/material';
 
 const MATERIAL_MODULES = [
@@ -43,6 +45,8 @@ const MATERIAL_MODULES = [
     MatMenuModule,
     MatToolbarModule,
     MatSnackBarModule,
+    MatTableModule,
+    MatPaginatorModule,
     MatExpansionModule
 ];
 
