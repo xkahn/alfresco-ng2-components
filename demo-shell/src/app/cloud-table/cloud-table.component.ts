@@ -27,8 +27,11 @@ const PROCESSES: Process[] = [
   styleUrls: ['./cloud-table.component.scss']
 })
 export class CloudTableComponent implements OnInit {
+
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
+  @ViewChild(MatSort)
+  sort: MatSort;
 
   processes: Process[] = PROCESSES;
 
@@ -55,6 +58,7 @@ export class CloudTableComponent implements OnInit {
       this.setProcesses();
 
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
   }
 
   getProcesses() {
