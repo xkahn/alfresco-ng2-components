@@ -1,7 +1,7 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
-import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { CloudProcessService } from '../cloud-process.service';
 
 // TODO: Replace this with your own data model type
@@ -42,6 +42,8 @@ const EXAMPLE_DATA: CloudTableItem[] = [
 export class CloudTableDataSource extends DataSource<CloudTableItem> {
   data: CloudTableItem[] = EXAMPLE_DATA;
 
+  private processSubject = new BehaviorSubject<any[]>([]);
+
   constructor(private paginator: MatPaginator, private sort: MatSort, private service: CloudProcessService) {
     super();
   }
@@ -52,6 +54,9 @@ export class CloudTableDataSource extends DataSource<CloudTableItem> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<CloudTableItem[]> {
+
+    return this.processSubject.asObservable();
+/*
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -71,7 +76,18 @@ export class CloudTableDataSource extends DataSource<CloudTableItem> {
     return merge(...dataMutations).pipe(map(() => {
       return this.getPagedData(this.getSortedData([...this.data]));
     }));
+
+    */
   }
+
+  loadProcesses(): void {
+    this.service.findAll({appName: 'simple-app', page: 0, size: 10}).pipe(
+        catchError(() => of([]))
+    )
+    .subscribe((processes: any) => {
+        this.processSubject.next(Object.assign(processes.data));
+    });
+}
 
   /**
    *  Called when the table is being destroyed. Use this function, to clean up
@@ -83,7 +99,7 @@ export class CloudTableDataSource extends DataSource<CloudTableItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: CloudTableItem[]) {
+  getPagedData(data: CloudTableItem[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -92,7 +108,7 @@ export class CloudTableDataSource extends DataSource<CloudTableItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: CloudTableItem[]) {
+  getSortedData(data: CloudTableItem[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

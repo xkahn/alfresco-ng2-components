@@ -14,7 +14,7 @@ export class CloudTableComponent implements OnInit {
   dataSource: CloudTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['id', 'appName', 'initiator', 'status'];
 
   constructor(private service: CloudProcessService) {
 
@@ -22,5 +22,7 @@ export class CloudTableComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource = new CloudTableDataSource(this.paginator, this.sort, this.service);
+
+    this.dataSource.loadProcesses();
   }
 }
