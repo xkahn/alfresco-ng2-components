@@ -30,6 +30,7 @@ export class CloudTableComponent implements OnInit {
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
+
   @ViewChild(MatSort)
   sort: MatSort;
 
@@ -61,8 +62,16 @@ export class CloudTableComponent implements OnInit {
       this.dataSource.sort = this.sort;
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   getProcesses() {
-      this.processes.forEach((process) => process.appName = this.appName);
+      this.processes.forEach((process, index) => {
+        process.appName = this.appName;
+        process.initiator = this.appName + '_' + index;
+
+      });
   }
 
   setProcesses() {
