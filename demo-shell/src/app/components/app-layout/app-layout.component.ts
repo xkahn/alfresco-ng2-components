@@ -31,32 +31,7 @@ import { HeaderDataService } from '../header-data/header-data.service';
 export class AppLayoutComponent implements OnInit {
 
     links: Array<any> = [
-        { href: '/home', icon: 'home', title: 'APP_LAYOUT.HOME' },
-        { href: '/files', icon: 'folder_open', title: 'APP_LAYOUT.CONTENT_SERVICES' },
-        { href: '/breadcrumb', icon: 'label', title: 'APP_LAYOUT.BREADCRUMB' },
-        { href: '/notifications', icon: 'alarm', title: 'APP_LAYOUT.NOTIFICATIONS' },
-        { href: '/card-view', icon: 'view_headline', title: 'APP_LAYOUT.CARD_VIEW' },
-        { href: '/header-data', icon: 'edit', title: 'APP_LAYOUT.HEADER_DATA' },
-        { href: '/node-selector', icon: 'attachment', title: 'APP_LAYOUT.NODE-SELECTOR' },
-        { href: '/task-list', icon: 'assignment', title: 'APP_LAYOUT.TASK_LIST' },
-        { href: '/process-list', icon: 'assignment', title: 'APP_LAYOUT.PROCESS_LIST' },
-        { href: '/activiti', icon: 'device_hub', title: 'APP_LAYOUT.PROCESS_SERVICES' },
-        { href: '/login', icon: 'vpn_key', title: 'APP_LAYOUT.LOGIN' },
-        { href: '/trashcan', icon: 'delete', title: 'APP_LAYOUT.TRASHCAN' },
-        { href: '/dl-custom-sources', icon: 'extension', title: 'APP_LAYOUT.CUSTOM_SOURCES' },
-        { href: '/datatable', icon: 'view_module', title: 'APP_LAYOUT.DATATABLE' },
-        { href: '/datatable-lazy', icon: 'view_module', title: 'APP_LAYOUT.DATATABLE_LAZY' },
-        { href: '/form', icon: 'poll', title: 'APP_LAYOUT.FORM' },
-        { href: '/form-list', icon: 'library_books', title: 'APP_LAYOUT.FORM_LIST' },
-        { href: '/form-loading', icon: 'cached', title: 'APP_LAYOUT.FORM_LOADING' },
-        { href: '/webscript', icon: 'extension', title: 'APP_LAYOUT.WEBSCRIPT' },
-        { href: '/tag', icon: 'local_offer', title: 'APP_LAYOUT.TAG' },
-        { href: '/social', icon: 'thumb_up', title: 'APP_LAYOUT.SOCIAL' },
-        { href: '/settings-layout', icon: 'settings', title: 'APP_LAYOUT.SETTINGS' },
-        { href: '/config-editor', icon: 'code', title: 'APP_LAYOUT.CONFIG-EDITOR' },
-        { href: '/extendedSearch', icon: 'search', title: 'APP_LAYOUT.SEARCH' },
-        { href: '/overlay-viewer', icon: 'pageview', title: 'APP_LAYOUT.OVERLAY_VIEWER' },
-        { href: '/about', icon: 'info_outline', title: 'APP_LAYOUT.ABOUT' }
+        { href: '/cloud', icon: 'cloud', title: 'APS 2' }
     ];
 
     expandedSidenav = false;
