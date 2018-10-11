@@ -109,8 +109,27 @@ exports.Files = {
         formName: "test-1",
         form_fields: {
             text_id: "label",
-            displaytext_id: "field-label1-container",
+            displaytext_id: "label1",
             displayvalue_id: "labeldisplayusingvariable"
+        }
+    },
+
+    FILE_FORM_ADF: {
+        file_location: "/resources/apps/App_file_form.zip",
+        attached_file: "generatedDocument.docx",
+        title: "ADF-180-test",
+        formName: "ADF-180-test",
+        form_fields: {
+            container_id: "1504783671016"
+        }
+    },
+
+    ALL_WIDGETS_APP: {
+        file_location: "/resources/apps/AppWithAllWidgets.zip",
+        title: "ALL_WIDGETS",
+        formName: "ALL_WIDGETS",
+        form_fields: {
+            datatable_input_id: "id"
         }
     },
 

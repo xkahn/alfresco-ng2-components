@@ -27,6 +27,22 @@ import { DynamicTable } from './dynamicTable';
 
 export class Widget {
 
+var Amount = require('./Amount');
+
+var Widget = function () {
+
+    textWidget() {
+        return new Text();
+    };
+
+    containerWidget() {
+        return new Container();
+    };
+
+    amountWidget() {
+        return new Amount();
+    };
+
     multilineTextWidget() {
         return new MultilineText();
     }
