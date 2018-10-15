@@ -16,11 +16,11 @@
  */
 
 import FormFields = require('../formFields');
+import { by } from 'protractor';
 
 export class MultilineText {
 
     formFields = new FormFields();
-
     valueLocator = by.css('textarea');
 
     getFieldValue(fieldId) {

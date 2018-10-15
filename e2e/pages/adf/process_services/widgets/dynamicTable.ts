@@ -17,13 +17,15 @@
 
 import FormFields = require('../formFields');
 import Util = require('../../../../util/util');
+import { by, element, browser, protractor } from 'protractor';
 
 export class DynamicTable {
-    formFields = new FormFields();
 
+    formFields = new FormFields();
     labelLocator = by.css('dynamic-table-widget div div');
     columnNameLocator = by.css('table[id*="dynamic-table"] th');
     addButton = element(by.id('label-add-row'));
+    addRow = element(by.id('dynamictable-add-row'));
     columnDateTime = element(by.id('columnDateTime'));
     columnDate = element(by.id('columnDate'));
     calendarHeader = element(by.css('div[class="mat-datetimepicker-calendar-header-date-time"]'));
@@ -33,6 +35,52 @@ export class DynamicTable {
     dateWidget = element(by.css('button[aria-label="Open calendar"]'));
     calendarNumber = element.all(by.css('td div'));
     tableRow = element.all(by.css('tbody tr'));
+    cancelButton = element(by.cssContainingText('button span', 'Cancel'));
+    editButton = element(by.cssContainingText('button span', 'edit'));
+    dataTableInput = element(by.id('id'));
+
+    setDatatableInput(text) {
+        Util.waitUntilElementIsVisible(this.dataTableInput);
+        this.dataTableInput.clear();
+        return this.dataTableInput.sendKeys(text);
+    }
+
+    clickAddRow() {
+        Util.waitUntilElementIsVisible(this.addRow);
+        return this.addRow.click();
+    }
+
+    clickEditButton() {
+        Util.waitUntilElementIsVisible(this.editButton);
+        return this.editButton.click();
+    }
+
+    clickCancelButton() {
+        Util.waitUntilElementIsVisible(this.cancelButton);
+        return this.cancelButton.click();
+    }
+
+    clickTableRow(rowNumber) {
+        let tableRowByIndex = element(by.id('dynamictable-row-' + rowNumber));
+        Util.waitUntilElementIsVisible(tableRowByIndex);
+        return tableRowByIndex.click();
+    }
+
+    getTableRowText(rowNumber) {
+        let tableRowByIndex = element(by.id('dynamictable-row-' + rowNumber));
+        Util.waitUntilElementIsVisible(tableRowByIndex);
+        return tableRowByIndex.getText();
+    }
+
+    checkTableRowIsVisible(rowNumber) {
+        let tableRowByIndex = element(by.id('dynamictable-row-' + rowNumber));
+        return Util.waitUntilElementIsVisible(tableRowByIndex);
+    }
+
+    checkTableRowIsNotVisible(rowNumber) {
+        let tableRowByIndex = element(by.id('dynamictable-row-' + rowNumber));
+        return Util.waitUntilElementIsNotVisible(tableRowByIndex);
+    }
 
     getFieldLabel(fieldId) {
         return this.formFields.getFieldLabel(fieldId, this.labelLocator);

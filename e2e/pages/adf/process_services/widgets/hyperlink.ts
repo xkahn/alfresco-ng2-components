@@ -16,11 +16,11 @@
  */
 
 import FormFields = require('../formFields');
+import { by } from 'protractor';
 
 export class Hyperlink {
 
     formFields = new FormFields();
-
     fieldLocator = by.css('div[class="adf-hyperlink-widget "] a');
 
     getFieldText(fieldId) {

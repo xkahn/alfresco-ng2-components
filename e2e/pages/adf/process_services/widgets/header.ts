@@ -16,11 +16,11 @@
  */
 
 import FormFields = require('../formFields');
+import { by } from 'protractor';
 
 export class Header {
 
     formFields = new FormFields();
-
     labelLocator = by.css('span[id="container-header-label"]');
 
     getFieldLabel(fieldId) {

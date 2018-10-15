@@ -16,15 +16,19 @@
  */
 
 import FormFields = require('../formFields');
+import { by } from 'protractor';
 
 export class DisplayValue {
 
     formFields = new FormFields();
-
     labelLocator = by.css('span[class*="unknown-text"]');
+    inputLocator = by.css('input');
 
     getFieldLabel(fieldId) {
         return this.formFields.getFieldLabel(fieldId, this.labelLocator);
     }
 
+    getFieldValue(fieldId) {
+        return this.formFields.getFieldValue(fieldId, this.inputLocator);
+    }
 }

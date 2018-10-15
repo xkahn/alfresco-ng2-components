@@ -24,24 +24,24 @@ import { RadioButtons } from './radioButtons';
 import { Hyperlink } from './hyperlink';
 import { Dropdown } from './dropdown';
 import { DynamicTable } from './dynamicTable';
+import { Amount } from './Amount';
+import { Container } from './container';
+import { Text } from './text';
+import { People } from './people';
 
 export class Widget {
 
-var Amount = require('./Amount');
-
-var Widget = function () {
-
     textWidget() {
         return new Text();
-    };
+    }
 
     containerWidget() {
         return new Container();
-    };
+    }
 
     amountWidget() {
         return new Amount();
-    };
+    }
 
     multilineTextWidget() {
         return new MultilineText();
@@ -77,6 +77,10 @@ var Widget = function () {
 
     dynamicTable() {
         return new DynamicTable();
+    }
+
+    peopleWidget() {
+        return new People();
     }
 
 }
