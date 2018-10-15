@@ -17,16 +17,11 @@
 
 import FormFields = require('../formFields');
 
-export class MultilineText {
+export class TextWidget {
 
     formFields = new FormFields();
 
-    valueLocator = by.css('textarea');
     labelLocator = by.css("label[class*='adf-label']");
-
-    getFieldValue(fieldId) {
-        return this.formFields.getFieldValue(fieldId, this.valueLocator);
-    }
 
     getFieldLabel(fieldId) {
         return this.formFields.getFieldLabel(fieldId, this.labelLocator);
@@ -40,5 +35,19 @@ export class MultilineText {
         return this.formFields.setFieldValue(by.id, fieldId, value);
     }
 
+    getFieldValue(fieldId) {
+        return this.formFields.getFieldValue(fieldId);
+    }
 
+    getErrorMessage(fieldId) {
+        return this.formFields.getFieldErrorMessage(fieldId);
+    }
+
+    isWidgetVisible(fieldId) {
+        return this.formFields.checkWidgetIsVisible(fieldId);
+    }
+
+    isWidgetNotVisible(fieldId) {
+        return this.formFields.checkWidgetIsHidden(fieldId);
+    }
 }

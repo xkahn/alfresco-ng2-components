@@ -24,6 +24,7 @@ import { RadioButtons } from './radioButtons';
 import { Hyperlink } from './hyperlink';
 import { Dropdown } from './dropdown';
 import { DynamicTable } from './dynamicTable';
+import { TextWidget } from './text-widget';
 
 export class Widget {
 
@@ -61,6 +62,10 @@ export class Widget {
 
     dynamicTable() {
         return new DynamicTable();
+    }
+
+    textWidget() {
+        return new TextWidget();
     }
 
 }
