@@ -16,33 +16,31 @@
  */
 
 import FormFields = require('../formFields');
-import { by, element } from 'protractor';
 import Util = require('../../../../util/util');
+import { by, element } from 'protractor';
 
-export class Dropdown {
+export class Checkbox {
 
     formFields = new FormFields();
+    checkboxField = element(by.css('span[class*="mat-checkbox-label"]'));
+    checkboxLabel = element(by.css('span[class*="mat-checkbox-label"]'));
 
-    selectedOptionLocator = by.css('mat-select[id="dropdown"] span span');
-
-    getSelectedOptionText(fieldId) {
-        return this.formFields.getFieldText(fieldId, this.selectedOptionLocator);
+    getCheckboxLabel() {
+        Util.waitUntilElementIsVisible(this.checkboxLabel);
+        return this.checkboxLabel.getText();
     }
 
-    selectOptionFromDropdown(option) {
-        let selectedOption = element(by.cssContainingText('mat-option span', option));
-        Util.waitUntilElementIsVisible(selectedOption);
-        return selectedOption.click();
+    clickCheckboxInput(fieldId) {
+        let checkboxInput = element.all(by.css(`mat-checkbox[id="${fieldId}"] div`)).first();
+        Util.waitUntilElementIsVisible(checkboxInput);
+        return checkboxInput.click();
     }
 
-    openDropdown(fieldId) {
-        let dropdown = element(by.id(fieldId));
-        Util.waitUntilElementIsVisible(dropdown);
-        return dropdown.click();
-    }
-
-    checkDropdownIsVisible(fieldId) {
+    isCheckboxDisplayed(fieldId) {
         return this.formFields.checkWidgetIsVisible(fieldId);
     }
 
+    isCheckboxHidden(fieldId) {
+        return this.formFields.checkWidgetIsHidden(fieldId);
+    }
 }

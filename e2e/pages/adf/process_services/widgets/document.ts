@@ -16,33 +16,19 @@
  */
 
 import FormFields = require('../formFields');
-import { by, element } from 'protractor';
+import { element, by, protractor } from 'protractor';
 import Util = require('../../../../util/util');
 
-export class Dropdown {
+export class Document {
 
     formFields = new FormFields();
+    fileLocator = by.css("div [class*='upload-widget__content-text']");
 
-    selectedOptionLocator = by.css('mat-select[id="dropdown"] span span');
-
-    getSelectedOptionText(fieldId) {
-        return this.formFields.getFieldText(fieldId, this.selectedOptionLocator);
+    getFieldText(fieldId) {
+        return this.formFields.getFieldText(fieldId, this.fileLocator);
     }
 
-    selectOptionFromDropdown(option) {
-        let selectedOption = element(by.cssContainingText('mat-option span', option));
-        Util.waitUntilElementIsVisible(selectedOption);
-        return selectedOption.click();
+    getFileName(fieldId) {
+        return this.formFields.getFieldText(fieldId, this.fileLocator);
     }
-
-    openDropdown(fieldId) {
-        let dropdown = element(by.id(fieldId));
-        Util.waitUntilElementIsVisible(dropdown);
-        return dropdown.click();
-    }
-
-    checkDropdownIsVisible(fieldId) {
-        return this.formFields.checkWidgetIsVisible(fieldId);
-    }
-
 }
