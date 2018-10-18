@@ -40,9 +40,4 @@ export class Dropdown {
         Util.waitUntilElementIsVisible(dropdown);
         return dropdown.click();
     }
-
-    checkDropdownIsVisible(fieldId) {
-        return this.formFields.checkWidgetIsVisible(fieldId);
-    }
-
 }
