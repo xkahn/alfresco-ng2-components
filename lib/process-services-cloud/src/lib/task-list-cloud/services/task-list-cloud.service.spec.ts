@@ -14,7 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+import { TestBed } from '@angular/core/testing';
 
-export * from './lib/process-services-cloud.module';
-export * from './lib/app-list-cloud/app-list-cloud.module';
-export * from './lib/task-list-cloud/task-list-cloud.module';
+import { TaskListCloudService } from './tasklistcloud.service';
+
+describe('TaskListCloudService', () => {
+  beforeEach(() => TestBed.configureTestingModule({}));
+
+  it('should be created', () => {
+    const service: TaskListCloudService = TestBed.get(TaskListCloudService);
+    expect(service).toBeTruthy();
+  });
+});
