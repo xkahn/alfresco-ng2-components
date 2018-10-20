@@ -5,6 +5,8 @@
   "author": "Alfresco Software, Ltd.",
   "main": "./index.js",
   "scripts": {
+    "affected:dep-graph": "./node_modules/.bin/nx affected:dep-graph",
+    "affected:apps": "./node_modules/.bin/nx affected:apps",
     "affected:libs": "./node_modules/.bin/nx affected:libs",
     "docbuild": "node node_modules/typedoc/bin/typedoc --tsconfig tsconfig.json --json docs/docs.json --exclude '**/*.spec.ts' --ignoreCompilerErrors && node tools/doc/buildYamlSourceInfo.js docs/docs.json && node ./tools/doc/docProcessor.js",
     "prepublishOnly": "npm run build-lib",

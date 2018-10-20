@@ -1,0 +1,62 @@
+<div>
+    <mat-nav-list class="adf-list-confgurations">
+        <mat-list-item  (click)="metadataConfClick()">
+            <a matLine id="adf-metadata-conf">Metadata App config editor</a>
+            <button mat-icon-button>
+                <mat-icon>info</mat-icon>
+            </button>
+        </mat-list-item>
+
+        <mat-list-item (click)="searchConfClick()">
+            <a matLine id="adf-search-conf" >Search App config editor</a>
+            <button mat-icon-button>
+                <mat-icon>info</mat-icon>
+            </button>
+        </mat-list-item>
+
+        <mat-list-item (click)="fileConfClick()">
+            <a matLine id="adf-file-conf" >Excluded config file</a>
+            <button mat-icon-button>
+                <mat-icon>info</mat-icon>
+            </button>
+        </mat-list-item>
+
+        <mat-list-item (click)="taskHeaderConfClick()">
+            <a matLine id="adf-task-conf" >Task header</a>
+            <button mat-icon-button>
+                <mat-icon>info</mat-icon>
+            </button>
+        </mat-list-item>
+
+        <mat-list-item (click)="processInstanceHeaderConfClick()">
+            <a matLine id="adf-process-conf" >Process instance Header</a>
+            <button mat-icon-button>
+                <mat-icon>info</mat-icon>
+            </button>
+        </mat-list-item>
+
+        <mat-list-item (click)="startProcessConfClick()">
+            <a matLine id="adf-start-process-conf">Start process</a>
+            <button mat-icon-button>
+                <mat-icon>info</mat-icon>
+            </button>
+        </mat-list-item>
+    </mat-nav-list>
+
+    <div>
+        <ngx-monaco-editor id="adf-code-configuration-editor"
+                           class="adf-file-editor"
+                           [options]="editorOptions"
+                           [(ngModel)]="code"
+                           (onInit)="onInit($event)">
+        </ngx-monaco-editor>
+        <div class="adf-list-confgurations-buttons">
+            <button mat-raised-button id="adf-configuration-save" (click)="onSave()" color="primary">
+                Save
+            </button>
+            <button mat-raised-button id="adf-configuration-clear" (click)="onClear()" color="primary">
+                Clear
+            </button>
+        </div>
+    </div>
+</div>

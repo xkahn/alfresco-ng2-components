@@ -3,6 +3,190 @@
   "version": 1,
   "newProjectRoot": "lib",
   "projects": {
+    "basic-app": {
+      "root": "apps/basic-app",
+      "sourceRoot": "apps/basic-app/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/basic-app",
+            "index": "apps/basic-app/src/index.html",
+            "main": "apps/basic-app/src/main.ts",
+            "polyfills": "apps/basic-app/src/polyfills.ts",
+            "tsConfig": "apps/basic-app/tsconfig.app.json",
+            "assets": [
+              "apps/basic-app/src/favicon.ico",
+              "apps/basic-app/src/assets"
+            ],
+            "styles": [
+              "apps/basic-app/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/basic-app/src/environments/environment.ts",
+                  "with": "apps/basic-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "basic-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "basic-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "basic-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/basic-app/src/test.ts",
+            "polyfills": "apps/basic-app/src/polyfills.ts",
+            "tsConfig": "apps/basic-app/tsconfig.spec.json",
+            "karmaConfig": "apps/basic-app/karma.conf.js",
+            "styles": [
+              "apps/basic-app/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "apps/basic-app/src/favicon.ico",
+              "apps/basic-app/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/basic-app/tsconfig.app.json",
+              "apps/basic-app/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "another-app": {
+      "root": "apps/another-app",
+      "sourceRoot": "apps/another-app/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/another-app",
+            "index": "apps/another-app/src/index.html",
+            "main": "apps/another-app/src/main.ts",
+            "polyfills": "apps/another-app/src/polyfills.ts",
+            "tsConfig": "apps/another-app/tsconfig.app.json",
+            "assets": [
+              "apps/another-app/src/favicon.ico",
+              "apps/another-app/src/assets"
+            ],
+            "styles": [
+              "apps/another-app/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/another-app/src/environments/environment.ts",
+                  "with": "apps/another-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "another-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "another-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "another-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/another-app/src/test.ts",
+            "polyfills": "apps/another-app/src/polyfills.ts",
+            "tsConfig": "apps/another-app/tsconfig.spec.json",
+            "karmaConfig": "apps/another-app/karma.conf.js",
+            "styles": [
+              "apps/another-app/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "apps/another-app/src/favicon.ico",
+              "apps/another-app/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/another-app/tsconfig.app.json",
+              "apps/another-app/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
     "process-services-cloud": {
       "root": "lib/process-services-cloud",
       "sourceRoot": "lib/process-services-cloud/src",

@@ -10,6 +10,12 @@
   "projects": {
     "process-services-cloud": {
       "tags": []
+    },
+    "basic-app": {
+      "tags": []
+    },
+    "another-app": {
+      "tags": []
     }
   }
 }

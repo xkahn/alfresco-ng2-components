@@ -1,0 +1,285 @@
+<mat-tab-group [(selectedIndex)]="activeTab" (selectedTabChange)="onTabChange($event)"
+               data-automation-id="navigation-bar">
+    <mat-tab id="tasks-header" href="#tasks" label="{{'PS-TAB.TASKS-TAB' | translate}}">
+        <div class="page-content" *ngIf="showTaskTab">
+            <div class="adf-grid" fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="stretch">
+                <div class="adf-grid-item adf-tasks-menu" fxFlex.gt-md="225px">
+                    <div class="adf-list-buttons">
+                        <adf-sidebar-action-menu [expanded]="true" [width]="205"
+                                                 title="{{'ADF_SIDEBAR_ACTION_MENU.BUTTON.CREATE' | translate}}">
+                            <mat-icon sidebar-menu-title-icon>arrow_drop_down</mat-icon>
+                            <div sidebar-menu-options>
+                                <button mat-menu-item data-automation-id="btn-start-task" (click)="navigateStartTask()">
+                                    <mat-icon>assessment</mat-icon>
+                                    <span>{{'ADF_SIDEBAR_ACTION_MENU.BUTTON.NEW_TASK' | translate}}</span>
+                                </button>
+                            </div>
+                        </adf-sidebar-action-menu>
+                    </div>
+                    <adf-accordion>
+                        <adf-accordion-group [heading]="'Tasks'" [isSelected]="true" [isOpen]="true"
+                                             [headingIcon]="'assignment'">
+                            <adf-task-filters
+                                [filterParam]="filterSelected"
+                                [appId]="appId"
+                                [showIcon]="showTaskFilterIcon"
+                                (filterClick)="onTaskFilterClick($event)"
+                                (success)="onSuccessTaskFilterList($event)"
+                                #activitifilter>
+                            </adf-task-filters>
+                        </adf-accordion-group>
+                    </adf-accordion>
+                </div>
+                <div class="adf-grid-item adf-tasks-list" fxFlex.gt-md="380px"
+                     [ngClass.gt-md]="{'small-pagination': true}"
+                     *ngIf="taskFilter && !isStartTaskMode()">
+                    <adf-tasklist
+                        [appId]="taskFilter?.appId"
+                        [presetColumn]="presetColumn"
+                        [page]="taskPage"
+                        [size]="paginationPageSize"
+                        [selectionMode]="selectionMode"
+                        [processDefinitionKey]="taskFilter?.filter?.processDefinitionKey"
+                        [name]="taskFilter?.filter?.name"
+                        [assignment]="taskFilter?.filter?.assignment"
+                        [state]="taskFilter?.filter?.state"
+                        [sort]="taskFilter?.filter?.sort"
+                        [landingTaskId]="currentTaskId"
+                        (rowClick)="onTaskRowClick($event)"
+                        (success)="onSuccessTaskList($event)"
+                        (row-click)="onRowClick($event)"
+                        (row-dblclick)="onTaskRowDblClick($event)"
+                        [multiselect]="multiSelectTask"
+                        #taskList>
+                        <!-- Custom column definition demo -->
+
+                        <!-- <data-columns>
+                            <data-column key="name" title="{{'ADF_TASK_LIST.PROPERTIES.NAME' | translate}}" class="full-width name-column"></data-column>
+                            <data-column key="created" title="{{'ADF_TASK_LIST.PROPERTIES.CREATED' | translate}}" class="hidden"></data-column>
+                        </data-columns> -->
+
+                    </adf-tasklist>
+
+                    <adf-pagination
+                        *ngIf="taskList"
+                        [target]="taskList"
+                        (changePageSize)="onChangePageSize($event)"
+                        #taskListPagination>
+                    </adf-pagination>
+                </div>
+                <div class="adf-grid-item adf-tasks-details" *ngIf="!isStartTaskMode()" fxFlex.gt-md="1 1 auto"
+                     data-automation-id="adf-tasks-details">
+                    <adf-task-details #activitidetails
+                                      [debugMode]="true"
+                                      [taskId]="currentTaskId"
+                                      [fieldValidators]="fieldValidators"
+                                      [showHeaderContent]="showHeaderContent"
+                                      (formCompleted)="onFormCompleted($event)"
+                                      (formContentClicked)="onContentClick($event)"
+                                      (taskCreated)="onTaskCreated($event)"
+                                      (assignTask)="onAssignTask()"
+                                      (taskDeleted)="onTaskDeleted($event)">
+                    </adf-task-details>
+                    <mat-divider></mat-divider>
+                    <div *ngIf="currentTaskId">
+                        {{'PS-TAB.TASK-AUDIT-LOG' | translate}}
+                        <button
+                            adf-task-audit
+                            [task-id]="currentTaskId"
+                            [download]="true"
+                            mat-icon-button (clicked)="onAuditClick($event)" (error)="onAuditError($event)">
+                            <mat-icon>assignment_ind</mat-icon>
+                        </button>
+                        <mat-divider></mat-divider>
+                    </div>
+                    <mat-card>
+                        <mat-card-content>
+                            <app-task-attachments [taskId]="currentTaskId"></app-task-attachments>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="adf-grid-item adf-tasks-start" *ngIf="isStartTaskMode()" fxFlex.gt-md="1 1 auto">
+                    <adf-start-task
+                        [appId]="appId"
+                        (success)="onStartTaskSuccess($event)"
+                        (cancel)="onCancelStartTask()">
+                    </adf-start-task>
+                </div>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab id="processes-header" href="#processes"
+             label="{{'PS-TAB.PROCESSES-TAB' | translate}}">
+        <div class="page-content" *ngIf="showProcessTab">
+            <div class="adf-grid" fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="stretch">
+                <div class="adf-grid-item adf-processes-menu" fxFlex.gt-md="225px">
+                    <div class="adf-list-buttons">
+                        <adf-sidebar-action-menu [expanded]="true" [width]="205"
+                                                 title="{{'ADF_SIDEBAR_ACTION_MENU.BUTTON.CREATE' | translate}}">
+                            <mat-icon sidebar-menu-title-icon>arrow_drop_down</mat-icon>
+                            <div sidebar-menu-options>
+                                <button mat-menu-item data-automation-id="btn-start-process"
+                                        (click)="navigateStartProcess()">
+                                    <mat-icon>assessment</mat-icon>
+                                    <span>{{'ADF_SIDEBAR_ACTION_MENU.BUTTON.NEW_PROCESS' | translate}}</span>
+                                </button>
+                            </div>
+                        </adf-sidebar-action-menu>
+                    </div>
+                    <adf-accordion>
+                        <adf-accordion-group [heading]="'Processes'" [isSelected]="true" [isOpen]="true"
+                                             [headingIcon]="'assessment'">
+                            <adf-process-instance-filters
+                                #activitiprocessfilter
+                                [appId]="appId"
+                                [filterParam]="filterSelected"
+                                [showIcon]="showProcessFilterIcon"
+                                (filterClick)="onProcessFilterChange($event)"
+                                (filterSelected)="onProcessFilterChange($event)"
+                                (success)="onSuccessProcessFilterList($event)">
+                            </adf-process-instance-filters>
+                        </adf-accordion-group>
+                    </adf-accordion>
+                </div>
+                <div class="adf-grid-item adf-processes-list adf-list" fxFlex.gt-md="380px"
+                     [ngClass.gt-md]="{'small-pagination': true}"
+                     *ngIf="processFilter && !isStartProcessMode()">
+                    <adf-process-instance-list
+                        #processList
+                        *ngIf="processFilter?.filter" [appId]="processFilter?.appId"
+                        [selectionMode]="selectionMode"
+                        [processDefinitionKey]="processFilter?.filter?.processDefinitionKey"
+                        [presetColumn]="presetColumn"
+                        [state]="processFilter?.filter?.state"
+                        [page]="processPage"
+                        [size]="paginationPageSize"
+                        [sort]="processFilter?.filter?.sort"
+                        (rowClick)="onProcessRowClick($event)"
+                        (row-dblclick)="onProcessRowDblClick($event)"
+                        [multiselect]="multiSelectProcess"
+                        (success)="onSuccessProcessList($event)">
+                        <!-- Custom column definition demo -->
+
+                        <!-- <data-columns>
+                            <data-column key="name" title="ADF_PROCESS_LIST.PROPERTIES.NAME" class="full-width name-column"></data-column>
+                            <data-column key="created" title="ADF_PROCESS_LIST.PROPERTIES.CREATED" class="hidden"></data-column>
+                        </data-columns> -->
+
+                    </adf-process-instance-list>
+                    <adf-pagination
+                        *ngIf="processList"
+                        [target]="processList"
+                        (changePageSize)="onChangePageSize($event)"
+                        #processListPagination>
+                    </adf-pagination>
+                </div>
+                <div class="adf-grid-item adf-processes-details" *ngIf="!isStartProcessMode()" fxFlex.gt-md="1 1 auto">
+                    <adf-process-instance-details
+                        #activitiprocessdetails
+                        [processInstanceId]="currentProcessInstanceId"
+                        (processCancelled)="processCancelled()"
+                        (showProcessDiagram)="onShowProcessDiagram($event)"
+                        (taskClick)="onProcessDetailsTaskClick($event)">
+                    </adf-process-instance-details>
+                    <mat-divider></mat-divider>
+                    <div *ngIf="currentProcessInstanceId">
+                        {{'PS-TAB.PROCESS-AUDIT-LOG' | translate}}
+                        <button adf-process-audit
+                                [process-id]="currentProcessInstanceId"
+                                [download]="true" mat-icon-button
+                                [format]="'pdf'"
+                                (clicked)="onAuditClick($event)"
+                                (error)="onAuditError($event)">
+                            <mat-icon>assignment_ind</mat-icon>
+                        </button>
+                        <mat-divider></mat-divider>
+                    </div>
+                    <mat-card>
+                        <mat-card-content>
+                            <app-process-attachments
+                                [processInstanceId]="currentProcessInstanceId"></app-process-attachments>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="adf-grid-item adf-processes-start" fxFlex.gt-md="1 1 auto"
+                     *ngIf="isStartProcessMode()">
+                    <adf-start-process
+                        #activitiStartProcess
+                        [appId]="appId"
+                        [name]="defaultProcessName"
+                        [processDefinitionName]="defaultProcessDefinitionName"
+                        (formContentClicked)="onContentClick($event)"
+                        (start)="onStartProcessInstance($event)"
+                        (cancel)="onCancelProcessInstance()">
+                    </adf-start-process>
+                </div>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab id="report-header" href="#report"
+             label="{{'PS-TAB.REPORTS-TAB' | translate}}">
+        <div class="adf-grid" fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="stretch">
+            <div class="adf-grid-item adf-reports-menu" fxFlex.gt-md="300px">
+                <span><h5>Report List</h5></span>
+                <mat-divider></mat-divider>
+                <analytics-report-list
+                    [appId]="appId"
+                    [selectFirst]="selectFirstReport"
+                    (reportClick)="onReportClick($event)"
+                    #analyticsreportlist>
+                </analytics-report-list>
+            </div>
+            <div class="adf-grid-item adf-reports-details" fxFlex.gt-md="1 1 auto">
+                <adf-analytics
+                    *ngIf="report"
+                    [appId]="appId"
+                    [reportId]="report.id"
+                    [hideParameters]="false"
+                    (editReport)="onEditReport($event)"
+                    (reportSaved)="onReportSaved($event)"
+                    (reportDeleted)="onReportDeleted()">
+                </adf-analytics>
+                <div *ngIf="!report">
+                    <span>{{'ANALYTICS_REPORT.NO_REPORT_MESSAGE' | translate}}</span>
+                </div>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab id="settings-header" href="#settings"
+             label="{{'PS-TAB.SETTINGS-TAB' | translate}}">
+        <div class="adf-grid" fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="stretch">
+            <div class="adf-grid-item adf-settings-menu" fxFlex.gt-md="300px">
+                <span><h3>Settings Menu</h3></span>
+            </div>
+            <div class="adf-grid-item adf-settings-details" fxFlex.gt-md="1 1 auto">
+                <div>
+                    <mat-slide-toggle id="adf-show-task-filter-icon" [(ngModel)]="showTaskFilterIcon">Show task filters icons
+                    </mat-slide-toggle>
+                </div>
+                <div>
+                    <mat-slide-toggle id="adf-show-process-filter-icon" [(ngModel)]="showProcessFilterIcon">Show process filters icons
+                    </mat-slide-toggle>
+                </div>
+                <div>
+                    <mat-slide-toggle id="adf-show-header" (change)="toggleHeaderContent()"
+                                      [checked]="showHeaderContent">{{ 'PS-TAB.TASK-SHOW-HEADER'| translate }}
+                    </mat-slide-toggle>
+                </div>
+                <div>
+                    <mat-slide-toggle id="adf-process-multiselect"  [(ngModel)]="multiSelectProcess" >Multiselect Process List
+                    </mat-slide-toggle>
+                </div>
+                <div>
+                    <mat-slide-toggle id="adf-task-multiselect" [(ngModel)]="multiSelectTask" >Multiselect Task List
+                    </mat-slide-toggle>
+                </div>
+                <br>
+                <mat-radio-group [(ngModel)]="selectionMode">
+                    <mat-radio-button value="multiple">multiple</mat-radio-button>
+                    <mat-radio-button value="single">single</mat-radio-button>
+                    <mat-radio-button value="none">none</mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>

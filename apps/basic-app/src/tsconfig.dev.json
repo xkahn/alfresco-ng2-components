@@ -1,0 +1,46 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "module": "es2015",
+    "rootDir": "..",
+    "baseUrl": ".",
+    "skipLibCheck": false,
+    "types": [],
+    "paths": {
+      "alfresco-js-api": [
+        "../../node_modules/alfresco-js-api/dist/alfresco-js-api.js"
+      ],
+      "rxjs/*": [
+        "../../node_modules/rxjs/*"
+      ],
+      "@angular/*": [
+        "../../node_modules/@angular/*"
+      ],
+      "@alfresco/adf-core": [
+        "../../lib/core"
+      ],
+      "@alfresco/adf-content-services": [
+        "../../lib/content-services"
+      ],
+      "@alfresco/adf-process-services": [
+        "../../lib/process-services"
+      ],
+      "@alfresco/adf-insights": [
+        "../../lib/insights"
+      ],
+      "@alfresco/adf-process-services-cloud": [
+        "../../lib/process-services-cloud"
+      ]
+    }
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ],
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": false,
+    "entryModule": "./app/app.module#AppModule",
+    "genDir": "../ngfactory"
+  }
+}
