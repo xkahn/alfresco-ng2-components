@@ -17,7 +17,6 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '../material.module';
 import { ButtonsMenuComponent } from './buttons-menu.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -26,7 +25,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     imports: [
         CommonModule,
         MaterialModule,
-        TranslateModule.forChild(),
         FlexLayoutModule
     ],
     declarations: [

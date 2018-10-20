@@ -18,7 +18,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from '../material.module';
-import { TranslateModule } from '@ngx-translate/core';
 
 import { ContextMenuHolderComponent } from './context-menu-holder.component';
 import { ContextMenuDirective } from './context-menu.directive';
@@ -27,8 +26,7 @@ import { ContextMenuListComponent } from './context-menu-list.component';
 @NgModule({
     imports: [
         CommonModule,
-        MaterialModule,
-        TranslateModule.forChild()
+        MaterialModule
     ],
     declarations: [
         ContextMenuHolderComponent,

@@ -17,7 +17,6 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '../material.module';
 import { AboutComponent } from './about.component';
 import { DataTableModule } from '../datatable/datatable.module';
@@ -27,7 +26,6 @@ import { DataColumnModule } from '../data-column/data-column.module';
     imports: [
         CommonModule,
         MaterialModule,
-        TranslateModule.forChild(),
         DataTableModule,
         DataColumnModule
     ],

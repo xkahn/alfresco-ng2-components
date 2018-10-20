@@ -17,7 +17,6 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataColumnModule } from '../data-column/data-column.module';
@@ -35,8 +34,7 @@ import { CommentsComponent } from './comments.component';
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,
-        CommonModule,
-        TranslateModule.forChild()
+        CommonModule
     ],
     declarations: [
         CommentListComponent,

@@ -187,6 +187,48 @@
         }
       }
     },
+    "core": {
+      "root": "lib/core",
+      "sourceRoot": "lib/core/src",
+      "projectType": "library",
+      "prefix": "adf",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "lib/core/tsconfig.json",
+            "project": "lib/core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "lib/core/ng-package.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "lib/core/test.ts",
+            "tsConfig": "lib/core/tsconfig.json",
+            "karmaConfig": "lib/core/karma.conf.js",
+            "codeCoverage": true,
+            "sourceMap": true
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "lib/core/tsconfig.json",
+              "lib/core/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
     "process-services-cloud": {
       "root": "lib/process-services-cloud",
       "sourceRoot": "lib/process-services-cloud/src",

@@ -17,7 +17,6 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '../material.module';
 import { ErrorContentComponent } from './error-content/error-content.component';
 import { EmptyContentComponent } from './empty-content/empty-content.component';
@@ -25,8 +24,7 @@ import { EmptyContentComponent } from './empty-content/empty-content.component';
 @NgModule({
     imports: [
         CommonModule,
-        MaterialModule,
-        TranslateModule.forChild()
+        MaterialModule
     ],
     declarations: [
         ErrorContentComponent,

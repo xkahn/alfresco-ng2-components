@@ -18,7 +18,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '../material.module';
 
 import { HostSettingsComponent } from './host-settings.component';
@@ -27,7 +26,6 @@ import { HostSettingsComponent } from './host-settings.component';
     imports: [
         CommonModule,
         MaterialModule,
-        TranslateModule.forChild(),
         FormsModule,
         ReactiveFormsModule
     ],

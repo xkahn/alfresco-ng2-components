@@ -30,7 +30,6 @@ import {
 } from '@angular/material';
 import { MatDatetimepickerModule, MatNativeDatetimeModule } from '@mat-datetimepicker/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { TranslateModule } from '@ngx-translate/core';
 
 import { CardViewContentProxyDirective } from './directives/card-view-content-proxy.directive';
 import { CardViewComponent } from './components/card-view/card-view.component';
@@ -47,7 +46,6 @@ import { CardViewSelectItemComponent } from './components/card-view-selectitem/c
         CommonModule,
         FormsModule,
         FlexLayoutModule,
-        TranslateModule.forChild(),
         MatDatepickerModule,
         MatNativeDateModule,
         MatCheckboxModule,

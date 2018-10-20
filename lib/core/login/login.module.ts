@@ -19,7 +19,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '../material.module';
 
 import { LoginComponent } from './components/login.component';
@@ -34,8 +33,7 @@ import { LoginDialogPanelComponent } from './components/login-dialog-panel.compo
         MaterialModule,
         FormsModule,
         ReactiveFormsModule,
-        CommonModule,
-        TranslateModule.forChild()
+        CommonModule
     ],
     declarations: [
         LoginComponent,

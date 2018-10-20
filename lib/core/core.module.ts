@@ -20,7 +20,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { APP_INITIALIZER, NgModule, ModuleWithProviders } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { MaterialModule } from './material.module';
 import { AboutModule } from './about/about.module';
@@ -89,13 +89,7 @@ export function createTranslateLoader(http: HttpClient) {
         DataTableModule,
         ButtonsMenuModule,
         TemplateModule,
-        TranslateModule.forChild({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: (createTranslateLoader),
-                deps: [HttpClient, LogService]
-            }
-        }),
+        TranslateModule,
         SortingPickerModule
     ],
     exports: [
@@ -163,13 +157,7 @@ export class CoreModuleLazy {
         DataTableModule,
         ButtonsMenuModule,
         TemplateModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: (createTranslateLoader),
-                deps: [HttpClient, LogService]
-            }
-        }),
+        TranslateModule,
         SortingPickerModule
     ],
     exports: [

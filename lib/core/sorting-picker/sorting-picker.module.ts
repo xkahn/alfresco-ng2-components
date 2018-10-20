@@ -17,15 +17,13 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '../material.module';
 import { SortingPickerComponent } from './sorting-picker.component';
 
 @NgModule({
     imports: [
         CommonModule,
-        MaterialModule,
-        TranslateModule.forChild()
+        MaterialModule
     ],
     declarations: [
         SortingPickerComponent

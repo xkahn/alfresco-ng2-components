@@ -10,6 +10,6 @@
   ],
   "include": [
     "**/*.ts",
-    "../../../libs/content-lib/src/index.ts"
+    "../../lib/process-services-cloud/src/index.ts"
   ]
 }

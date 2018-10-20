@@ -17,7 +17,6 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -44,7 +43,6 @@ import { ViewerToolbarActionsComponent } from './components/viewer-toolbar-actio
     imports: [
         CommonModule,
         MaterialModule,
-        TranslateModule.forChild(),
         FormsModule,
         ReactiveFormsModule,
         ToolbarModule,

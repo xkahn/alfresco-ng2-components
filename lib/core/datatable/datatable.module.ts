@@ -18,7 +18,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 
 import { MaterialModule } from '../material.module';
 import { ContextMenuModule } from '../context-menu/context-menu.module';
@@ -44,7 +43,6 @@ import { EmptyCustomContentDirective } from './directives/empty-custom-content.d
         RouterModule,
         MaterialModule,
         CommonModule,
-        TranslateModule.forChild(),
         ContextMenuModule,
         PipeModule,
         DirectiveModule
