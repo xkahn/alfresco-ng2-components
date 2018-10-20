@@ -1,0 +1,15 @@
+{
+  "npmScope": "my-company",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "process-services-cloud": {
+      "tags": []
+    }
+  }
+}
