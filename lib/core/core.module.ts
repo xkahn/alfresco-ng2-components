@@ -44,7 +44,7 @@ import { CommentsModule } from './comments/comments.module';
 import { ButtonsMenuModule } from './buttons-menu/buttons-menu.module';
 import { TemplateModule } from './templates/template.module';
 import { ClipboardModule } from './clipboard/clipboard.module';
-test
+
 import { DirectiveModule } from './directives/directive.module';
 import { PipeModule } from './pipes/pipe.module';
 
