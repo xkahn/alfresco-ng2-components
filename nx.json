@@ -14,13 +14,25 @@
     "content-services": {
       "tags": []
     },
+    "process-services": {
+      "tags": []
+    },
+    "extensions": {
+      "tags": []
+    },
+    "insights": {
+      "tags": []
+    },
     "core": {
       "tags": []
     },
-    "basic-app": {
+    "dev": {
       "tags": []
     },
-    "another-app": {
+    "dist": {
+      "tags": []
+    },
+    "lib-e2e": {
       "tags": []
     }
   }

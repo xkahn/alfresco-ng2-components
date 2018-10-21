@@ -3,38 +3,93 @@
   "version": 1,
   "newProjectRoot": "lib",
   "projects": {
-    "basic-app": {
-      "root": "apps/basic-app",
-      "sourceRoot": "apps/basic-app/src",
+    "dist": {
+      "root": "demo-shell",
+      "sourceRoot": "demo-shell/src",
       "projectType": "application",
-      "prefix": "app",
-      "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/basic-app",
-            "index": "apps/basic-app/src/index.html",
-            "main": "apps/basic-app/src/main.ts",
-            "polyfills": "apps/basic-app/src/polyfills.ts",
-            "tsConfig": "apps/basic-app/tsconfig.app.json",
+            "outputPath": "demo-shell/dist",
+            "index": "demo-shell/src/index.html",
+            "main": "demo-shell/src/main.ts",
+            "tsConfig": "demo-shell/src/tsconfig.app.json",
+            "polyfills": "demo-shell/src/polyfills.ts",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "demo-shell/src/node_modules"
+              ]
+            },
             "assets": [
-              "apps/basic-app/src/favicon.ico",
-              "apps/basic-app/src/assets"
+              "demo-shell/src/assets",
+              "demo-shell/src/favicon.ico",
+              "demo-shell/src/app.config.json",
+              "demo-shell/src/versions.json",
+              {
+                "glob": "**/*",
+                "input": "demo-shell/resources",
+                "output": "/resources"
+              },
+              {
+                "glob": "**/*",
+                "input": "demo-shell/src/app/components/lazy-loading/i18n",
+                "output": "/resources/lazy-loading/i18n"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@alfresco/adf-core/prebuilt-themes",
+                "output": "/assets/prebuilt-themes"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@alfresco/adf-core/bundles/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@alfresco/adf-insights/bundles/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@alfresco/adf-process-services/bundles/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@alfresco/adf-process-services-cloud/bundles/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@alfresco/adf-content-services/bundles/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "pdf.worker.min.js",
+                "input": "node_modules/pdfjs-dist/build",
+                "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-monaco-editor/assets/monaco",
+                "output": "/assets/monaco/"
+              }
             ],
             "styles": [
-              "apps/basic-app/src/styles.css"
+              "demo-shell/src/styles.scss",
+              "demo-shell/src/custom-style.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/pdfjs-dist/build/pdf.js",
+              "node_modules/pdfjs-dist/web/pdf_viewer.js",
+              "node_modules/raphael/raphael.min.js",
+              "node_modules/moment/min/moment.min.js"
+            ]
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/basic-app/src/environments/environment.ts",
-                  "with": "apps/basic-app/src/environments/environment.prod.ts"
-                }
-              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -42,42 +97,108 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
+              "vendorChunk": true,
+              "buildOptimizer": true,
+              "verbose": false,
+              "fileReplacements": [
+                {
+                  "replace": "demo-shell/src/environments/environment.ts",
+                  "with": "demo-shell/src/environments/environment.prod.ts"
+                }
+              ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "basic-app:build"
+            "browserTarget": "dist:build",
+            "port": 3000
           },
           "configurations": {
             "production": {
-              "browserTarget": "basic-app:build:production"
+              "browserTarget": "dist:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "basic-app:build"
+            "browserTarget": "dist:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "apps/basic-app/src/test.ts",
-            "polyfills": "apps/basic-app/src/polyfills.ts",
-            "tsConfig": "apps/basic-app/tsconfig.spec.json",
-            "karmaConfig": "apps/basic-app/karma.conf.js",
-            "styles": [
-              "apps/basic-app/src/styles.css"
+            "main": "demo-shell/src/test.ts",
+            "karmaConfig": "./demo-shell/karma.conf.js",
+            "polyfills": "demo-shell/src/polyfills.ts",
+            "tsConfig": "demo-shell/src/tsconfig.spec.json",
+            "scripts": [
+              "node_modules/pdfjs-dist/build/pdf.js",
+              "node_modules/pdfjs-dist/web/pdf_viewer.js",
+              "node_modules/raphael/raphael.min.js",
+              "node_modules/moment/min/moment.min.js"
             ],
-            "scripts": [],
+            "styles": [
+              "demo-shell/src/styles.scss",
+              "demo-shell/src/custom-style.scss"
+            ],
             "assets": [
-              "apps/basic-app/src/favicon.ico",
-              "apps/basic-app/src/assets"
+              "demo-shell/src/assets",
+              "demo-shell/src/favicon.ico",
+              "demo-shell/src/app.config.json",
+              "demo-shell/src/versions.json",
+              {
+                "glob": "**/*",
+                "input": "demo-shell/resources",
+                "output": "/resources"
+              },
+              {
+                "glob": "**/*",
+                "input": "demo-shell/src/app/components/lazy-loading/i18n",
+                "output": "/resources/lazy-loading/i18n"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@alfresco/adf-core/prebuilt-themes",
+                "output": "/assets/prebuilt-themes"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@alfresco/adf-core/bundles/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@alfresco/adf-insights/bundles/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@alfresco/adf-process-services/bundles/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@alfresco/adf-process-services-cloud/bundles/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@alfresco/adf-content-services/bundles/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "pdf.worker.min.js",
+                "input": "node_modules/pdfjs-dist/build",
+                "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": ".node_modules/ngx-monaco-editor/assets/monaco",
+                "output": "/assets/monaco/"
+              }
             ]
           }
         },
@@ -85,48 +206,136 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/basic-app/tsconfig.app.json",
-              "apps/basic-app/tsconfig.spec.json"
+              "./demo-shell/src/tsconfig.app.json"
             ],
             "exclude": [
-              "**/node_modules/**"
+              "**/node_modules/**/*"
             ]
           }
         }
       }
     },
-    "another-app": {
-      "root": "apps/another-app",
-      "sourceRoot": "apps/another-app/src",
+    "dev": {
+      "root": "demo-shell",
+      "sourceRoot": "demo-shell/src",
       "projectType": "application",
-      "prefix": "app",
-      "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/another-app",
-            "index": "apps/another-app/src/index.html",
-            "main": "apps/another-app/src/main.ts",
-            "polyfills": "apps/another-app/src/polyfills.ts",
-            "tsConfig": "apps/another-app/tsconfig.app.json",
+            "outputPath": "demo-shell/dist",
+            "index": "demo-shell/src/index.html",
+            "main": "demo-shell/src/main.ts",
+            "tsConfig": "demo-shell/src/tsconfig.dev.json",
+            "polyfills": "demo-shell/src/polyfills.ts",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "lib"
+              ]
+            },
             "assets": [
-              "apps/another-app/src/favicon.ico",
-              "apps/another-app/src/assets"
+              "demo-shell/src/assets",
+              "demo-shell/src/app.config.json",
+              "demo-shell/src/versions.json",
+              {
+                "glob": "**/*",
+                "input": "demo-shell/src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "app.config.json",
+                "input": "demo-shell/src",
+                "output": "/"
+              },
+              {
+                "glob": "versions.json",
+                "input": "demo-shell/src",
+                "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "demo-shell/resources",
+                "output": "/resources"
+              },
+              {
+                "glob": "**/*",
+                "input": "demo-shell/src/app/components/lazy-loading/i18n",
+                "output": "/resources/lazy-loading/i18n"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/dist/core/prebuilt-themes",
+                "output": "/assets/prebuilt-themes"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/core/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/process-services/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/process-services-cloud/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/content-services/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/core/i18n",
+                "output": "/assets/adf-core/i18n"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/content-services/i18n",
+                "output": "/assets/adf-content-services/i18n"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/process-services/i18n",
+                "output": "/assets/adf-process-services/i18n"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/process-services-cloud/src/lib/i18n",
+                "output": "/assets/adf-process-services-cloud/i18n"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/insights/i18n",
+                "output": "/assets/adf-insights/i18n"
+              },
+              {
+                "glob": "pdf.worker.min.js",
+                "input": "node_modules/pdfjs-dist/build",
+                "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-monaco-editor/assets/monaco",
+                "output": "/assets/monaco/"
+              }
             ],
             "styles": [
-              "apps/another-app/src/styles.css"
+              "demo-shell/src/styles.scss",
+              "demo-shell/src/custom-style-dev.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/pdfjs-dist/build/pdf.js",
+              "node_modules/pdfjs-dist/web/pdf_viewer.js",
+              "node_modules/raphael/raphael.min.js",
+              "node_modules/moment/min/moment.min.js"
+            ]
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/another-app/src/environments/environment.ts",
-                  "with": "apps/another-app/src/environments/environment.prod.ts"
-                }
-              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -134,42 +343,142 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
+              "vendorChunk": true,
+              "buildOptimizer": true,
+              "verbose": false,
+              "fileReplacements": [
+                {
+                  "replace": "demo-shell/src/environments/environment.ts",
+                  "with": "demo-shell/src/environments/environment.prod.ts"
+                }
+              ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "another-app:build"
+            "browserTarget": "dev:build",
+            "port": 3000
           },
           "configurations": {
             "production": {
-              "browserTarget": "another-app:build:production"
+              "browserTarget": "dev:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "another-app:build"
+            "browserTarget": "dev:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "apps/another-app/src/test.ts",
-            "polyfills": "apps/another-app/src/polyfills.ts",
-            "tsConfig": "apps/another-app/tsconfig.spec.json",
-            "karmaConfig": "apps/another-app/karma.conf.js",
-            "styles": [
-              "apps/another-app/src/styles.css"
+            "main": "demo-shell/src/test.ts",
+            "karmaConfig": "./demo-shell/karma.conf.js",
+            "polyfills": "demo-shell/src/polyfills.ts",
+            "tsConfig": "demo-shell/src/tsconfig.spec.json",
+            "scripts": [
+              "node_modules/pdfjs-dist/build/pdf.js",
+              "node_modules/pdfjs-dist/web/pdf_viewer.js",
+              "node_modules/raphael/raphael.min.js",
+              "node_modules/moment/min/moment.min.js"
             ],
-            "scripts": [],
+            "styles": [
+              "demo-shell/src/styles.scss",
+              "demo-shell/src/custom-style-dev.scss"
+            ],
             "assets": [
-              "apps/another-app/src/favicon.ico",
-              "apps/another-app/src/assets"
+              "demo-shell/src/assets",
+              "demo-shell/src/app.config.json",
+              "demo-shell/src/versions.json",
+              {
+                "glob": "**/*",
+                "input": "demo-shell/src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "app.config.json",
+                "input": "demo-shell/src",
+                "output": "/"
+              },
+              {
+                "glob": "versions.json",
+                "input": "demo-shell/src",
+                "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "demo-shell/resources",
+                "output": "/resources"
+              },
+              {
+                "glob": "**/*",
+                "input": "demo-shell/src/app/components/lazy-loading/i18n",
+                "output": "/resources/lazy-loading/i18n"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/dist/core/prebuilt-themes",
+                "output": "/assets/prebuilt-themes"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/core/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/process-services/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/process-services-cloud/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/content-services/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/core/i18n",
+                "output": "/assets/adf-core/i18n"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/content-services/i18n",
+                "output": "/assets/adf-content-services/i18n"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/process-services/i18n",
+                "output": "/assets/adf-process-services/i18n"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/process-services-cloud/src/lib/i18n",
+                "output": "/assets/adf-process-services-cloud/i18n"
+              },
+              {
+                "glob": "**/*",
+                "input": "lib/insights/i18n",
+                "output": "/assets/adf-insights/i18n"
+              },
+              {
+                "glob": "pdf.worker.min.js",
+                "input": "node_modules/pdfjs-dist/build",
+                "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "/node_modules/ngx-monaco-editor/assets/monaco",
+                "output": "/assets/monaco/"
+              }
             ]
           }
         },
@@ -177,11 +486,46 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/another-app/tsconfig.app.json",
-              "apps/another-app/tsconfig.spec.json"
+              "./demo-shell/src/tsconfig.app.json"
             ],
             "exclude": [
-              "**/node_modules/**"
+              "**/node_modules/**/*"
+            ]
+          }
+        }
+      }
+    },
+    "lib-e2e": {
+      "root": "demo-shell",
+      "sourceRoot": "./demo-shell",
+      "projectType": "application",
+      "architect": {
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "proxyConfig": "./e2e/proxy.conf.js",
+            "browserTarget": "dev:build",
+            "port": 3000
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "dev:build:production"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "./protractor.conf.js",
+            "devServerTarget": "lib-e2e:serve"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [],
+            "exclude": [
+              "**/node_modules/**/*"
             ]
           }
         }
@@ -271,6 +615,48 @@
         }
       }
     },
+    "process-services": {
+      "root": "lib/process-services",
+      "sourceRoot": "lib/process-services/src",
+      "projectType": "library",
+      "prefix": "adf",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "lib/process-services/tsconfig.json",
+            "project": "lib/process-services/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "lib/process-services/ng-package.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "lib/process-services/test.ts",
+            "tsConfig": "lib/process-services/tsconfig.json",
+            "karmaConfig": "lib/process-services/karma.conf.js",
+            "codeCoverage": true,
+            "sourceMap": true
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "lib/process-services/tsconfig.json",
+              "lib/process-services/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
     "process-services-cloud": {
       "root": "lib/process-services-cloud",
       "sourceRoot": "lib/process-services-cloud/src",
@@ -303,6 +689,85 @@
             "tsConfig": [
               "lib/process-services-cloud/tsconfig.lib.json",
               "lib/process-services-cloud/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "insights": {
+      "root": "lib/insights",
+      "sourceRoot": "lib/insights/src",
+      "projectType": "library",
+      "prefix": "adf",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "lib/insights/tsconfig.json",
+            "project": "lib/insights/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "lib/insights/ng-package.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "lib/insights/test.ts",
+            "tsConfig": "lib/insights/tsconfig.json",
+            "karmaConfig": "lib/insights/karma.conf.js",
+            "codeCoverage": true,
+            "sourceMap": true
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "lib/insights/tsconfig.json",
+              "lib/insights/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "extensions": {
+      "root": "lib/extensions",
+      "sourceRoot": "lib/extensions/src/lib",
+      "projectType": "library",
+      "prefix": "adf",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "lib/extensions/tsconfig.lib.json",
+            "project": "lib/extensions/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "lib/extensions/src/test.ts",
+            "tsConfig": "lib/extensions/tsconfig.spec.json",
+            "karmaConfig": "lib/extensions/karma.conf.js",
+            "codeCoverage": true,
+            "sourceMap": true
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "lib/extensions/tsconfig.lib.json",
+              "lib/extensions/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
