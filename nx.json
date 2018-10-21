@@ -11,6 +11,9 @@
     "process-services-cloud": {
       "tags": []
     },
+    "content-services": {
+      "tags": []
+    },
     "core": {
       "tags": []
     },
