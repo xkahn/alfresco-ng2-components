@@ -46,10 +46,14 @@ for i in "${libs[@]}"
 do
     if [ "$i" == "process-services-cloud" ] ; then
         echo "CLOUD"
+        echo "lint"
+        ./node_modules/.bin/tslint -p ./lib/process-services-cloud/tsconfig.json -c ./lib/tslint.json || exit 1
+
         echo "Build cloud"
         ng build process-services-cloud && \
         mkdir -p ./node_modules/@alfresco/adf-process-services-cloud/ && \
         cp -R ./lib/dist/process-services-cloud/* ./node_modules/@alfresco/adf-process-services-cloud/
+
         echo "Unit test cloud"
         ng test process-services-cloud --watch=false
         #npm run build:core
