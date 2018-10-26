@@ -25,19 +25,34 @@ then
     exit 0
 fi
 
-#core
+#process-services
 for i in "${libs[@]}"
 do
-    if [ "$i" == "core" ] ; then
-        echo "CORE"
-        echo "Build core"
-        echo "Build content"
-        echo "Build process"
-        echo "Unit test core"
-        echo "Unit test content"
-        echo "Unit test process"
-        #npm run build:core
-        exit 0
+    if [ "$i" == "process-services" ] ; then
+        echo "========= Process Services ========="
+        echo "====== lint ======"
+        ./node_modules/.bin/tslint -p ./lib/process-services/tsconfig.json -c ./lib/tslint.json || exit 1
+
+        echo "====== Unit test ======"
+        ng test process-services --watch=false
+
+        echo "====== Build ======"
+        npm run ng-packagr -- -p ./lib/process-services/ && \
+        rm -rf ./node_modules/@alfresco/adf-process-cloud/ && \
+        mkdir -p ./node_modules/@alfresco/adf-process-services/ && \
+        cp -R ./lib/dist/process-services/* ./node_modules/@alfresco/adf-process-services/
+
+
+        echo "====== Build style ======"
+        node ./lib/config/bundle-process-services-scss.js
+
+        echo "====== Copy i18n ======"
+        mkdir -p ./lib/dist/process-services/bundles/assets/adf-process-services/i18n
+        cp -R ./lib/process-services/i18n/* ./lib/dist/process-services/bundles/assets/adf-process-services/i18n
+
+        echo "====== Copy assets ======"
+        cp -R ./lib/process-services/assets/* ./lib/dist/process-services/bundles/assets
+
     fi
 done
 
@@ -45,16 +60,17 @@ done
 for i in "${libs[@]}"
 do
     if [ "$i" == "process-services-cloud" ] ; then
-        echo "CLOUD"
-        echo "lint"
+        echo "========= Process Services Cloud ========="
+        echo "1>lint"
         ./node_modules/.bin/tslint -p ./lib/process-services-cloud/tsconfig.json -c ./lib/tslint.json || exit 1
 
-        echo "Build cloud"
+        echo "2>Build"
         ng build process-services-cloud && \
+        rm -rf ./node_modules/@alfresco/adf-process-services-cloud/ && \
         mkdir -p ./node_modules/@alfresco/adf-process-services-cloud/ && \
         cp -R ./lib/dist/process-services-cloud/* ./node_modules/@alfresco/adf-process-services-cloud/
 
-        echo "Unit test cloud"
+        echo "3>Unit test"
         ng test process-services-cloud --watch=false
         #npm run build:core
     fi
