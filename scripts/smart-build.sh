@@ -34,14 +34,10 @@ do
         ./node_modules/.bin/tslint -p ./lib/process-services/tsconfig.json -c ./lib/tslint.json || exit 1
 
         echo "====== Unit test ======"
-        ng test process-services --watch=false
+        #ng test process-services --watch=false
 
         echo "====== Build ======"
-        npm run ng-packagr -- -p ./lib/process-services/ && \
-        rm -rf ./node_modules/@alfresco/adf-process-cloud/ && \
-        mkdir -p ./node_modules/@alfresco/adf-process-services/ && \
-        cp -R ./lib/dist/process-services/* ./node_modules/@alfresco/adf-process-services/
-
+        #npm run ng-packagr -- -p ./lib/process-services/
 
         echo "====== Build style ======"
         node ./lib/config/bundle-process-services-scss.js
@@ -52,6 +48,11 @@ do
 
         echo "====== Copy assets ======"
         cp -R ./lib/process-services/assets/* ./lib/dist/process-services/bundles/assets
+
+        echo "====== Move to node_modules ======"
+        rm -rf ./node_modules/@alfresco/adf-process-cloud/ && \
+        mkdir -p ./node_modules/@alfresco/adf-process-services/ && \
+        cp -R ./lib/dist/process-services/* ./node_modules/@alfresco/adf-process-services/
 
     fi
 done
@@ -65,14 +66,26 @@ do
         ./node_modules/.bin/tslint -p ./lib/process-services-cloud/tsconfig.json -c ./lib/tslint.json || exit 1
 
         echo "2>Build"
-        ng build process-services-cloud && \
-        rm -rf ./node_modules/@alfresco/adf-process-services-cloud/ && \
-        mkdir -p ./node_modules/@alfresco/adf-process-services-cloud/ && \
-        cp -R ./lib/dist/process-services-cloud/* ./node_modules/@alfresco/adf-process-services-cloud/
+        ng build process-services-cloud
 
         echo "3>Unit test"
-        ng test process-services-cloud --watch=false
+        #ng test process-services-cloud --watch=false
         #npm run build:core
+
+        echo "====== Build style ======"
+        node ./lib/config/bundle-process-services-cloud-scss.js
+
+        echo "====== Copy i18n ======"
+        mkdir -p ./lib/dist/process-services/bundles/assets/adf-process-services/i18n
+        cp -R ./lib/process-services/i18n/* ./lib/dist/process-services/bundles/assets/adf-process-services/i18n
+
+        echo "====== Copy assets ======"
+        cp -R ./lib/process-services/assets/* ./lib/dist/process-services/bundles/assets
+
+        echo "====== Move to node_modules ======"
+        rm -rf ./node_modules/@alfresco/adf-process-cloud/ && \
+        mkdir -p ./node_modules/@alfresco/adf-process-services-cloud/ && \
+        cp -R ./lib/dist/process-services-cloud/* ./node_modules/@alfresco/adf-process-services-cloud/
     fi
 done
 
