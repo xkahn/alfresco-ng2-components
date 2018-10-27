@@ -1,0 +1,25 @@
+@import '../process-list/components/process-filters.component';
+@import '../attachment/process-attachment-list.component';
+@import '../attachment/task-attachment-list.component';
+@import '../process-comments/process-comments.component';
+@import '../people/people.module';
+@import '../task-list/components/start-task.component';
+@import '../task-list/components/task-filters.component';
+@import '../task-list/components/task-header.component';
+@import '../task-list/components/task-standalone.component';
+@import '../app-list/apps-list.component';
+@import '../content-widget/attach-file-widget-dialog.component';
+
+@mixin adf-process-services-theme($theme) {
+    @include adf-process-filters-theme($theme);
+    @include adf-process-comment-theme($theme);
+    @include adf-task-list-start-task-theme($theme);
+    @include adf-people-module-theme($theme);
+    @include adf-task-list-filters-task-theme($theme);
+    @include adf-task-list-header-theme($theme);
+    @include adf-process-attachment-list-theme($theme);
+    @include adf-task-attachment-list-theme($theme);
+    @include adf-apps-theme($theme);
+    @include adf-task-standalone-component-theme($theme);
+    @include adf-attach-file-widget-dialog-component-theme($theme);
+}
