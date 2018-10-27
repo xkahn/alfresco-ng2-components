@@ -588,7 +588,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "lib/process-services/tsconfig.json",
+            "tsConfig": "lib/process-services/tsconfig.lib.json",
             "project": "lib/process-services/ng-package.json"
           },
           "configurations": {
@@ -600,8 +600,8 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "lib/process-services/test.ts",
-            "tsConfig": "lib/process-services/tsconfig.json",
+            "main": "lib/process-services/src/test.ts",
+            "tsConfig": "lib/process-services/tsconfig.spec.json",
             "karmaConfig": "lib/process-services/karma.conf.js",
             "codeCoverage": true,
             "sourceMap": true
@@ -611,8 +611,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "lib/process-services/tsconfig.json",
-              "lib/process-services/tsconfig.json"
+              "lib/process-services/tsconfig.lib.json",
+              "lib/process-services/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
