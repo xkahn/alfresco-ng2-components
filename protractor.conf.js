@@ -54,7 +54,7 @@ exports.config = {
         specsToRun
     ],
 
-    capabilities: {
+    /*capabilities: {
         browserName: 'chrome',
 
         shardTestFiles: true,
@@ -69,23 +69,23 @@ exports.config = {
             },
             args: args_options
         }
-    },
+    },*/
 
 
 
-     /* 'capabilities': {
+      'capabilities': {
         'os': 'Windows',
         'os_version': '10',
         'browserName': 'IE',
         'browserstack.local' : 'false',
         'browserstack.selenium_version' : '3.5.2',
-        'browserstack.user' : 'jenny.dosti@alfresco.com', // 'cristinajalba1',
-        'browserstack.key' : 'XbfpqzqxssF6QxjxYwKy', // 'YbuK5DBqYrWZv1BQANzo',
+        'browserstack.user' : 'eugenioromano1', // 'cristinajalba1',
+        'browserstack.key' : 'EzP5ZfpPFZ3hkEwqtHb7', // 'YbuK5DBqYrWZv1BQANzo',
         'resolution': '1366x768'
-     }, */
+     },
 
 
-    directConnect: DIRECT_CONNECCT,
+    // directConnect: DIRECT_CONNECCT,
 
     baseUrl: "http://" + HOST,
 
@@ -102,8 +102,8 @@ exports.config = {
      * The address of a running selenium server (must be manually start before running the tests). If this is specified seleniumServerJar and seleniumPort will be ignored.
      * @config {String} seleniumAddress
      */
-    seleniumAddress: SELENIUM_SERVER,
-    // seleniumAddress: 'http://hub-cloud.browserstack.com/wd/hub',
+    // seleniumAddress: SELENIUM_SERVER,
+    seleniumAddress: 'http://hub-cloud.browserstack.com/wd/hub',
 
      plugins: [{
         package: 'jasmine2-protractor-utils',
