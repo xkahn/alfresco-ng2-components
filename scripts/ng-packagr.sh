@@ -55,7 +55,7 @@ mkdir -p ./lib/dist/content-services/bundles/assets/adf-content-services/i18n
 cp -R ./lib/content-services/i18n/* ./lib/dist/content-services/bundles/assets/adf-content-services/i18n
 
 mkdir -p ./lib/dist/process-services/bundles/assets/adf-process-services/i18n
-cp -R ./lib/process-services/i18n/* ./lib/dist/process-services/bundles/assets/adf-process-services/i18n
+cp -R ./lib/process-services/src/lib/i18n/* ./lib/dist/process-services/bundles/assets/adf-process-services/i18n
 
 mkdir -p ./lib/dist/insights/bundles/assets/adf-insights/i18n
 cp -R ./lib/insights/i18n/* ./lib/dist/insights/bundles/assets/adf-insights/i18n
@@ -68,7 +68,7 @@ echo "====== Copy assets ====="
 
 cp -R ./lib/core/assets/* ./lib/dist/core/bundles/assets
 cp -R ./lib/content-services/assets/* ./lib/dist/content-services/bundles/assets
-cp -R ./lib/process-services/assets/* ./lib/dist/process-services/bundles/assets
+cp -R ./lib/process-services/src/lib/assets/* ./lib/dist/process-services/bundles/assets
 cp -R ./lib/process-services-cloud/src/lib/assets/* ./lib/dist/process-services-cloud/bundles/assets
 
 echo "====== Copy schema ====="

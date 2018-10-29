@@ -299,7 +299,7 @@
               },
               {
                 "glob": "**/*",
-                "input": "lib/process-services/i18n",
+                "input": "lib/process-services/src/lib/i18n",
                 "output": "/assets/adf-process-services/i18n"
               },
               {
@@ -431,12 +431,12 @@
               },
               {
                 "glob": "**/*",
-                "input": "lib/process-services/assets",
+                "input": "lib/process-services/src/lib/assets",
                 "output": "/assets"
               },
               {
                 "glob": "**/*",
-                "input": "lib/process-services-cloud/assets",
+                "input": "lib/process-services-cloud/src/lib/assets",
                 "output": "/assets"
               },
               {

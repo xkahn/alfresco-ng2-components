@@ -37,20 +37,20 @@ do
         #ng test process-services --watch=false
 
         echo "====== Build ======"
-        #npm run ng-packagr -- -p ./lib/process-services/
+        ng build process-services
 
         echo "====== Build style ======"
         node ./lib/config/bundle-process-services-scss.js
 
         echo "====== Copy i18n ======"
         mkdir -p ./lib/dist/process-services/bundles/assets/adf-process-services/i18n
-        cp -R ./lib/process-services/i18n/* ./lib/dist/process-services/bundles/assets/adf-process-services/i18n
+        cp -R ./lib/process-services/src/lib/i18n/* ./lib/dist/process-services/bundles/assets/adf-process-services/i18n
 
         echo "====== Copy assets ======"
-        cp -R ./lib/process-services/assets/* ./lib/dist/process-services/bundles/assets
+        cp -R ./lib/process-services/src/lib/assets/* ./lib/dist/process-services/bundles/assets
 
         echo "====== Move to node_modules ======"
-        rm -rf ./node_modules/@alfresco/adf-process-cloud/ && \
+        rm -rf ./node_modules/@alfresco/adf-process-services/ && \
         mkdir -p ./node_modules/@alfresco/adf-process-services/ && \
         cp -R ./lib/dist/process-services/* ./node_modules/@alfresco/adf-process-services/
 
@@ -76,11 +76,11 @@ do
         node ./lib/config/bundle-process-services-cloud-scss.js
 
         echo "====== Copy i18n ======"
-        mkdir -p ./lib/dist/process-services/bundles/assets/adf-process-services/i18n
-        cp -R ./lib/process-services/i18n/* ./lib/dist/process-services/bundles/assets/adf-process-services/i18n
+        mkdir -p ./lib/dist/process-services-cloud/bundles/assets/adf-process-services-cloud/i18n
+        cp -R ./lib/process-services-cloud/src/lib/i18n/* ./lib/dist/process-services-cloud/bundles/assets/adf-process-services-cloud/i18n
 
         echo "====== Copy assets ======"
-        cp -R ./lib/process-services/assets/* ./lib/dist/process-services/bundles/assets
+        cp -R ./lib/process-services-cloud/src/lib/assets/* ./lib/dist/process-services-cloud/bundles/assets
 
         echo "====== Move to node_modules ======"
         rm -rf ./node_modules/@alfresco/adf-process-cloud/ && \
