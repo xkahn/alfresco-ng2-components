@@ -3,12 +3,14 @@ import { TRANSLATION_PROVIDER } from '@alfresco/adf-core';
 import { AppListCloudModule } from './app-list-cloud/app-list-cloud.module';
 import { TaskListCloudModule } from './task-list-cloud/task-list-cloud.module';
 import { TaskCloudModule } from './task-cloud/task-cloud.module';
+import { UserInfoCloudModule } from './user-info-cloud/user-info-cloud.module';
 
 @NgModule({
     imports: [
         AppListCloudModule,
         TaskListCloudModule,
-        TaskCloudModule
+        TaskCloudModule,
+        UserInfoCloudModule
     ],
     providers: [
         {
@@ -21,6 +23,6 @@ import { TaskCloudModule } from './task-cloud/task-cloud.module';
         }
     ],
     declarations: [],
-    exports: [AppListCloudModule, TaskListCloudModule, TaskCloudModule]
+    exports: [AppListCloudModule, TaskListCloudModule, TaskCloudModule, UserInfoCloudModule]
 })
 export class ProcessServicesCloudModule { }
