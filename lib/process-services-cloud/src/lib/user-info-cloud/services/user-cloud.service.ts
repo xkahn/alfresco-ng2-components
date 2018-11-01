@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import moment from 'moment-es6';
 import * as _ from 'lodash';
+import { of } from 'rxjs';
+import { UserCloud } from '../models/user-cloud';
 
 @Injectable()
 export class UserCloudService {
@@ -10,37 +13,25 @@ export class UserCloudService {
         this.helper = new JwtHelperService();
     }
 
-    getRoles(): string[] {
-        const access = this.getValueFromToken<any>('realm_access');
-        const roles = access ? access['roles'] : [];
-        return roles;
+    getCurrentUserInfo() {
+        const fullName = this.getValueFromToken<string>('given_name');
+        const email = this.getValueFromToken<string>('email');
+        const nameParts = fullName.split(' ');
+        const user = { firstName: nameParts[0], lastName: nameParts[1], email: email };
+        return new UserCloud(user);
     }
 
-    hasToken() {
-        return localStorage.getItem('access_token');
+    private getExpiration() {
+        const expiration = localStorage.getItem('expires_at');
+        const expiresAt = JSON.parse(expiration);
+        return moment(expiresAt);
     }
 
-    hasRole(role: string): boolean {
-        let hasRole = false;
-        if (this.hasToken()) {
-            const roles = this.getRoles();
-            hasRole = _.indexOf(roles, role) >= 0;
-        }
-        return hasRole;
+    public isLoggedIn() {
+        return moment().isBefore(this.getExpiration());
     }
 
-    hasRoles(roles: string[]): boolean {
-        let hasRole = false;
-        roles.forEach(r => {
-            if (this.hasRole(r)) {
-                hasRole = true;
-                return;
-            }
-        });
-        return hasRole;
-    }
-
-    getValueFromToken<T>(key: string): T {
+    private getValueFromToken<T>(key: string): T {
         let value;
         const token = localStorage.getItem('access_token');
         if (token) {

@@ -1,0 +1,33 @@
+@mixin adf-cloud-user-info-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+    $foreground: map-get($theme, foreground);
+
+    adf-cloud-user-info {
+        .mat-fab {
+            box-shadow: none;
+            width: 40px;
+            height: 40px;
+            .mat-button-wrapper {
+                font-weight: bold;
+                padding: 0px;
+                font-size: 18px;
+                margin: 6px auto;
+            }
+
+            .mat-accent {
+                background: mat-color($primary, 300);
+            }
+        }
+
+        .mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+            background: mat-color($primary, 300);
+        }
+
+        .mat-fab:not([class*=mat-elevation-z]) {
+            box-shadow: none;
+        }
+    }
+}
+
