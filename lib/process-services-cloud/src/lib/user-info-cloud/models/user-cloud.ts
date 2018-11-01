@@ -13,7 +13,7 @@ export class UserCloud {
     }
 
     getFullName(): string {
-        return this.firstName + '' + this.lastName;
+        return this.firstName + ' ' + this.lastName;
     }
 
     getInitialUserName(): string {

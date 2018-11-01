@@ -1,11 +1,12 @@
-<div id="adf-user-info-cloud-container">
-    <button mat-fab [matMenuTriggerFor]="menu">{{loggedInUser.getInitialUserName()}}</button>
-    <mat-menu fxFlex="80%" #menu="matMenu" [xPosition]="menuPositionX" [yPosition]="menuPositionY" [overlapTrigger]="false">
-    <mat-card fxLayout="column">
-        <mat-card-header fxLayout="row" fxLayoutAlign="space-evenly center">
-            <button mat-fab>{{loggedInUser.getInitialUserName()}}</button>
-            <div class="adf-userinfo-title" id="bpm-username">{{loggedInUser.getFullName()}}</div>
-        </mat-card-header>
-    </mat-card>
+<div  id="adf-cloud-user-info-id" class="adf-cloud-user-info-container" [class.adf-cloud-user-info-name-right]="showOnRight()">
+    <span *ngIf="showName" id="adf-cloud-user-info-name-id" class="adf-cloud-user-info-name">
+        {{loggedInUser.getFullName()}}
+    </span>
+    <button mat-fab id="adf-cloud-user-initial-id" [matMenuTriggerFor]="menu">{{loggedInUser.getInitialUserName()}}</button>
+    <mat-menu #menu="matMenu" class="adf-cloud-user-info-menu" [xPosition]="menuPositionX" [yPosition]="menuPositionY" [overlapTrigger]="false">
+        <div fxLayout="row" fxLayoutAlign="space-evenly center" class="adf-cloud-user-info-menu-content">
+            <button mat-fab id="adf-cloud-user-initial-id">{{loggedInUser.getInitialUserName()}}</button>
+            <div class="adf-cloud-user-info-title" id="adf-cloud-user-name-id">{{loggedInUser.getFullName()}}</div>
+        </div>
     </mat-menu>
 </div>
