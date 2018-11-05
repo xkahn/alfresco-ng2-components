@@ -81,7 +81,8 @@ exports.config = {
         'browserstack.selenium_version' : '3.5.2',
         'browserstack.user' : 'eugenioromano1', // 'cristinajalba1',
         'browserstack.key' : 'EzP5ZfpPFZ3hkEwqtHb7', // 'YbuK5DBqYrWZv1BQANzo',
-        'resolution': '1366x768'
+        'resolution': '1366x768',
+          'browserstack.debug': true
      },
 
 
