@@ -15,15 +15,16 @@
  * limitations under the License.
  */
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnChanges, ViewEncapsulation } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
+import { AuthenticationService } from '../../services';
 
 @Component({
     selector: 'adf-txt-viewer',
     templateUrl: './txtViewer.component.html',
     styleUrls: ['./txtViewer.component.scss'],
-    host: { 'class': 'adf-txt-viewer' },
+    host: {'class': 'adf-txt-viewer'},
     encapsulation: ViewEncapsulation.None
 })
 export class TxtViewerComponent implements OnChanges {
@@ -36,7 +37,7 @@ export class TxtViewerComponent implements OnChanges {
 
     content: string | ArrayBuffer;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
     }
 
     ngOnChanges(changes: SimpleChanges): Promise<any> {
@@ -57,8 +58,13 @@ export class TxtViewerComponent implements OnChanges {
     }
 
     private getUrlContent(url: string): Promise<any> {
+
         return new Promise((resolve, reject) => {
-            this.http.get(url, { responseType: 'text' }).subscribe(res => {
+            this.http.get(url, {
+                headers: new HttpHeaders({
+                    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+                }), responseType: 'text'
+            }).subscribe(res => {
                 this.content = res;
                 resolve();
             }, (event) => {

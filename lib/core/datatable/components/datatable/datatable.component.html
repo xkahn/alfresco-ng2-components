@@ -101,7 +101,7 @@
                                     <ng-template #no_selected_row>
                                         <img
                                             alt="{{ iconAltTextKey(data.getValue(row, col)) | translate }}"
-                                            src="{{ data.getValue(row, col) }}"
+                                            [src]="data.getValue(row, col) | adfImageSecure | async"
                                             (error)="onImageLoadingError($event, row)">
                                     </ng-template>
                                 </ng-template>

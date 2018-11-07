@@ -24,6 +24,7 @@ import { NodeNameTooltipPipe } from './node-name-tooltip.pipe';
 import { HighlightPipe } from './text-highlight.pipe';
 import { TimeAgoPipe } from './time-ago.pipe';
 import { InitialUsernamePipe } from './user-initial.pipe';
+import { ImageAuthPipe } from './image-auth-pipe';
 
 @NgModule({
     imports: [
@@ -35,7 +36,8 @@ import { InitialUsernamePipe } from './user-initial.pipe';
         TimeAgoPipe,
         MimeTypeIconPipe,
         InitialUsernamePipe,
-        NodeNameTooltipPipe
+        NodeNameTooltipPipe,
+        ImageAuthPipe
     ],
     providers: [
         FileSizePipe,
@@ -43,7 +45,8 @@ import { InitialUsernamePipe } from './user-initial.pipe';
         TimeAgoPipe,
         MimeTypeIconPipe,
         InitialUsernamePipe,
-        NodeNameTooltipPipe
+        NodeNameTooltipPipe,
+        ImageAuthPipe
     ],
     exports: [
         FileSizePipe,
@@ -51,7 +54,8 @@ import { InitialUsernamePipe } from './user-initial.pipe';
         TimeAgoPipe,
         MimeTypeIconPipe,
         InitialUsernamePipe,
-        NodeNameTooltipPipe
+        NodeNameTooltipPipe,
+        ImageAuthPipe
     ]
 })
 export class PipeModule {
