@@ -34,13 +34,10 @@ export class ImageAuthPipe implements PipeTransform {
         const regexp = new RegExp('^((?![^\\n]*\\.$)(?:https?:\\/\\/)?(?:(?:[2][1-4]\\d|25[1-5]|1\\d{2}|[1-9]\\d|[1-9])(?:\\.(?:[2][1-4]\\d|25[1-5]|1\\d{2}|[1-9]\\d|[0-9])){3}(?::\\d{4})?|[a-z\\-]+(?:\\.[a-z\\-]+){2,}).*)|(^(http|https):\\/\\/).*');
 
         if (regexp.test(url)) {
-            const header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authenticationService.getToken() });
-            const params = {
-                observe: 'body',
-                responseType: 'blob' as 'json'
-            };
 
-            const options = { header, params, responseType: 'blob' as 'json' };
+            const header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authenticationService.getToken() });
+
+            const options: any = { headers: header, observe: 'body', responseType: 'blob' };
 
             return this.http.get(url, options)
                 .pipe(map((val) => {

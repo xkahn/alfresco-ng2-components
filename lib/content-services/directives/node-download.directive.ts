@@ -98,12 +98,8 @@ export class NodeDownloadDirective {
             const fileName = node.entry.name;
 
             const header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authenticationService.getToken() });
-            const params = {
-                observe: 'body',
-                responseType: 'blob' as 'json'
-            };
 
-            const options = { header, params, responseType: 'blob' as 'json' };
+            const options: any = { headers: header, observe: 'body', responseType: 'blob' };
 
             this.http.get(url, options).subscribe((val: any) => {
                 this.contentService.downloadBlob(val, fileName)

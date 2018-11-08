@@ -621,12 +621,8 @@ export class ViewerComponent implements OnChanges, OnInit, OnDestroy {
 
             if (!args.defaultPrevented) {
                 const header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authenticationService.getToken() });
-                const params = {
-                    observe: 'body',
-                    responseType: 'blob' as 'json'
-                };
 
-                const options = { header, params, responseType: 'blob' as 'json' };
+                const options: any = { headers: header, observe: 'body', responseType: 'blob' };
 
                 this.http.get(this.urlFileContent, options).subscribe((val: any) => {
                     this.contentService.downloadBlob(val, this.fileName)
