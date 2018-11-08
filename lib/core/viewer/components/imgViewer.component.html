@@ -1,5 +1,5 @@
 <div class="image-container" [ngStyle]="{ transform: transform }" data-automation-id="adf-image-container">
-    <img id="viewer-image" [src]="urlFile | adfImageSecure | async" [alt]="nameFile" [ngStyle]="{ 'cursor' : isDragged ? 'move': 'default' } " />
+    <img id="viewer-image" [attr.src]="urlFile | adfImageSecure | async" [alt]="nameFile" [ngStyle]="{ 'cursor' : isDragged ? 'move': 'default' } " />
 </div>
 
 <div class="adf-image-viewer__toolbar" *ngIf="showToolbar">

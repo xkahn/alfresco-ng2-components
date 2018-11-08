@@ -18,12 +18,13 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { MinimalNodeEntryEntity, MinimalNodeEntity } from 'alfresco-js-api';
 import { Subject } from 'rxjs';
-import { AlfrescoApiService, ContentService } from '@alfresco/adf-core';
+import { AlfrescoApiService, ContentService, AuthenticationService } from '@alfresco/adf-core';
 import { MatDialog } from '@angular/material';
 
 import { DocumentListService } from './document-list.service';
 import { ContentNodeDialogService } from '../../content-node-selector/content-node-dialog.service';
 import { NodeDownloadDirective } from '../../directives/node-download.directive';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -38,10 +39,14 @@ export class NodeActionsService {
                 public content: ContentService,
                 private documentListService?: DocumentListService,
                 private apiService?: AlfrescoApiService,
-                private dialog?: MatDialog) {}
+                private dialog?: MatDialog,
+                private http?: HttpClient,
+                private contentService?: ContentService,
+                private authenticationService?: AuthenticationService) {
+    }
 
     downloadNode(node: MinimalNodeEntity) {
-        new NodeDownloadDirective(this.apiService, this.dialog)
+        new NodeDownloadDirective(this.apiService, this.dialog, this.http, this.contentService, this.authenticationService)
             .downloadNode(node);
     }
 
@@ -99,17 +104,17 @@ export class NodeActionsService {
         this.contentDialogService
             .openCopyMoveDialog(action, contentEntry, permission)
             .subscribe((selections: MinimalNodeEntryEntity[]) => {
-                const selection = selections[0];
-                this.documentListService[`${action}Node`].call(this.documentListService, contentEntry.id, selection.id)
-                    .subscribe(
-                    observable.next.bind(observable, `OPERATION.SUCCESS.${type.toUpperCase()}.${action.toUpperCase()}`),
-                    observable.error.bind(observable)
-                    );
-            },
-            (error) => {
-                observable.error(error);
-                return observable;
-            });
+                    const selection = selections[0];
+                    this.documentListService[`${action}Node`].call(this.documentListService, contentEntry.id, selection.id)
+                        .subscribe(
+                            observable.next.bind(observable, `OPERATION.SUCCESS.${type.toUpperCase()}.${action.toUpperCase()}`),
+                            observable.error.bind(observable)
+                        );
+                },
+                (error) => {
+                    observable.error(error);
+                    return observable;
+                });
         return observable;
     }
 }

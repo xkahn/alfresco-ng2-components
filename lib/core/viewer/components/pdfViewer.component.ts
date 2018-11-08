@@ -118,11 +118,7 @@ export class PdfViewerComponent implements OnChanges, OnDestroy {
 
         let urlFile = changes['urlFile'];
         if (urlFile && urlFile.currentValue) {
-            this.executePdf(urlFile.currentValue);
-        }
-
-        if (!this.urlFile && !this.blobFile) {
-            throw new Error('Attribute urlFile or blobFile is required');
+            this.executePdf(urlFile.currentValue.changingThisBreaksApplicationSecurity);
         }
     }
 

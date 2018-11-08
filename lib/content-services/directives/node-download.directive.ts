@@ -18,9 +18,10 @@
 import { Directive, Input, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { MinimalNodeEntity } from 'alfresco-js-api';
-import { AlfrescoApiService } from '@alfresco/adf-core';
+import { AlfrescoApiService, AuthenticationService, ContentService } from '@alfresco/adf-core';
 
 import { DownloadZipDialogComponent } from '../dialogs/download-zip.dialog';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Directive({
     selector: '[adfNodeDownload]'
@@ -28,7 +29,7 @@ import { DownloadZipDialogComponent } from '../dialogs/download-zip.dialog';
 export class NodeDownloadDirective {
 
     /** Nodes to download. */
-    // tslint:disable-next-line:no-input-rename
+        // tslint:disable-next-line:no-input-rename
     @Input('adfNodeDownload')
     nodes: MinimalNodeEntity[];
 
@@ -39,7 +40,11 @@ export class NodeDownloadDirective {
 
     constructor(
         private apiService: AlfrescoApiService,
-        private dialog: MatDialog) {
+        private dialog: MatDialog,
+        private http: HttpClient,
+        private contentService: ContentService,
+        private authenticationService: AuthenticationService
+    ) {
     }
 
     /**
@@ -92,7 +97,17 @@ export class NodeDownloadDirective {
             const url = contentApi.getContentUrl(id, true);
             const fileName = node.entry.name;
 
-            this.download(url, fileName);
+            const header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authenticationService.getToken() });
+            const params = {
+                observe: 'body',
+                responseType: 'blob' as 'json'
+            };
+
+            const options = { header, params, responseType: 'blob' as 'json' };
+
+            this.http.get(url, options).subscribe((val: any) => {
+                this.contentService.downloadBlob(val, fileName)
+            });
         }
     }
 
@@ -108,20 +123,6 @@ export class NodeDownloadDirective {
                     nodeIds
                 }
             });
-        }
-    }
-
-    private download(url: string, fileName: string) {
-        if (url && fileName) {
-            const link = document.createElement('a');
-
-            link.style.display = 'none';
-            link.download = fileName;
-            link.href = url;
-
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
         }
     }
 }

@@ -39,7 +39,8 @@ export class MediaPlayerComponent implements OnChanges {
     @Input()
     nameFile: string;
 
-    constructor(private contentService: ContentService ) {}
+    constructor(private contentService: ContentService) {
+    }
 
     ngOnChanges(changes: SimpleChanges) {
         let blobFile = changes['blobFile'];
@@ -48,8 +49,17 @@ export class MediaPlayerComponent implements OnChanges {
             return;
         }
 
-        if (!this.urlFile && !this.blobFile) {
-            throw new Error('Attribute urlFile or blobFile is required');
+        let urlFile = changes['urlFile'];
+        if (urlFile && urlFile.currentValue) {
+            this.urlFile = urlFile.currentValue.changingThisBreaksApplicationSecurity;
+
+            let video = document.getElementsByTagName('video')[0];
+            video.src =   this.urlFile;
+            video.load();
+            video.onloadeddata = function () {
+                video.play();
+
+            }
         }
     }
 }

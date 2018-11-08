@@ -18,7 +18,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthenticationService } from '../services';
+import { AuthenticationService } from '../services/authentication.service';
 import { map } from 'rxjs/operators';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
@@ -34,13 +34,19 @@ export class ImageAuthPipe implements PipeTransform {
         const regexp = new RegExp('^((?![^\\n]*\\.$)(?:https?:\\/\\/)?(?:(?:[2][1-4]\\d|25[1-5]|1\\d{2}|[1-9]\\d|[1-9])(?:\\.(?:[2][1-4]\\d|25[1-5]|1\\d{2}|[1-9]\\d|[0-9])){3}(?::\\d{4})?|[a-z\\-]+(?:\\.[a-z\\-]+){2,}).*)|(^(http|https):\\/\\/).*');
 
         if (regexp.test(url)) {
-            return this.http.get<Blob>(url, {
-                headers: new HttpHeaders({
-                    'Authorization': 'Bearer ' + this.authenticationService.getToken()
-                }),
+            const header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authenticationService.getToken() });
+            const params = {
                 observe: 'body',
-                responseType: 'blob'
-            }).pipe(map(val => this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(val))));
+                responseType: 'blob' as 'json'
+            };
+
+            const options = { header, params, responseType: 'blob' as 'json' };
+
+            return this.http.get(url, options)
+                .pipe(map((val) => {
+                    let trustUrl: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(val));
+                    return trustUrl;
+                }));
         } else {
             return new Observable((subscriber) => {
                 subscriber.next(this.sanitizer.bypassSecurityTrustUrl(url));

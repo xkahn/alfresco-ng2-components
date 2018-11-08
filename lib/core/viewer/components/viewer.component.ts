@@ -21,6 +21,8 @@ import {
     Input, OnChanges, Output, SimpleChanges, TemplateRef,
     ViewEncapsulation, OnInit, OnDestroy
 } from '@angular/core';
+import { AuthenticationService } from '../../services/authentication.service';
+import { ContentService } from '../../services/content.service';
 import { MinimalNodeEntryEntity, RenditionEntry } from 'alfresco-js-api';
 import { BaseEvent } from '../../events';
 import { AlfrescoApiService } from '../../services/alfresco-api.service';
@@ -31,6 +33,7 @@ import { ViewerSidebarComponent } from './viewer-sidebar.component';
 import { ViewerToolbarComponent } from './viewer-toolbar.component';
 import { Subscription } from 'rxjs';
 import { ViewUtilService } from '../services/view-util.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
     selector: 'adf-viewer',
@@ -279,7 +282,10 @@ export class ViewerComponent implements OnChanges, OnInit, OnDestroy {
                 private viewUtils: ViewUtilService,
                 private logService: LogService,
                 private location: Location,
-                private el: ElementRef) {
+                private el: ElementRef,
+                private http: HttpClient,
+                private contentService: ContentService,
+                private authenticationService: AuthenticationService) {
     }
 
     isSourceDefined(): boolean {
@@ -454,7 +460,7 @@ export class ViewerComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     private getDisplayName(name) {
-        return this.displayName || name ;
+        return this.displayName || name;
     }
 
     scrollTop() {
@@ -614,15 +620,17 @@ export class ViewerComponent implements OnChanges, OnInit, OnDestroy {
             this.download.next(args);
 
             if (!args.defaultPrevented) {
-                const link = document.createElement('a');
+                const header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authenticationService.getToken() });
+                const params = {
+                    observe: 'body',
+                    responseType: 'blob' as 'json'
+                };
 
-                link.style.display = 'none';
-                link.download = this.fileName;
-                link.href = this.downloadUrl;
+                const options = { header, params, responseType: 'blob' as 'json' };
 
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                this.http.get(this.urlFileContent, options).subscribe((val: any) => {
+                    this.contentService.downloadBlob(val, this.fileName)
+                });
             }
         }
     }

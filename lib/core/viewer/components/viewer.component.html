@@ -40,7 +40,8 @@
                         (click)="onNavigateBeforeClick()">
                         <mat-icon>navigate_before</mat-icon>
                     </button>
-                    <img class="adf-viewer__mimeicon" [src]="mimeType | adfMimeTypeIcon" data-automation-id="adf-file-thumbnail">
+                    <img class="adf-viewer__mimeicon" [src]="mimeType | adfMimeTypeIcon"
+                         data-automation-id="adf-file-thumbnail">
                     <span class="adf-viewer__display-name" id="adf-viewer-display-name">{{ fileTitle }}</span>
                     <button
                         *ngIf="allowNavigate && canNavigateNext"
@@ -143,7 +144,8 @@
 
         <div fxLayout="row" fxFlex="1 1 auto">
             <ng-container *ngIf="allowSidebar && showSidebar">
-                <div class="adf-viewer__sidebar" [ngClass]="'adf-viewer__sidebar__right'" fxFlexOrder="4"  id="adf-right-sidebar" >
+                <div class="adf-viewer__sidebar" [ngClass]="'adf-viewer__sidebar__right'" fxFlexOrder="4"
+                     id="adf-right-sidebar">
                     <ng-container *ngIf="sidebarTemplate">
                         <ng-container *ngTemplateOutlet="sidebarTemplate;context:sidebarTemplateContext"></ng-container>
                     </ng-container>
@@ -152,15 +154,18 @@
             </ng-container>
 
             <ng-container *ngIf="allowLeftSidebar && showLeftSidebar">
-                <div class="adf-viewer__sidebar" [ngClass]="'adf-viewer__sidebar__left'" fxFlexOrder="1"  id="adf-left-sidebar" >
+                <div class="adf-viewer__sidebar" [ngClass]="'adf-viewer__sidebar__left'" fxFlexOrder="1"
+                     id="adf-left-sidebar">
                     <ng-container *ngIf="sidebarLeftTemplate">
-                        <ng-container *ngTemplateOutlet="sidebarLeftTemplate;context:sidebarLeftTemplateContext"></ng-container>
+                        <ng-container
+                            *ngTemplateOutlet="sidebarLeftTemplate;context:sidebarLeftTemplateContext"></ng-container>
                     </ng-container>
                     <ng-content *ngIf="!sidebarLeftTemplate" select="adf-viewer-sidebar"></ng-content>
                 </div>
             </ng-container>
 
-            <div  *ngIf="isLoading"  class="adf-viewer-main" fxFlexOrder="{{sidebarPosition !== 'left'? 1 : 4}}" fxFlex="1 1 auto">
+            <div *ngIf="isLoading" class="adf-viewer-main" fxFlexOrder="{{sidebarPosition !== 'left'? 1 : 4}}"
+                 fxFlex="1 1 auto">
                 <div class="adf-viewer-layout-content adf-viewer__fullscreen-container">
                     <div class="adf-viewer-content-container">
                         <ng-container *ngIf="isLoading">
@@ -176,19 +181,26 @@
                 </div>
             </div>
 
-            <div  *ngIf="!isLoading"  class="adf-viewer-main" fxFlexOrder="{{sidebarPosition !== 'left'? 1 : 4}}" fxFlex="1 1 auto">
+            <div *ngIf="!isLoading" class="adf-viewer-main" fxFlexOrder="{{sidebarPosition !== 'left'? 1 : 4}}"
+                 fxFlex="1 1 auto">
                 <div class="adf-viewer-layout-content adf-viewer__fullscreen-container">
                     <div class="adf-viewer-content-container" [ngSwitch]="viewerType">
                         <ng-container *ngSwitchCase="'pdf'">
-                            <adf-pdf-viewer [thumbnailsTemplate]="thumbnailsTemplate" [allowThumbnails]="allowThumbnails" [blobFile]="blobFile" [urlFile]="urlFileContent" [nameFile]="displayName"></adf-pdf-viewer>
+                            <adf-pdf-viewer [thumbnailsTemplate]="thumbnailsTemplate"
+                                            [allowThumbnails]="allowThumbnails"
+                                            [urlFile]="urlFileContent | adfImageSecure | async"
+                                            [nameFile]="displayName"></adf-pdf-viewer>
                         </ng-container>
 
                         <ng-container *ngSwitchCase="'image'">
-                            <adf-img-viewer [urlFile]="urlFileContent" [nameFile]="displayName" [blobFile]="blobFile"></adf-img-viewer>
+                            <adf-img-viewer [urlFile]="urlFileContent" [nameFile]="displayName"
+                                            [blobFile]="blobFile"></adf-img-viewer>
                         </ng-container>
 
                         <ng-container *ngSwitchCase="'media'">
-                            <adf-media-player id="adf-mdedia-player" [urlFile]="urlFileContent" [mimeType]="mimeType" [blobFile]="blobFile" [nameFile]="displayName"></adf-media-player>
+                            <adf-media-player id="adf-mdedia-player" [mimeType]="mimeType"
+                                              [urlFile]="urlFileContent | adfImageSecure | async"
+                                              [nameFile]="displayName"></adf-media-player>
                         </ng-container>
 
                         <ng-container *ngSwitchCase="'text'">
@@ -205,8 +217,11 @@
                         </ng-container>
 
                         <ng-container *ngSwitchCase="'custom'">
-                            <span class="adf-viewer-custom-content" *ngFor="let extensionTemplate of extensionTemplates">
-                                <ng-template *ngIf="extensionTemplate.isVisible" [ngTemplateOutlet]="extensionTemplate.template" [ngTemplateOutletContext]="{ urlFileContent: urlFileContent, extension:extension }">
+                            <span class="adf-viewer-custom-content"
+                                  *ngFor="let extensionTemplate of extensionTemplates">
+                                <ng-template *ngIf="extensionTemplate.isVisible"
+                                             [ngTemplateOutlet]="extensionTemplate.template"
+                                             [ngTemplateOutletContext]="{ urlFileContent: urlFileContent, extension:extension }">
                                 </ng-template>
                             </span>
                         </ng-container>
