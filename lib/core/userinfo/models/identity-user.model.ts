@@ -20,6 +20,8 @@ export class IdentityUserModel {
     firstName: string;
     lastName: string;
     email: string;
+    pictureId: number;
+    tenantName: string;
     fullNameDisplay: string;
 
     constructor(obj?: any) {
@@ -27,6 +29,8 @@ export class IdentityUserModel {
             this.firstName = obj.firstName || null;
             this.lastName = obj.lastName || null;
             this.email = obj.email || null;
+            this.pictureId = obj.pictureId || null;
+            this.tenantName = obj.tenantName || null;
             this.fullNameDisplay = obj ? this.formatValue(obj.firstName).trim() + ' ' + this.formatValue(obj.lastName).trim() : null;
         }
     }

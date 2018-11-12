@@ -35,7 +35,7 @@ export class IdentityUserService {
         this.helper = new JwtHelperService();
     }
 
-    getCurrentIdentityUserInfo(): Observable<IdentityUserModel> {
+    getCurrentUserInfo(): Observable<IdentityUserModel> {
         const fullName = this.getValueFromToken<string>(IdentityUserService.USER_NAME);
         const email = this.getValueFromToken<string>(IdentityUserService.USER_EMAIL);
         const nameParts = fullName.split(' ');
@@ -51,5 +51,9 @@ export class IdentityUserService {
             value = tokenPayload[key];
         }
         return <T> value;
+    }
+
+    getCurrentUserProfileImage(): string {
+        return '';
     }
 }

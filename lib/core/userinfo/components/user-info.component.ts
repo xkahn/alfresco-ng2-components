@@ -15,20 +15,33 @@
  * limitations under the License.
  */
 
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation, Injector } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { BpmUserModel } from './../models/bpm-user.model';
 import { EcmUserModel } from './../models/ecm-user.model';
 import { BpmUserService } from './../services/bpm-user.service';
 import { EcmUserService } from './../services/ecm-user.service';
-import { IdentityUserModel } from '../models/identity-user.model';
 import { IdentityUserService } from '../services/identity-user.service';
+import { AlfrescoApiService } from '../../services/alfresco-api.service';
+import { LogService } from '../../services/log.service';
+
+export function userServiceFactory(injector: Injector) {
+    const auth = injector.get(AuthenticationService);
+    if (auth.isOauth()) {
+        return new IdentityUserService();
+    } else {
+        const api = injector.get(AlfrescoApiService);
+        const log = injector.get(LogService);
+        return new BpmUserService(api, log);
+    }
+}
 
 @Component({
     selector: 'adf-userinfo',
     styleUrls: ['./user-info.component.scss'],
     templateUrl: './user-info.component.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    providers: [{ provide: BpmUserService, useFactory: userServiceFactory, deps: [Injector] }]
 })
 export class UserInfoComponent implements OnInit {
 
@@ -60,14 +73,12 @@ export class UserInfoComponent implements OnInit {
 
     ecmUser: EcmUserModel;
     bpmUser: BpmUserModel;
-    identityUser: IdentityUserModel;
     bpmUserImage: any;
     ecmUserImage: any;
     selectedIndex: number;
 
     constructor(private ecmUserService: EcmUserService,
                 private bpmUserService: BpmUserService,
-                private identityUserService: IdentityUserService,
                 private authService: AuthenticationService) {
     }
 
@@ -76,12 +87,8 @@ export class UserInfoComponent implements OnInit {
     }
 
     getUserInfo() {
-        if (this.isOauth()) {
-            this.loadIdentityUserInfo();
-        } else {
-            this.loadEcmUserInfo();
-            this.loadBpmUserInfo();
-        }
+        this.loadEcmUserInfo();
+        this.loadBpmUserInfo();
     }
 
     isLoggedIn() {
@@ -106,7 +113,7 @@ export class UserInfoComponent implements OnInit {
     }
 
     loadBpmUserInfo(): void {
-        if (this.authService.isBpmLoggedIn()) {
+        if (this.authService.isBpmLoggedIn() || this.isOauth()) {
             this.bpmUserService.getCurrentUserInfo()
                 .subscribe((res) => {
                     this.bpmUser = new BpmUserModel(res);
@@ -115,16 +122,6 @@ export class UserInfoComponent implements OnInit {
         } else {
             this.bpmUser = null;
             this.bpmUserImage = null;
-        }
-    }
-
-    loadIdentityUserInfo() {
-        if (this.isOauth()) {
-            this.identityUserService.getCurrentIdentityUserInfo().subscribe((res) => {
-                this.identityUser = new IdentityUserModel(res);
-            });
-        } else {
-            this.identityUser = null;
         }
     }
 
@@ -142,6 +139,10 @@ export class UserInfoComponent implements OnInit {
 
     hasBpmUserPictureId(): boolean {
         return !!this.bpmUser.pictureId;
+    }
+
+    hasTenantName(): boolean {
+        return !!this.bpmUser.tenantName;
     }
 
     hasEcmUserAvatarId(): boolean {

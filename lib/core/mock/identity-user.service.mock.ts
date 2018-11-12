@@ -15,8 +15,6 @@
  * limitations under the License.
  */
 
-import { IdentityUserModel } from 'userinfo/models/identity-user.model';
-
-export let identityUserMock = new IdentityUserModel({ firstName: 'firstName', lastName: 'lastName', email: 'email' });
-export let identityUserWithOutFirstNameMock = new IdentityUserModel({ firstName: null, lastName: 'lastName', email: 'email' });
-export let identityUserMockLastNameMock = new IdentityUserModel({ firstName: 'firstName', lastName: null, email: 'email' });
+export let identityUserMock = { firstName: 'firstName', lastName: 'lastName', email: 'email' };
+export let identityUserWithOutFirstNameMock = { firstName: null, lastName: 'lastName', email: 'email' };
+export let identityUserWithOutLastNameMock = { firstName: 'firstName', lastName: null, email: 'email' };
