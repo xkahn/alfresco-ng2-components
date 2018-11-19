@@ -91,7 +91,7 @@ export class NodeDownloadDirective {
     private downloadFile(node: MinimalNodeEntity) {
         if (node && node.entry) {
             const contentApi = this.apiService.getInstance().content;
-            // nodeId for Shared node
+            // nodeId for Shared nodeDownloadZipDialogComponent
             const id = (<any> node.entry).nodeId || node.entry.id;
 
             const url = contentApi.getContentUrl(id, true);

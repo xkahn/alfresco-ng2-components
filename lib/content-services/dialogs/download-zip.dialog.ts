@@ -18,7 +18,8 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { DownloadEntry, MinimalNodeEntity } from 'alfresco-js-api';
-import { LogService, AlfrescoApiService } from '@alfresco/adf-core';
+import { AuthenticationService, ContentService, LogService, AlfrescoApiService } from '@alfresco/adf-core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
     selector: 'adf-download-zip-dialog',
@@ -35,7 +36,10 @@ export class DownloadZipDialogComponent implements OnInit {
     constructor(private apiService: AlfrescoApiService,
                 private dialogRef: MatDialogRef<DownloadZipDialogComponent>,
                 @Inject(MAT_DIALOG_DATA) private data: any,
-                private logService: LogService) {
+                private logService: LogService,
+                private http: HttpClient,
+                private contentService: ContentService,
+                private authenticationService: AuthenticationService) {
     }
 
     ngOnInit() {
@@ -96,16 +100,15 @@ export class DownloadZipDialogComponent implements OnInit {
 
     download(url: string, fileName: string) {
         if (url && fileName) {
-            const link = document.createElement('a');
+            const header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authenticationService.getToken() });
 
-            link.style.display = 'none';
-            link.download = fileName;
-            link.href = url;
+            const options: any = { headers: header, observe: 'body', responseType: 'blob' };
 
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            this.http.get(url, options).subscribe((val: any) => {
+                this.contentService.downloadBlob(val, fileName)
+            });
         }
+
         this.dialogRef.close(true);
     }
 }
