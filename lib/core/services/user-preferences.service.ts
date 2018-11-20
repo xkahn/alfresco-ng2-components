@@ -61,7 +61,8 @@ export class UserPreferencesService {
     }
 
     private initUserPreferenceStatus() {
-        this.userPreferenceStatus[UserPreferenceValues.Locale] = this.locale || this.getDefaultLocale();
+        this.locale = this.get(UserPreferenceValues.Locale, this.getDefaultLocale());
+        this.userPreferenceStatus[UserPreferenceValues.Locale] =  this.locale;
         this.userPreferenceStatus[UserPreferenceValues.PaginationSize] = this.appConfig.get('pagination.size', this.defaults.paginationSize);
         this.userPreferenceStatus[UserPreferenceValues.SupportedPageSizes] = this.appConfig.get('pagination.supportedPageSizes', this.defaults.supportedPageSizes);
     }

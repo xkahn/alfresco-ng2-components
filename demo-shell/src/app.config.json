@@ -21,6 +21,7 @@
         "name": "Alfresco ADF Application",
         "copyright": "© 2016 - 2018 Alfresco Software, Inc. All Rights Reserved."
     },
+    "locale": "it",
     "languages": [
         {
             "key": "en",
