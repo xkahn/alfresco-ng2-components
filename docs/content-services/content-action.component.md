@@ -6,7 +6,7 @@ Last reviewed: 2018-06-08
 
 # Content Action component
 
-Adds options to a Document List actions menu for a particular content type.
+Change doc es example options to a Document List actions menu for a particular content type.
 
 ![Document Actions](../docassets/images/document-actions.png)
 
