@@ -25,7 +25,9 @@ then
     exit 0
 fi
 
+
 affected="$(./scripts/affected-libs.sh -b "$BRANCH_NAME")"
+echo $affected
 libs=(`echo $affected | sed 's/^$/\n/g'`)
 
 #core
