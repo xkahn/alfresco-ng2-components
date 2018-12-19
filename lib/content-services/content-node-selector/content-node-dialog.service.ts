@@ -73,6 +73,8 @@ export class ContentNodeDialogService {
                     }
                 },
                 width: '400px'
+            }).afterClosed().subscribe((resp) => {
+                return observable.next(resp);
             });
         } else {
             observable.error('OPERATION.FAIL.NODE.NO_PERMISSION');

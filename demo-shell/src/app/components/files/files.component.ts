@@ -46,6 +46,7 @@ import { MetadataDialogAdapterComponent } from './metadata-dialog-adapter.compon
 import { Subscription } from 'rxjs';
 import { PreviewService } from '../../services/preview.service';
 import { debounceTime } from 'rxjs/operators';
+import { VersionManagerDirective } from '../../../../../lib/content-services/directives/version-manage.directive';
 
 const DEFAULT_FOLDER_TO_SHOW = '-my-';
 
@@ -399,7 +400,7 @@ export class FilesComponent implements OnInit, OnChanges, OnDestroy {
         const showComments = this.showVersionComments;
         const allowDownload = this.allowVersionDownload;
 
-        if (this.contentService.hasPermission(contentEntry, 'update')) {
+        if (this.contentService.hasPermission(contentEntry, 'update') && VersionManagerDirective.prototype.displaypermissionbadge(contentEntry)) {
             this.dialog.open(VersionManagerDialogAdapterComponent, {
                 data: { contentEntry: contentEntry, showComments: showComments, allowDownload: allowDownload },
                 panelClass: 'adf-version-manager-dialog',

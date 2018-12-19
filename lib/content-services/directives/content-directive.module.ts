@@ -20,17 +20,17 @@ import { NgModule } from '@angular/core';
 import { MaterialModule } from '../material.module';
 
 import { NodeLockDirective } from './node-lock.directive';
-
+import { VersionManagerDirective } from './version-manage.directive';
 @NgModule({
     imports: [
         CommonModule,
         MaterialModule
     ],
     declarations: [
-        NodeLockDirective
+        NodeLockDirective , VersionManagerDirective
     ],
     exports: [
-        NodeLockDirective
+        NodeLockDirective , VersionManagerDirective
     ]
 })
 export class ContentDirectiveModule {

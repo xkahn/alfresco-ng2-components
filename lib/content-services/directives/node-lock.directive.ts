@@ -34,7 +34,9 @@ export class NodeLockDirective implements AfterViewInit {
     @HostListener('click', [ '$event' ])
     onClick(event) {
         event.preventDefault();
-        this.contentNodeDialogService.openLockNodeDialog(this.node);
+        this.contentNodeDialogService.openLockNodeDialog(this.node).subscribe((resp) => {
+           this.node.properties = resp['properties'];
+        });
     }
 
     constructor(
