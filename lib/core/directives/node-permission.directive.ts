@@ -21,6 +21,7 @@ import { ChangeDetectorRef, Directive, ElementRef, Host, Inject, Input, OnChange
 import { MinimalNodeEntity } from 'alfresco-js-api';
 import { ContentService } from './../services/content.service';
 import { EXTENDIBLE_COMPONENT } from './../interface/injection.tokens';
+import { PermissionsEnum } from "../models";
 
 export interface NodePermissionSubject {
     disabled: boolean;
@@ -63,7 +64,9 @@ export class NodePermissionDirective implements OnChanges {
      * @memberof NodePermissionDirective
      */
     updateElement(): boolean {
-        let enable = this.hasPermission(this.nodes, this.permission);
+        let enable = this.hasPermission(this.nodes, PermissionsEnum.CREATE);
+        enable = !enable ? this.hasPermission(this.nodes, PermissionsEnum.UPDATE) : enable;
+        enable = !enable ? this.hasPermission(this.nodes, PermissionsEnum.UPDATEPERMISSIONS) : enable;
 
         if (enable) {
             this.enable();
