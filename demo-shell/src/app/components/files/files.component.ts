@@ -391,6 +391,10 @@ export class FilesComponent implements OnInit, OnChanges, OnDestroy {
         this.openSnackMessage(message);
     }
 
+    onLockActionSuccess() {
+        this.documentList.reload();
+    }
+
     onPermissionRequested(node) {
         this.router.navigate(['/permissions', node.value.entry.id]);
     }
