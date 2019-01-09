@@ -118,7 +118,6 @@
       "DISPLAY_NAME": "表示名",
       "IS_LOCKED": "ロック",
       "TAG": "タグ",
-      "VERSIONS": "バージョンの管理",
       "CREATED_BY": "作成者",
       "CREATED_ON": "作成日",
       "CREATED": "作成日",
@@ -141,6 +140,7 @@
       "LISTVIEW": "一覧表示モード"
     },
     "ACTIONS": {
+      "VERSIONS": "バージョンの管理",
       "METADATA": "情報",
       "DOWNLOAD": "ダウンロード",
       "PERMISSION": "権限",

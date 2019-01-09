@@ -25,7 +25,7 @@ import { NodeBodyLock, Node, NodeEntry } from '@alfresco/js-api';
 import { AlfrescoApiService } from '@alfresco/adf-core';
 
 @Component({
-    selector: 'adf-node-lock',
+    selector: 'adf-node-lock-dialog',
     styleUrls: ['./folder.dialog.scss'],
     templateUrl: './node-lock.dialog.html'
 })

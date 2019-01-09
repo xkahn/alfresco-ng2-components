@@ -90,7 +90,7 @@ export class DocumentActionsService {
     }
 
     private lockNode(node: NodeEntry, target?: any, permission?: string) {
-        this.contentNodeDialogService.openLockNodeDialog(node.entry).subscribe(() => this.success.next('Lock Action Completed'));
+        return this.contentNodeDialogService.openLockNodeDialog(node.entry);
     }
 
     private downloadNode(obj: NodeEntry, target?: any, permission?: string) {

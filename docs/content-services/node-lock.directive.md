@@ -5,7 +5,7 @@ Status: Active
 Last reviewed: 2018-11-20
 ---
 
-# [Node Lock directive](../../lib/content-services/directives/node-lock.directive.ts "Defined in node-lock.directive.ts")
+# [Node Lock directive](../../lib/content-services/directives/node-lock-dialog.directive.ts "Defined in node-lock-dialog.directive.ts")
 
 Locks a node.
 

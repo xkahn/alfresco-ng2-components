@@ -17,29 +17,24 @@
 
 /* tslint:disable:no-input-rename  */
 
-import { Directive, ElementRef, Renderer2, HostListener, Input, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, Renderer2, HostListener, Input, AfterViewInit } from '@angular/core';
 import { Node } from '@alfresco/js-api';
 import { PermissionsEnum, ContentService } from '@alfresco/adf-core';
 import { ContentNodeDialogService } from '../content-node-selector/content-node-dialog.service';
 
 @Directive({
-    selector: '[adf-node-lock]'
+    selector: '[adf-node-lock-dialog]'
 })
-export class NodeLockDirective implements AfterViewInit {
+export class NodeLockDialogDirective implements AfterViewInit {
 
     /** Node to lock/unlock. */
-    @Input('adf-node-lock')
+    @Input('adf-node-lock-dialog')
     node: Node;
-
-    /** emits event to update reload the document list */
-    @Output()
-    success = new EventEmitter();
 
     @HostListener('click', [ '$event' ])
     onClick(event) {
         event.preventDefault();
-        this.contentNodeDialogService.openLockNodeDialog(this.node)
-            .subscribe(() => this.success.emit());
+        this.contentNodeDialogService.openLockNodeDialog(this.node);
     }
 
     constructor(

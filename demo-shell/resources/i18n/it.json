@@ -118,7 +118,6 @@
       "DISPLAY_NAME": "Nome visualizzato",
       "IS_LOCKED": "Blocca",
       "TAG": "Tag",
-      "VERSIONS": "Gestione versioni",
       "CREATED_BY": "Creato da",
       "CREATED_ON": "Creato il",
       "CREATED": "Creato",
@@ -141,6 +140,7 @@
       "LISTVIEW": "Modalità vista elenco"
     },
     "ACTIONS": {
+      "VERSIONS": "Gestione versioni",
       "METADATA": "Informazioni",
       "DOWNLOAD": "Download",
       "PERMISSION": "Permesso",

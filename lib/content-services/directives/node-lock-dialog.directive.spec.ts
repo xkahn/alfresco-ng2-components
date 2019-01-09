@@ -19,7 +19,7 @@ import { TestBed, ComponentFixture, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Component, DebugElement } from '@angular/core';
 
-import { NodeLockDirective } from './node-lock.directive';
+import { NodeLockDialogDirective } from './node-lock-dialog.directive';
 import { Node } from '@alfresco/js-api';
 import { NodeActionsService } from '../document-list/services/node-actions.service';
 import { ContentNodeDialogService } from '../content-node-selector/content-node-dialog.service';
@@ -34,7 +34,7 @@ const fakeNode: Node = <Node> {
 };
 
 @Component({
-    template: '<div [adf-node-lock]="node"></div>'
+    template: '<div [adf-node-lock-dialog]="node"></div>'
 })
 class TestComponent {
     node = null;
@@ -57,14 +57,14 @@ describe('NodeLock Directive', () => {
         ],
         declarations: [
             TestComponent,
-            NodeLockDirective
+            NodeLockDialogDirective
         ]
     });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(TestComponent);
         component = fixture.componentInstance;
-        element = fixture.debugElement.query(By.directive(NodeLockDirective));
+        element = fixture.debugElement.query(By.directive(NodeLockDialogDirective));
         contentNodeDialogService = TestBed.get(ContentNodeDialogService);
     });
 
@@ -73,7 +73,7 @@ describe('NodeLock Directive', () => {
         component.node = fakeNode;
 
         fixture.detectChanges();
-        element = fixture.debugElement.query(By.directive(NodeLockDirective));
+        element = fixture.debugElement.query(By.directive(NodeLockDialogDirective));
         element.triggerEventHandler('click', {
             preventDefault: () => {}
         });

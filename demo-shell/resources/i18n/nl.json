@@ -118,7 +118,6 @@
       "DISPLAY_NAME": "Getoonde naam",
       "IS_LOCKED": "Vergrendeling",
       "TAG": "Tag",
-      "VERSIONS": "Versies beheren",
       "CREATED_BY": "Gemaakt door",
       "CREATED_ON": "Gemaakt op",
       "CREATED": "Gemaakt",
@@ -141,6 +140,7 @@
       "LISTVIEW": "Lijstweergavemodus"
     },
     "ACTIONS": {
+      "VERSIONS": "Versies beheren",
       "METADATA": "Info",
       "DOWNLOAD": "Downloaden",
       "PERMISSION": "Machtiging",

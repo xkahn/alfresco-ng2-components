@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from '../material.module';
 
-import { NodeLockDirective } from './node-lock.directive';
+import { NodeLockDialogDirective } from './node-lock-dialog.directive';
 
 @NgModule({
     imports: [
@@ -27,10 +27,10 @@ import { NodeLockDirective } from './node-lock.directive';
         MaterialModule
     ],
     declarations: [
-        NodeLockDirective
+        NodeLockDialogDirective
     ],
     exports: [
-        NodeLockDirective
+        NodeLockDialogDirective
     ]
 })
 export class ContentDirectiveModule {

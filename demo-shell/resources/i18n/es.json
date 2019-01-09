@@ -117,7 +117,6 @@
     "COLUMNS": {
       "DISPLAY_NAME": "Nombre a mostrar",
       "IS_LOCKED": "Bloquear",
-      "VERSIONS": "Gestionar versiones",
       "TAG": "Etiqueta",
       "CREATED_BY": "Creado por",
       "CREATED_ON": "Creado",
@@ -141,6 +140,7 @@
       "LISTVIEW": "Modo de vista de lista"
     },
     "ACTIONS": {
+      "VERSIONS": "Gestionar versiones",
       "METADATA": "Información",
       "DOWNLOAD": "Descargar",
       "PERMISSION": "Permiso",
