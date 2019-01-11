@@ -476,6 +476,7 @@ export class DocumentListComponent implements OnInit, OnChanges, OnDestroy, Afte
                     .map((action) => new ContentActionModel(action));
 
                 actionsByTarget.forEach((action) => {
+                    action.node = node.entry;
                     this.refreshAction(action, node);
                 });
 

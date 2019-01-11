@@ -21,7 +21,6 @@ import {
     Output, Renderer2, SimpleChanges
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { TranslationService } from '../services';
 import { ContentService } from '../services/content.service';
 import { PermissionsEnum } from '../models/permissions.enum';
@@ -37,17 +36,17 @@ export interface NodePrivilegeSubject {
 }
 
 @Directive({
-    selector: '[adf-node-privileges]'
+    selector: '[adf-node-lock]'
 })
-export class NodePrivilegeDirective implements OnChanges, AfterViewInit, OnDestroy {
+export class NodeLockDirective implements OnChanges, AfterViewInit, OnDestroy {
 
     /** Node to enable and disable based on the node privilege */
-    @Input('adf-node-privileges')
+    @Input('adf-node-lock')
     node: Node;
 
     /** reference to the parent. will be removed in the future */
     @Input('parent')
-    parent: NodePrivilegeSubject = null;
+    parent: any = null;
 
     /** emits event to update reload the document list */
     @Output()
@@ -83,17 +82,17 @@ export class NodePrivilegeDirective implements OnChanges, AfterViewInit, OnDestr
 
     updateElement() {
         if (this.parent) {
-            this.parent.currentRowEvents$.pipe(takeUntil(this.nodeLockSubject$))
-                .subscribe((nodeWithAction: NodePrivilege) => {
-                        if (nodeWithAction.currentRow.row['obj'] && nodeWithAction.currentRow.row['obj'].entry) {
-                            this.disableActions(
-                                nodeWithAction.actions,
-                                nodeWithAction.currentRow.row['obj'].entry
-                            );
-                            nodeWithAction.currentRow.actions = nodeWithAction.actions;
-                        }
-                    }
-                );
+            // this.parent.currentRowEvents$.pipe(takeUntil(this.nodeLockSubject$))
+            //     .subscribe((nodeWithAction: NodePrivilege) => {
+            //             if (nodeWithAction.currentRow.row['obj'] && nodeWithAction.currentRow.row['obj'].entry) {
+            //                 this.disableActions(
+            //                     nodeWithAction.actions,
+            //                     nodeWithAction.currentRow.row['obj'].entry
+            //                 );
+            //                 nodeWithAction.currentRow.actions = nodeWithAction.actions;
+            //             }
+            //         }
+            //     );
 
         } else {
             const isHavingPermission = this.havingVersionUpdatePermission(this.node);

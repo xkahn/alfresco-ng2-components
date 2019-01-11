@@ -25,6 +25,7 @@ import { FolderActionsService } from '../../services/folder-actions.service';
 import { ContentActionModel, ContentActionTarget } from './../../models/content-action.model';
 import { ContentActionListComponent } from './content-action-list.component';
 import { Subscription } from 'rxjs';
+import { Node } from '@alfresco/js-api';
 
 @Component({
     selector: 'content-action',
@@ -67,6 +68,10 @@ export class ContentActionComponent implements OnInit, OnChanges, OnDestroy {
     /** Is the menu item disabled? */
     @Input()
     disabled: boolean | Function = false;
+
+    /** Is the content actions disabled? */
+    @Input()
+    node: Node = null;
 
     /** Emitted when the user selects the action from the menu. */
     @Output()
@@ -165,7 +170,8 @@ export class ContentActionComponent implements OnInit, OnChanges, OnDestroy {
             disableWithNoPermission: this.disableWithNoPermission,
             target: target,
             disabled: this.disabled,
-            visible: this.visible
+            visible: this.visible,
+            node: this.node
         });
         if (this.handler) {
             model.handler = this.getSystemHandler(target, this.handler);

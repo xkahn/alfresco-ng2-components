@@ -17,7 +17,7 @@
 
 import { Node } from '@alfresco/js-api';
 import { Component, DebugElement, SimpleChange, ViewChild } from '@angular/core';
-import { NodePrivilege, NodePrivilegeDirective, NodePrivilegeSubject } from './node-privilege.directive';
+import { NodePrivilege, NodeLockDirective, NodePrivilegeSubject } from './node-lock.directive';
 import { Subject } from 'rxjs';
 import { ContentService } from '../services';
 import { setupTestBed } from '../testing';
@@ -58,14 +58,14 @@ class MockContentService extends ContentService {
     }
 }
 
-describe('NodePrivilegeDirective', () => {
+describe('NodeLockDirective', () => {
 
     let fixture: ComponentFixture<TestComponent>;
     let fixture2: ComponentFixture<Test2Component>;
     let component: TestComponent;
     let component2: Test2Component;
     let element: DebugElement;
-    let directiveInstance: NodePrivilegeDirective;
+    let directiveInstance: NodeLockDirective;
 
     setupTestBed({
         imports: [
@@ -93,8 +93,8 @@ describe('NodePrivilegeDirective', () => {
             fixture2 = TestBed.createComponent(Test2Component);
             component2 = fixture2.componentInstance;
 
-            element = fixture2.debugElement.query(By.directive(NodePrivilegeDirective));
-            directiveInstance = element.injector.get(NodePrivilegeDirective);
+            element = fixture2.debugElement.query(By.directive(NodeLockDirective));
+            directiveInstance = element.injector.get(NodeLockDirective);
 
             button = fixture2.debugElement.query(By.css('button'));
         });
@@ -185,8 +185,8 @@ describe('NodePrivilegeDirective', () => {
             fixture = TestBed.createComponent(TestComponent);
             component = fixture.componentInstance;
 
-            element = fixture.debugElement.query(By.directive(NodePrivilegeDirective));
-            directiveInstance = element.injector.get(NodePrivilegeDirective);
+            element = fixture.debugElement.query(By.directive(NodeLockDirective));
+            directiveInstance = element.injector.get(NodeLockDirective);
         });
 
         it('update the parent actions when subject emitted from the component', () => {

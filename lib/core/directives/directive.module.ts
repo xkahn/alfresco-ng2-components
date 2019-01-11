@@ -27,7 +27,7 @@ import { NodePermissionDirective } from './node-permission.directive';
 import { NodeRestoreDirective } from './node-restore.directive';
 import { UploadDirective } from './upload.directive';
 import { NodeDownloadDirective } from './node-download.directive';
-import { NodePrivilegeDirective } from './node-privilege.directive';
+import { NodeLockDirective } from './node-lock.directive';
 
 @NgModule({
     imports: [
@@ -43,7 +43,7 @@ import { NodePrivilegeDirective } from './node-privilege.directive';
         NodeRestoreDirective,
         NodeDownloadDirective,
         UploadDirective,
-        NodePrivilegeDirective
+        NodeLockDirective
     ],
     exports: [
         HighlightDirective,
@@ -54,7 +54,7 @@ import { NodePrivilegeDirective } from './node-privilege.directive';
         NodeRestoreDirective,
         NodeDownloadDirective,
         UploadDirective,
-        NodePrivilegeDirective
+        NodeLockDirective
     ]
 })
 export class DirectiveModule {}
