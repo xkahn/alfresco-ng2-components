@@ -476,11 +476,14 @@ export class DocumentListComponent implements OnInit, OnChanges, OnDestroy, Afte
             return action.disabled(node);
         }
 
-        if (action.permission && action.disableWithNoPermission && !this.contentService.hasPermission(node.entry, action.permission)) {
+        if ((action.permission &&
+            action.disableWithNoPermission &&
+            !this.contentService.hasPermission(node.entry, action.permission)) ||
+            this.contentService.isLocked(node.entry)) {
             return true;
+        } else {
+            return false;
         }
-
-        return action.disabled;
     }
 
     @HostListener('contextmenu', ['$event'])

@@ -25,6 +25,8 @@ import { AlfrescoApiService } from './alfresco-api.service';
 import { AuthenticationService } from './authentication.service';
 import { LogService } from './log.service';
 import { catchError } from 'rxjs/operators';
+import moment from 'moment-es6';
+import { Moment } from 'moment';
 
 @Injectable({
     providedIn: 'root'
@@ -206,6 +208,47 @@ export class ContentService {
         }
 
         return hasPermission;
+    }
+
+    isLocked(node: Node): boolean {
+        let isLocked = false;
+        if (this.hasLockConfigured(node)) {
+            if (this.isReadOnlyLock(node)) {
+                isLocked = true;
+                if (this.isLockExpired(node)) {
+                    isLocked = false;
+                }
+            } else if (this.isLockOwnerAllowed(node)) {
+                isLocked = this.apiService.getInstance().getEcmUsername() !== node.properties['cm:lockOwner'].id;
+                if (this.isLockExpired(node)) {
+                    isLocked = false;
+                }
+            }
+        }
+        return isLocked;
+    }
+
+    private hasLockConfigured(node: Node): boolean {
+        return node.isFile && node.isLocked && node.properties['cm:lockType'];
+    }
+
+    private isReadOnlyLock(node: Node): boolean {
+        return node.properties['cm:lockType'] === 'READ_ONLY_LOCK' && node.properties['cm:lockLifetime'] === 'PERSISTENT';
+    }
+
+    private isLockOwnerAllowed(node: Node): boolean {
+        return node.properties['cm:lockType'] === 'WRITE_LOCK' && node.properties['cm:lockLifetime'] === 'PERSISTENT';;
+    }
+
+    private getLockExpiryTime(node: Node): Moment {
+        if (node.properties['cm:expiryDate']) {
+            return moment(node.properties['cm:expiryDate']);
+        }
+    }
+
+    private isLockExpired(node: Node): boolean {
+        let expiryLockTime = this.getLockExpiryTime(node);
+        return moment().isAfter(expiryLockTime);
     }
 
     /**
