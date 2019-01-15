@@ -237,7 +237,7 @@ export class ContentService {
     }
 
     private isLockOwnerAllowed(node: Node): boolean {
-        return node.properties['cm:lockType'] === 'WRITE_LOCK' && node.properties['cm:lockLifetime'] === 'PERSISTENT';;
+        return node.properties['cm:lockType'] === 'WRITE_LOCK' && node.properties['cm:lockLifetime'] === 'PERSISTENT';
     }
 
     private getLockExpiryTime(node: Node): Moment {
