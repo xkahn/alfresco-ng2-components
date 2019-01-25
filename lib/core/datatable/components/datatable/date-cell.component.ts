@@ -21,6 +21,7 @@ import {
     UserPreferencesService,
     UserPreferenceValues
 } from '../../../services/user-preferences.service';
+import { AlfrescoApiService } from '../../../services/alfresco-api.service';
 
 @Component({
     selector: 'adf-date-cell',
@@ -28,12 +29,12 @@ import {
     template: `
         <ng-container>
             <span title="{{ tooltip | date:'medium' }}" *ngIf="format === 'timeAgo' else standard_date">
-                {{ value | adfTimeAgo: currentLocale }}
+                {{ (value$ | async) | adfTimeAgo: currentLocale }}
             </span>
         </ng-container>
         <ng-template #standard_date>
             <span title="{{ tooltip | date:format }}">
-                {{ value | date:format }}
+                {{ (value$ | async) | date:format }}
             </span>
         </ng-template>
     `,
@@ -41,7 +42,7 @@ import {
     host: { class: 'adf-date-cell' }
 })
 export class DateCellComponent extends DataTableCellComponent {
-    currentLocale;
+    currentLocale: string;
 
     get format(): string {
         if (this.column) {
@@ -50,8 +51,8 @@ export class DateCellComponent extends DataTableCellComponent {
         return 'medium';
     }
 
-    constructor(userPreferenceService: UserPreferencesService) {
-        super();
+    constructor(userPreferenceService: UserPreferencesService, apiService: AlfrescoApiService) {
+        super(apiService);
 
         if (userPreferenceService) {
             userPreferenceService

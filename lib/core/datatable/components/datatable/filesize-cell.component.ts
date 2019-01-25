@@ -17,15 +17,20 @@
 
 import { Component, ViewEncapsulation } from '@angular/core';
 import { DataTableCellComponent } from './datatable-cell.component';
+import { AlfrescoApiService } from '../../../services/alfresco-api.service';
 
 @Component({
     selector: 'adf-filesize-cell',
     template: `
         <ng-container>
-            <span [title]="tooltip">{{ value | adfFileSize }}</span>
+            <span [title]="tooltip">{{ (value$ | async) | adfFileSize }}</span>
         </ng-container>
     `,
     encapsulation: ViewEncapsulation.None,
     host: { class: 'adf-filesize-cell' }
 })
-export class FileSizeCellComponent extends DataTableCellComponent {}
+export class FileSizeCellComponent extends DataTableCellComponent {
+    constructor(apiService: AlfrescoApiService) {
+        super(apiService);
+    }
+}
