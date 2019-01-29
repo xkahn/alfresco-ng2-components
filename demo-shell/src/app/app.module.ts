@@ -76,9 +76,11 @@ import { TasksCloudDemoComponent } from './components/app-layout/cloud/tasks-clo
 import { CloudFiltersDemoComponent } from './components/app-layout/cloud/cloud-filters-demo.component';
 import { StartProcessCloudDemoComponent } from './components/app-layout/cloud/start-process-cloud-demo.component';
 import { DocumentListDemoComponent } from './components/document-list/document-list-demo.component';
+import { AcaMonacoModule } from 'adf-monaco-extension';
 
 @NgModule({
     imports: [
+        AcaMonacoModule,
         BrowserModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
@@ -91,11 +93,11 @@ import { DocumentListDemoComponent } from './components/document-list/document-l
         ContentModule.forRoot(),
         InsightsModule.forRoot(),
         ProcessModule.forRoot(),
+        ProcessServicesCloudModule,
         ExtensionsModule.forRoot(),
         ThemePickerModule,
         ChartsModule,
-        MonacoEditorModule.forRoot(),
-        ProcessServicesCloudModule
+        MonacoEditorModule.forRoot()
     ],
     declarations: [
         AppComponent,

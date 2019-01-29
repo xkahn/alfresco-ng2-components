@@ -44,7 +44,6 @@ export class StartProcessCloudDemoComponent implements OnInit {
     }
 
     onStartProcessSuccess() {
-        this.cloudLayoutService.setCurrentProcessFilterParam({ key: 'running-processes' });
         this.router.navigate([`/cloud/${this.applicationName}/processes`]);
     }
 
