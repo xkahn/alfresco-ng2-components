@@ -17,7 +17,7 @@
 
 import { Component, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormGroup, FormBuilder } from '@angular/forms';
-import { TaskFilterCloudModel, FilterActionType, TaskFilterProperties } from './../models/filter-cloud.model';
+import { TaskFilterCloudModel, FilterActionType, TaskFilterProperties, FilterOptions, TaskFilterAction } from './../models/filter-cloud.model';
 import { TaskFilterCloudService } from '../services/task-filter-cloud.service';
 import { MatDialog } from '@angular/material';
 import { TaskFilterDialogCloudComponent } from './task-filter-dialog-cloud.component';
@@ -41,6 +41,8 @@ export class EditTaskFilterCloudComponent implements OnChanges {
     public static MIN_VALUE = 1;
     public static APPLICATION_NAME: string = 'appName';
     public static DEFAULT_TASK_FILTER_PROPERTIES = ['state', 'assignment', 'sort', 'order'];
+    public static DEFAULT_SORT_PROPERTIES = ['id', 'name', 'createdDate', 'priority', 'processDefinitionId'];
+    public static DEFAULT_ACTIONS = ['save', 'saveAs', 'delete'];
     public FORMAT_DATE: string = 'DD/MM/YYYY';
 
     /** (required) Name of the app. */
@@ -54,6 +56,14 @@ export class EditTaskFilterCloudComponent implements OnChanges {
     /** List of task filter properties to display. */
     @Input()
     filterProperties: string[] = EditTaskFilterCloudComponent.DEFAULT_TASK_FILTER_PROPERTIES; // default ['state', 'assignment', 'sort', 'order']
+
+    /** List of sort properties to display. */
+    @Input()
+    sortProperties: string[] = [];
+
+    /** List of sort actions. */
+    @Input()
+    actions: string[] = EditTaskFilterCloudComponent.DEFAULT_ACTIONS;
 
     /** Toggles the filter actions. */
     @Input()
@@ -74,14 +84,6 @@ export class EditTaskFilterCloudComponent implements OnChanges {
     taskFilter: TaskFilterCloudModel;
     changedTaskFilter: TaskFilterCloudModel;
 
-    columns = [
-        { value: 'id', label: 'ID' },
-        { value: 'name', label: 'NAME' },
-        { value: 'createdDate', label: 'Created Date' },
-        { value: 'priority', label: 'PRIORITY' },
-        { value: 'processDefinitionId', label: 'PROCESS DEFINITION ID' }
-    ];
-
     status = [
         { label: 'ALL', value: '' },
         { label: 'CREATED', value: 'CREATED' },
@@ -100,7 +102,8 @@ export class EditTaskFilterCloudComponent implements OnChanges {
     applicationNames: any[] = [];
     formHasBeenChanged = false;
     editTaskFilterForm: FormGroup;
-    taskFilterProperties: any[] = [];
+    taskFilterProperties: TaskFilterProperties[] = [];
+    taskFilterActions: TaskFilterAction[] = [];
     toggleFilterActions: boolean = false;
 
     constructor(
@@ -115,6 +118,7 @@ export class EditTaskFilterCloudComponent implements OnChanges {
         const id = changes['id'];
         if (id && id.currentValue !== id.previousValue) {
             this.taskFilterProperties = this.createAndFilterProperties();
+            this.taskFilterActions = this.createAndFilterActions();
             this.buildForm(this.taskFilterProperties);
         }
     }
@@ -175,6 +179,36 @@ export class EditTaskFilterCloudComponent implements OnChanges {
         return this.filterProperties ? this.filterProperties.indexOf(EditTaskFilterCloudComponent.APPLICATION_NAME) >= 0 : false;
     }
 
+    createSortProperties(): any {
+        this.checkMandatorySortProperties();
+        const sortProperties = this.sortProperties.map((property: string) => {
+            return <FilterOptions> { label: property.charAt(0).toUpperCase() + property.slice(1), value: property };
+        });
+        return sortProperties;
+    }
+
+    checkMandatorySortProperties() {
+        if (this.sortProperties === undefined || this.sortProperties.length === 0) {
+            this.sortProperties = EditTaskFilterCloudComponent.DEFAULT_SORT_PROPERTIES;
+        }
+    }
+
+    createAndFilterActions() {
+        this.checkMandatoryActions();
+        const actions = this.createFilterActions();
+        return actions.filter((action: TaskFilterAction) => this.isValidAction(this.actions, action));
+    }
+
+    checkMandatoryActions() {
+        if (this.actions === undefined || this.actions.length === 0) {
+            this.actions = EditTaskFilterCloudComponent.DEFAULT_ACTIONS;
+        }
+    }
+
+    private isValidAction(actions: string[], action: any): boolean {
+        return actions ? actions.indexOf(action.actionType) >= 0 : true;
+    }
+
     isFormValid(): boolean {
         return this.editTaskFilterForm.valid;
     }
@@ -221,6 +255,16 @@ export class EditTaskFilterCloudComponent implements OnChanges {
                     });
                 }
             });
+    }
+
+    executeFilterAction(action: TaskFilterAction): void {
+        if (action.actionType === EditTaskFilterCloudComponent.DEFAULT_ACTIONS[0]) {
+            this.onSave();
+        } else if (action.actionType === EditTaskFilterCloudComponent.DEFAULT_ACTIONS[1]) {
+            this.onSaveAs();
+        } else if (action.actionType === EditTaskFilterCloudComponent.DEFAULT_ACTIONS[2]) {
+            this.onDelete();
+        }
     }
 
     onSave() {
@@ -294,6 +338,38 @@ export class EditTaskFilterCloudComponent implements OnChanges {
         return property.type === 'text';
     }
 
+    hasFormChanged(action: any): boolean {
+        if (action.actionType === EditTaskFilterCloudComponent.DEFAULT_ACTIONS[0]) {
+            return !this.formHasBeenChanged;
+        }
+        if (action.actionType === EditTaskFilterCloudComponent.DEFAULT_ACTIONS[1]) {
+            return !this.formHasBeenChanged;
+        }
+        if (action.actionType === EditTaskFilterCloudComponent.DEFAULT_ACTIONS[2]) {
+            return false;
+        }
+    }
+
+    createFilterActions(): TaskFilterAction[] {
+        return [
+            new TaskFilterAction({
+                actionType: EditTaskFilterCloudComponent.DEFAULT_ACTIONS[0],
+                icon: 'save',
+                tooltip: 'ADF_CLOUD_EDIT_TASK_FILTER.TOOL_TIP.SAVE'
+            }),
+            new TaskFilterAction({
+                actionType: EditTaskFilterCloudComponent.DEFAULT_ACTIONS[1],
+                icon: 'unarchive',
+                tooltip: 'ADF_CLOUD_EDIT_TASK_FILTER.TOOL_TIP.SAVE_AS'
+            }),
+            new TaskFilterAction({
+                actionType: EditTaskFilterCloudComponent.DEFAULT_ACTIONS[2],
+                icon: 'delete',
+                tooltip: 'ADF_CLOUD_EDIT_TASK_FILTER.TOOL_TIP.DELETE'
+            })
+        ];
+    }
+
     createTaskFilterProperties(currentTaskFilter: TaskFilterCloudModel): TaskFilterProperties[] {
         return [
             new TaskFilterProperties({
@@ -326,8 +402,8 @@ export class EditTaskFilterCloudComponent implements OnChanges {
                 label: 'ADF_CLOUD_EDIT_TASK_FILTER.LABEL.SORT',
                 type: 'select',
                 key: 'sort',
-                value: currentTaskFilter.sort || this.columns[0].value,
-                options: this.columns
+                value: currentTaskFilter.sort || this.createSortProperties[0].value,
+                options: this.createSortProperties()
             }),
             new TaskFilterProperties({
                 label: 'ADF_CLOUD_EDIT_TASK_FILTER.LABEL.DIRECTION',
