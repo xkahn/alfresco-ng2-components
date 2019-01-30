@@ -99,6 +99,20 @@ export interface FilterActionType {
     filter: TaskFilterCloudModel;
 }
 
+export class TaskFilterAction {
+    actionType: string;
+    icon: string;
+    tooltip: string;
+
+    constructor(obj?: any) {
+        if (obj) {
+            this.actionType = obj.actionType || null;
+            this.icon = obj.icon || null;
+            this.tooltip = obj.tooltip || null;
+        }
+    }
+}
+
 export interface FilterOptions {
     label?: string;
     value?: string;
