@@ -27,6 +27,7 @@ export class ProcessFilterCloudModel {
     state: string;
     sort: string;
     order: string;
+    businessKey: string;
     processDefinitionId: string;
     processDefinitionKey: string;
     processInstanceId: string;
@@ -48,6 +49,7 @@ export class ProcessFilterCloudModel {
             this.state = obj.state || null;
             this.sort = obj.sort || null;
             this.order = obj.order || null;
+            this.businessKey = obj.businessKey || null;
             this.processDefinitionId = obj.processDefinitionId || null;
             this.processDefinitionKey = obj.processDefinitionKey || null;
             this.processInstanceId = obj.processInstanceId || null;

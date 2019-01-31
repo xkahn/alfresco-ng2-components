@@ -40,6 +40,9 @@ export class EditProcessFilterCloudComponent implements OnChanges {
     public static ACTION_DELETE = 'DELETE';
     public static APPLICATION_NAME: string = 'appName';
     public static APP_RUNNING_STATUS: string = 'Running';
+    public static LAST_MODIFIED: string = 'lastModified';
+    public static SORT: string = 'sort';
+    public static ORDER: string = 'order';
     public static DEFAULT_PROCESS_FILTER_PROPERTIES = ['state', 'sort', 'order'];
     public static DEFAULT_SORT_PROPERTIES = ['id', 'name', 'status', 'startDate'];
     public static DEFAULT_ACTIONS = ['save', 'saveAs', 'delete'];
@@ -64,7 +67,7 @@ export class EditProcessFilterCloudComponent implements OnChanges {
     /** List of sort actions. */
     @Input()
     actions: string[] = EditProcessFilterCloudComponent.DEFAULT_ACTIONS;
-    
+
     /** Toggles the filter actions. */
     @Input()
     showFilterActions = true;
@@ -162,13 +165,24 @@ export class EditProcessFilterCloudComponent implements OnChanges {
         if (this.checkForApplicationNameProperty()) {
             this.getRunningApplications();
         }
+
         this.processFilter = this.retrieveProcessFilter();
         const defaultProperties = this.createProcessFilterProperties(this.processFilter);
-        return defaultProperties.filter((filterProperty: ProcessFilterProperties) => this.isValidProperty(this.filterProperties, filterProperty));
+        let filteredProperties = defaultProperties.filter((filterProperty: ProcessFilterProperties) => this.isValidProperty(this.filterProperties, filterProperty));
+
+        if (!this.hasSortProperty()) {
+            filteredProperties = this.removeOrderPropertyIfSortPropertyNotSpecified(filteredProperties);
+        }
+
+        if (this.hasLastModifiedProperty()) {
+            filteredProperties = [...filteredProperties, ...this.createLastModifiedProperty()];
+        }
+
+        return filteredProperties;
     }
 
     checkMandatoryFilterProperties() {
-        if (this.filterProperties === undefined || this.filterProperties.length === 0) {
+        if (this.filterProperties && this.filterProperties.length > 0) {
             this.filterProperties = EditProcessFilterCloudComponent.DEFAULT_PROCESS_FILTER_PROPERTIES;
         }
     }
@@ -179,6 +193,25 @@ export class EditProcessFilterCloudComponent implements OnChanges {
 
     private isValidProperty(filterProperties: string[], filterProperty: ProcessFilterProperties): boolean {
         return filterProperties ? filterProperties.indexOf(filterProperty.key) >= 0 : true;
+    }
+
+    hasSortProperty(): boolean {
+        if (this.filterProperties && this.filterProperties.length > 0) {
+            return this.filterProperties.indexOf(EditProcessFilterCloudComponent.SORT) >= 0;
+        }
+    }
+
+    removeOrderPropertyIfSortPropertyNotSpecified(filteredProperties: ProcessFilterProperties[]) {
+        if (filteredProperties && filteredProperties.length > 0) {
+            filteredProperties = filteredProperties.filter((property: ProcessFilterProperties) => { return property.key !== EditProcessFilterCloudComponent.ORDER; });
+            return filteredProperties;
+        }
+    }
+
+    hasLastModifiedProperty(): boolean {
+        if (this.filterProperties && this.filterProperties.length > 0) {
+            return this.filterProperties.indexOf(EditProcessFilterCloudComponent.LAST_MODIFIED) >= 0;
+        }
     }
 
     createSortProperties(): any {
@@ -390,6 +423,24 @@ export class EditProcessFilterCloudComponent implements OnChanges {
         ];
     }
 
+    createLastModifiedProperty(): ProcessFilterProperties[] {
+        return [
+            new ProcessFilterProperties({
+                label: 'ADF_CLOUD_EDIT_PROCESS_FILTER.LABEL.LAST_MODIFIED_DATE_FORM',
+                type: 'date',
+                key: 'lastModifiedFrom',
+                value: ''
+            }),
+
+            new ProcessFilterProperties({
+                label: 'ADF_CLOUD_EDIT_PROCESS_FILTER.LABEL.LAST_MODIFIED_TO',
+                type: 'date',
+                key: 'lastModifiedTo',
+                value: ''
+            })
+        ];
+    }
+
     createProcessFilterProperties(currentProcessFilter: ProcessFilterCloudModel): ProcessFilterProperties[] {
         return [
             new ProcessFilterProperties({
@@ -445,33 +496,15 @@ export class EditProcessFilterCloudComponent implements OnChanges {
                 value: currentProcessFilter.processDefinitionKey || ''
             }),
             new ProcessFilterProperties({
-                label: 'ADF_CLOUD_EDIT_PROCESS_FILTER.LABEL.PROCESS_INS_ID',
+                label: 'ADF_CLOUD_EDIT_PROCESS_FILTER.LABEL.BUSINESS_KEY',
                 type: 'text',
-                key: 'processInstanceId',
-                value: ''
+                key: 'businessKey',
+                value: currentProcessFilter.businessKey || ''
             }),
             new ProcessFilterProperties({
                 label: 'ADF_CLOUD_EDIT_PROCESS_FILTER.LABEL.START_DATE',
                 type: 'date',
                 key: 'startDate',
-                value: ''
-            }),
-            new ProcessFilterProperties({
-                label: 'ADF_CLOUD_EDIT_PROCESS_FILTER.LABEL.LAST_MODIFIED',
-                type: 'date',
-                key: 'lastModified',
-                value: ''
-            }),
-            new ProcessFilterProperties({
-                label: 'ADF_CLOUD_EDIT_PROCESS_FILTER.LABEL.LAST_MODIFIED_DATE_FORM',
-                type: 'date',
-                key: 'lastModifiedFrom',
-                value: ''
-            }),
-            new ProcessFilterProperties({
-                label: 'ADF_CLOUD_EDIT_PROCESS_FILTER.LABEL.LAST_MODIFIED_TO',
-                type: 'date',
-                key: 'lastModifiedTo',
                 value: ''
             })
         ];
