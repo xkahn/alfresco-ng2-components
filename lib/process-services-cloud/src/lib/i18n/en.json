@@ -112,9 +112,9 @@
       "LAST_MODIFIED_FROM": "LastModifiedFrom",
       "LAST_MODIFIED_TO": "LastModifiedTo",
       "OWNER": "Owner",
-      "DUE_DATE_TO": "DueDateTo",
-      "DUE_DATE_FROM": "DueDateFrom",
-      "SORT": "Sort"
+      "DUE_DATE": "DueDate",
+      "SORT": "Sort",
+      "START_DATE": "StartDate"
 
 
     },
