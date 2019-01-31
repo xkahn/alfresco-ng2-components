@@ -160,58 +160,61 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
     }
 
     private parseFacets(context: ResultSetContext) {
-        if (!this.responseFacets) {
-            this.parseFacetFields(context);
-            this.parseFacetQueries(context);
-
-        } else {
-            this.responseFacets = this.responseFacets
-                .map((field) => {
-
-                    let responseField = (context.facets || []).find((response) => response.label === field.label && response.type === field.type);
-
-                    (field && field.buckets && field.buckets.items || [])
-                        .map((bucket) => {
-                            const responseBucket = ((responseField && responseField.buckets) || []).find((respBucket) => respBucket.label === bucket.label);
-
-                            bucket.count = responseBucket ? this.getCountValue(responseBucket) : 0;
-                            return bucket;
-                        });
-
-                    return field;
-                });
-        }
+        this.parseFacetFields(context);
+        this.parseFacetQueries(context);
     }
 
     private parseFacetFields(context: ResultSetContext) {
         const configFacetFields = this.queryBuilder.config.facetFields && this.queryBuilder.config.facetFields.fields || [];
 
         configFacetFields.forEach((field) => {
-            const responseField = (context.facets || []).find((response) => response.type === 'field' && response.label === field.label) || {};
+            const alreadyExistingField = (this.responseFacets || []).find((response) => response.type === 'field' && response.label === field.label);
+            const responseField = (context.facets || []).find((response) => response.type === 'field' && response.label === field.label);
             const responseBuckets = this.getResponseBuckets(responseField);
 
-            const bucketList = new SearchFilterList<FacetFieldBucket>(responseBuckets, field.pageSize);
-            bucketList.filter = (bucket: FacetFieldBucket): boolean => {
-                if (bucket && bucketList.filterText) {
-                    const pattern = (bucketList.filterText || '').toLowerCase();
-                    const label = (this.translationService.instant(bucket.display) || this.translationService.instant(bucket.label)).toLowerCase();
-                    return this.queryBuilder.config.filterWithContains ? label.indexOf(pattern) !== -1 : label.startsWith(pattern);
-                }
-                return true;
-            };
+            if (alreadyExistingField) {
+                const alreadyExistingBuckets = alreadyExistingField.buckets && alreadyExistingField.buckets.items || [];
 
-            //
-            if (!this.responseFacets) {
-                this.responseFacets = [];
+                alreadyExistingBuckets
+                    .map((bucket) => {
+                        const responseBucket = ((responseField && responseField.buckets) || []).find((respBucket) => respBucket.label === bucket.label);
+
+                        bucket.count = responseBucket ? this.getCountValue(responseBucket) : 0;
+                        return bucket;
+                    });
+
+                // add only the new ones to the existing'SearchFilterList' and update the already existing ones:
+                responseBuckets.forEach((respBucket) => {
+                    const existingBucket = alreadyExistingBuckets.find((oldBucket) => oldBucket.label === respBucket.label);
+
+                    if (!existingBucket) {
+                        alreadyExistingField.buckets.addItem(respBucket);
+                    }
+                });
+
+            } else if (responseField) {
+                const bucketList = new SearchFilterList<FacetFieldBucket>(responseBuckets, field.pageSize);
+                bucketList.filter = (bucket: FacetFieldBucket): boolean => {
+                    if (bucket && bucketList.filterText) {
+                        const pattern = (bucketList.filterText || '').toLowerCase();
+                        const label = (this.translationService.instant(bucket.display) || this.translationService.instant(bucket.label)).toLowerCase();
+                        return this.queryBuilder.config.filterWithContains ? label.indexOf(pattern) !== -1 : label.startsWith(pattern);
+                    }
+                    return true;
+                };
+
+                if (!this.responseFacets) {
+                    this.responseFacets = [];
+                }
+                this.responseFacets.push(<FacetField> {
+                    ...field,
+                    type: responseField.type,
+                    label: field.label,
+                    pageSize: field.pageSize | this.DEFAULT_PAGE_SIZE,
+                    currentPageSize: field.pageSize | this.DEFAULT_PAGE_SIZE,
+                    buckets: bucketList
+                });
             }
-            this.responseFacets.push(<FacetField> {
-                ...field,
-                type: responseField.type,
-                label: field.label,
-                pageSize: field.pageSize | this.DEFAULT_PAGE_SIZE,
-                currentPageSize: field.pageSize | this.DEFAULT_PAGE_SIZE,
-                buckets: bucketList
-            });
         });
     }
 
@@ -228,31 +231,52 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
         }, []);
 
         Object.keys(configGroups).forEach((group) => {
-            const responseField = (context.facets || []).find((response) => response.type === 'query' && response.label === group) || {};
+            const alreadyExistingField = (this.responseFacets || []).find((response) => response.type === 'query' && response.label === group);
+            const responseField = (context.facets || []).find((response) => response.type === 'query' && response.label === group);
             const responseBuckets = this.getResponseQueryBuckets(responseField, configGroups[group]);
 
-            const bucketList = new SearchFilterList<FacetFieldBucket>(responseBuckets, this.facetQueriesPageSize);
-            bucketList.filter = (bucket: FacetFieldBucket): boolean => {
-                if (bucket && bucketList.filterText) {
-                    const pattern = (bucketList.filterText || '').toLowerCase();
-                    const label = (this.translationService.instant(bucket.display) || this.translationService.instant(bucket.label)).toLowerCase();
-                    return this.queryBuilder.config.filterWithContains ? label.indexOf(pattern) !== -1 : label.startsWith(pattern);
-                }
-                return true;
-            };
+            if (alreadyExistingField) {
+                const alreadyExistingBuckets = alreadyExistingField.buckets && alreadyExistingField.buckets.items || [];
 
-            //
-            if (!this.responseFacets) {
-                this.responseFacets = [];
+                alreadyExistingBuckets
+                    .map((bucket) => {
+                        const responseBucket = ((responseField && responseField.buckets) || []).find((respBucket) => respBucket.label === bucket.label);
+
+                        bucket.count = responseBucket ? this.getCountValue(responseBucket) : 0;
+                        return bucket;
+                    });
+
+                // add only the new ones to the existing'SearchFilterList' and update the already existing ones:
+                responseBuckets.forEach((respBucket) => {
+                    const existingBucket = alreadyExistingBuckets.find((oldBucket) => oldBucket.label === respBucket.label);
+
+                    if (!existingBucket) {
+                        alreadyExistingField.buckets.addItem(respBucket);
+                    }
+                });
+            } else if (responseField) {
+                const bucketList = new SearchFilterList<FacetFieldBucket>(responseBuckets, this.facetQueriesPageSize);
+                bucketList.filter = (bucket: FacetFieldBucket): boolean => {
+                    if (bucket && bucketList.filterText) {
+                        const pattern = (bucketList.filterText || '').toLowerCase();
+                        const label = (this.translationService.instant(bucket.display) || this.translationService.instant(bucket.label)).toLowerCase();
+                        return this.queryBuilder.config.filterWithContains ? label.indexOf(pattern) !== -1 : label.startsWith(pattern);
+                    }
+                    return true;
+                };
+
+                if (!this.responseFacets) {
+                    this.responseFacets = [];
+                }
+                this.responseFacets.push(<FacetField> {
+                    field: group,
+                    type: responseField.type,
+                    label: group,
+                    pageSize: this.DEFAULT_PAGE_SIZE,
+                    currentPageSize: this.DEFAULT_PAGE_SIZE,
+                    buckets: bucketList
+                });
             }
-            this.responseFacets.push(<FacetField> {
-                field: group,
-                type: responseField.type,
-                label: group,
-                pageSize: this.DEFAULT_PAGE_SIZE,
-                currentPageSize: this.DEFAULT_PAGE_SIZE,
-                buckets: bucketList
-            });
         });
 
     }
