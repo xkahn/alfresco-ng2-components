@@ -81,8 +81,6 @@ given below:
 | **_order_** | Sort ordering of the filter results (this doesn't participate in the filtering itself) |
 | **_processDefinitionId_** | Process definition ID |
 | **_processDefinitionKey_** | Process definition key |
-| **_processInstanceId_** | Process instance ID |
-| **_startDate_** | Date the process was started |
 | **_lastModified_** | Date the process was last modified |
 | **_lastModifiedFrom_** | Finds processes modified _after_ this date |
 | **_lastModifiedTo_** | Finds processes modified _before_ this date |
@@ -101,7 +99,6 @@ export class SomeComponent implements OnInit {
     filterProperties: string[] = [
         "appName",
         "processInstanceId",
-        "startDate",
         "lastModified"];
 
     onFilterChange(filter: ProcessFilterCloudModel) {
@@ -116,7 +113,7 @@ export class SomeComponent implements OnInit {
 With this configuration, only the four listed properties will be shown.
 
 **Note:** Currently, the `sort` property has a limited set of properties
-to choose from: **_id_**, **_name_**, **_status_** and **_startDate_**.
+to choose from: **_id_**, **_name_**, **_status_**.
 
 ## See also
 
