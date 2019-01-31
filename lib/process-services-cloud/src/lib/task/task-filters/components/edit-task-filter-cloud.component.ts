@@ -44,7 +44,7 @@ export class EditTaskFilterCloudComponent implements OnChanges {
     public static SORT: string = 'sort';
     public static ORDER: string = 'order';
     public static DEFAULT_TASK_FILTER_PROPERTIES = ['state', 'assignment', 'sort', 'order'];
-    public static DEFAULT_SORT_PROPERTIES = ['id', 'name', 'createdDate', 'priority', 'processDefinitionId'];
+    public static DEFAULT_SORT_PROPERTIES = ['id', 'name', 'createdDate', 'priority'];
     public static DEFAULT_ACTIONS = ['save', 'saveAs', 'delete'];
     public FORMAT_DATE: string = 'DD/MM/YYYY';
 
@@ -62,7 +62,7 @@ export class EditTaskFilterCloudComponent implements OnChanges {
 
     /** List of sort properties to display. */
     @Input()
-    sortProperties: string[] = [];
+    sortProperties: string[] = EditTaskFilterCloudComponent.DEFAULT_SORT_PROPERTIES;
 
     /** List of sort actions. */
     @Input()
@@ -121,7 +121,6 @@ export class EditTaskFilterCloudComponent implements OnChanges {
         const id = changes['id'];
         if (id && id.currentValue !== id.previousValue) {
             this.taskFilterProperties = this.createAndFilterProperties();
-            this.taskFilterActions = this.createAndFilterActions();
             this.buildForm(this.taskFilterProperties);
         }
     }
@@ -158,6 +157,7 @@ export class EditTaskFilterCloudComponent implements OnChanges {
     }
 
     createAndFilterProperties(): TaskFilterProperties[] {
+        this.taskFilterActions = this.createAndFilterActions();
         this.checkMandatoryFilterProperties();
 
         if (this.checkForApplicationNameProperty()) {
@@ -170,7 +170,7 @@ export class EditTaskFilterCloudComponent implements OnChanges {
         let filteredProperties = defaultProperties.filter((filterProperty: TaskFilterProperties) => this.isValidProperty(this.filterProperties, filterProperty));
 
         if (!this.hasSortProperty()) {
-            filteredProperties = this.removeOrderPropertyIfSortPropertyNotSpecified(filteredProperties);
+            filteredProperties = this.removeOrderProperty(filteredProperties);
         }
 
         if (this.hasLastModifiedProperty()) {
@@ -195,12 +195,10 @@ export class EditTaskFilterCloudComponent implements OnChanges {
     }
 
     hasSortProperty(): boolean {
-        if (this.filterProperties && this.filterProperties.length > 0) {
-            return this.filterProperties.indexOf(EditTaskFilterCloudComponent.SORT) >= 0;
-        }
+        return this.filterProperties.indexOf(EditTaskFilterCloudComponent.SORT) >= 0;
     }
 
-    removeOrderPropertyIfSortPropertyNotSpecified(filteredProperties: TaskFilterProperties[]) {
+    removeOrderProperty(filteredProperties: TaskFilterProperties[]) {
         if (filteredProperties && filteredProperties.length > 0) {
             const propertiesWithOutOrderProperty = filteredProperties.filter((property: TaskFilterProperties) => { return property.key !== EditTaskFilterCloudComponent.ORDER; });
             return propertiesWithOutOrderProperty;
@@ -208,9 +206,7 @@ export class EditTaskFilterCloudComponent implements OnChanges {
     }
 
     hasLastModifiedProperty(): boolean {
-        if (this.filterProperties && this.filterProperties.length > 0) {
-            return this.filterProperties.indexOf(EditTaskFilterCloudComponent.LAST_MODIFIED) >= 0;
-        }
+        return this.filterProperties.indexOf(EditTaskFilterCloudComponent.LAST_MODIFIED) >= 0;
     }
 
     createSortProperties(): any {
@@ -229,8 +225,8 @@ export class EditTaskFilterCloudComponent implements OnChanges {
 
     createAndFilterActions() {
         this.checkMandatoryActions();
-        const actions = this.createFilterActions();
-        return actions.filter((action: TaskFilterAction) => this.isValidAction(this.actions, action));
+        const allActions = this.createFilterActions();
+        return allActions.filter((action: TaskFilterAction) => this.isValidAction(this.actions, action));
     }
 
     checkMandatoryActions() {
@@ -372,6 +368,10 @@ export class EditTaskFilterCloudComponent implements OnChanges {
         return property.type === 'text';
     }
 
+    isCheckBoxType(property: TaskFilterProperties): boolean {
+        return property.type === 'checkbox';
+    }
+
     hasFormChanged(action: any): boolean {
         if (action.actionType === EditTaskFilterCloudComponent.DEFAULT_ACTIONS[0]) {
             return !this.formHasBeenChanged;
@@ -489,28 +489,22 @@ export class EditTaskFilterCloudComponent implements OnChanges {
                 value: currentTaskFilter.priority || ''
             }),
             new TaskFilterProperties({
-                label: 'ADF_CLOUD_EDIT_TASK_FILTER.LABEL.STAND_ALONE',
-                type: 'text',
-                key: 'standAlone',
-                value: currentTaskFilter.standAlone || ''
-            }),
-            new TaskFilterProperties({
                 label: 'ADF_CLOUD_EDIT_TASK_FILTER.LABEL.OWNER',
                 type: 'text',
                 key: 'owner',
                 value: currentTaskFilter.owner || ''
             }),
             new TaskFilterProperties({
-                label: 'ADF_CLOUD_EDIT_TASK_FILTER.LABEL.START_DATE',
-                type: 'date',
-                key: 'startDate',
-                value: ''
-            }),
-            new TaskFilterProperties({
                 label: 'ADF_CLOUD_EDIT_TASK_FILTER.LABEL.DUE_DATE',
                 type: 'date',
                 key: 'dueDate',
                 value: ''
+            }),
+            new TaskFilterProperties({
+                label: 'ADF_CLOUD_EDIT_TASK_FILTER.LABEL.STAND_ALONE',
+                type: 'checkbox',
+                key: 'standAlone',
+                value: currentTaskFilter.standAlone || false
             })
         ];
     }

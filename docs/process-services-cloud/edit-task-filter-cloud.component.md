@@ -77,10 +77,7 @@ given below:
 | **_processDefinitionId_** | Process definition ID |
 | **_processDefinitionKey_** | Process definition key |
 | **_processInstanceId_** | Process instance ID |
-| **_startDate_** | Date the task was started |
 | **_lastModified_** | Date the task was last modified |
-| **_lastModifiedFrom_** | Finds tasks modified *after* this date |
-| **_lastModifiedTo_** | Finds tasks modified *before* this date |
 
 
 By default, the **_state_**, **_assignment_**, **_sort_** and **_order_** properties
@@ -112,7 +109,7 @@ export class SomeComponent implements OnInit {
 With this configuration, only the four listed properties will be shown.
 
 **Note:** Currently, the `sort` property has a limited set of properties
-to choose from: **_id_**, **_name_**, **_status_** and **_startDate_**.
+to choose from: **_id_**, **_createdDate_**, **_name_**, **_priority_**.
 
 ## See also
 
