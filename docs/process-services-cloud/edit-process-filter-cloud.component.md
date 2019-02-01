@@ -75,6 +75,7 @@ given below:
 | Name | Description |
 | ---- | ----------- |
 | **_appName_** | Name of the app |
+| **_processInstanceId_** | Process instance ID |
 | **_initiator_** | ID of the user who initiated the process |
 | **_state_** | Execution state of the process. |
 | **_sort_** | Field on which the filter results will be sorted (doesn't participate in the filtering itself). Can be "id", "name", "status" or "startDate". |

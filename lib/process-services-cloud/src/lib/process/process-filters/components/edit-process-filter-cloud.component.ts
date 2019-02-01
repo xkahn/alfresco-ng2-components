@@ -348,6 +348,12 @@ export class EditProcessFilterCloudComponent implements OnChanges {
                 options: this.directions
             }),
             new ProcessFilterProperties({
+                label: 'ADF_CLOUD_EDIT_PROCESS_FILTER.LABEL.PROCESS_INS_ID',
+                type: 'text',
+                key: 'processInstanceId',
+                value: ''
+            }),
+            new ProcessFilterProperties({
                 label: 'ADF_CLOUD_EDIT_PROCESS_FILTER.LABEL.PROCESS_NAME',
                 type: 'text',
                 key: 'processName',
