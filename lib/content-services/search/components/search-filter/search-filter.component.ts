@@ -198,21 +198,32 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
 
         configFacetFields.forEach((field) => {
             const alreadyExistingField = (this.responseFacets || []).find((response) => response.type === 'field' && response.label === field.label);
-            const responseField = (context.facets || []).find((response) => response.type === 'field' && response.label === field.label);
+            const responseField = (context.facets || []).find((response) => response.type === 'field' && response.label === field.label) || {};
             const responseBuckets = this.getResponseBuckets(responseField);
 
             if (alreadyExistingField) {
                 const alreadyExistingBuckets = alreadyExistingField.buckets && alreadyExistingField.buckets.items || [];
 
+                const shouldDelete = [];
                 alreadyExistingBuckets
                     .map((bucket) => {
                         const responseBucket = ((responseField && responseField.buckets) || []).find((respBucket) => respBucket.label === bucket.label);
 
+                        if (!responseBucket) {
+                            shouldDelete.push(bucket);
+                        }
                         bucket.count = responseBucket ? this.getCountValue(responseBucket) : 0;
                         return bucket;
                     });
+                const hasSelection = this.selectedBuckets
+                    .find((selBuckets) => alreadyExistingField.label === selBuckets.field.label && alreadyExistingField.type === selBuckets.field.type);
 
-                // add only the new ones to the existing'SearchFilterList' and update the already existing ones:
+                if (!hasSelection && shouldDelete.length) {
+                    shouldDelete.forEach((bucket) => {
+                        alreadyExistingField.buckets.deleteItem(bucket);
+                    });
+                }
+
                 responseBuckets.forEach((respBucket) => {
                     const existingBucket = alreadyExistingBuckets.find((oldBucket) => oldBucket.label === respBucket.label);
 
@@ -237,7 +248,7 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
                 }
                 this.responseFacets.push(<FacetField> {
                     ...field,
-                    type: responseField.type,
+                    type: responseField.type || 'field',
                     label: field.label,
                     pageSize: field.pageSize | this.DEFAULT_PAGE_SIZE,
                     currentPageSize: field.pageSize | this.DEFAULT_PAGE_SIZE,
@@ -261,21 +272,32 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
 
         Object.keys(configGroups).forEach((group) => {
             const alreadyExistingField = (this.responseFacets || []).find((response) => response.type === 'query' && response.label === group);
-            const responseField = (context.facets || []).find((response) => response.type === 'query' && response.label === group);
+            const responseField = (context.facets || []).find((response) => response.type === 'query' && response.label === group) || {};
             const responseBuckets = this.getResponseQueryBuckets(responseField, configGroups[group]);
 
             if (alreadyExistingField) {
                 const alreadyExistingBuckets = alreadyExistingField.buckets && alreadyExistingField.buckets.items || [];
 
+                const shouldDelete = [];
                 alreadyExistingBuckets
                     .map((bucket) => {
                         const responseBucket = ((responseField && responseField.buckets) || []).find((respBucket) => respBucket.label === bucket.label);
 
+                        if (!responseBucket) {
+                            shouldDelete.push(bucket);
+                        }
                         bucket.count = responseBucket ? this.getCountValue(responseBucket) : 0;
                         return bucket;
                     });
+                const hasSelection = this.selectedBuckets
+                    .find((selBuckets) => alreadyExistingField.label === selBuckets.field.label && alreadyExistingField.type === selBuckets.field.type);
 
-                // add only the new ones to the existing'SearchFilterList' and update the already existing ones:
+                if (!hasSelection && shouldDelete.length) {
+                    shouldDelete.forEach((bucket) => {
+                        alreadyExistingField.buckets.deleteItem(bucket);
+                    });
+                }
+
                 responseBuckets.forEach((respBucket) => {
                     const existingBucket = alreadyExistingBuckets.find((oldBucket) => oldBucket.label === respBucket.label);
 
@@ -299,7 +321,7 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
                 }
                 this.responseFacets.push(<FacetField> {
                     field: group,
-                    type: responseField.type,
+                    type: responseField.type || 'query',
                     label: group,
                     pageSize: this.DEFAULT_PAGE_SIZE,
                     currentPageSize: this.DEFAULT_PAGE_SIZE,
