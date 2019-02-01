@@ -84,8 +84,6 @@ given below:
 | **_processInstanceId_** | Process instance ID |
 | **_startDate_** | Date the process was started |
 | **_lastModified_** | Date the process was last modified |
-| **_lastModifiedFrom_** | Finds processes modified _after_ this date |
-| **_lastModifiedTo_** | Finds processes modified _before_ this date |
 
 By default, the **_state_**, **_sort_** and **_order_** properties are
 displayed in the editor. However, you can also choose which properties
