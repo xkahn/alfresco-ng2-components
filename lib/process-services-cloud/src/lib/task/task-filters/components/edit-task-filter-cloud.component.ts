@@ -43,7 +43,10 @@ export class EditTaskFilterCloudComponent implements OnChanges {
     public static LAST_MODIFIED: string = 'lastModified';
     public static SORT: string = 'sort';
     public static ORDER: string = 'order';
-    public static DEFAULT_TASK_FILTER_PROPERTIES = ['state', 'assignment', 'sort', 'order'];
+    public static SAVE: string = 'save';
+    public static SAVE_AS: string = 'saveAs';
+    public static DELETE: string = 'delete';
+    public static DEFAULT_TASK_FILTER_PROPERTIES = ['status', 'assignee', 'sort', 'order'];
     public static DEFAULT_SORT_PROPERTIES = ['id', 'name', 'createdDate', 'priority'];
     public static DEFAULT_ACTIONS = ['save', 'saveAs', 'delete'];
     public FORMAT_DATE: string = 'DD/MM/YYYY';
@@ -58,7 +61,7 @@ export class EditTaskFilterCloudComponent implements OnChanges {
 
     /** List of task filter properties to display. */
     @Input()
-    filterProperties: string[] = EditTaskFilterCloudComponent.DEFAULT_TASK_FILTER_PROPERTIES; // default ['state', 'assignment', 'sort', 'order']
+    filterProperties: string[] = EditTaskFilterCloudComponent.DEFAULT_TASK_FILTER_PROPERTIES; // default ['status', 'assignee', 'sort', 'order']
 
     /** List of sort properties to display. */
     @Input()
@@ -121,6 +124,7 @@ export class EditTaskFilterCloudComponent implements OnChanges {
         const id = changes['id'];
         if (id && id.currentValue !== id.previousValue) {
             this.taskFilterProperties = this.createAndFilterProperties();
+            this.taskFilterActions = this.createAndFilterActions();
             this.buildForm(this.taskFilterProperties);
         }
     }
@@ -157,7 +161,6 @@ export class EditTaskFilterCloudComponent implements OnChanges {
     }
 
     createAndFilterProperties(): TaskFilterProperties[] {
-        this.taskFilterActions = this.createAndFilterActions();
         this.checkMandatoryFilterProperties();
 
         if (this.checkForApplicationNameProperty()) {
@@ -288,27 +291,27 @@ export class EditTaskFilterCloudComponent implements OnChanges {
     }
 
     executeFilterActions(action: TaskFilterAction): void {
-        if (action.actionType === EditTaskFilterCloudComponent.DEFAULT_ACTIONS[0]) {
-            this.onSave();
-        } else if (action.actionType === EditTaskFilterCloudComponent.DEFAULT_ACTIONS[1]) {
-            this.onSaveAs();
-        } else if (action.actionType === EditTaskFilterCloudComponent.DEFAULT_ACTIONS[2]) {
-            this.onDelete();
+        if (action.actionType === EditTaskFilterCloudComponent.SAVE) {
+            this.save();
+        } else if (action.actionType === EditTaskFilterCloudComponent.SAVE_AS) {
+            this.saveAs();
+        } else if (action.actionType === EditTaskFilterCloudComponent.DELETE) {
+            this.delete();
         }
     }
 
-    onSave() {
+    save() {
         this.taskFilterCloudService.updateFilter(this.changedTaskFilter);
         this.action.emit({ actionType: EditTaskFilterCloudComponent.ACTION_SAVE, filter: this.changedTaskFilter });
         this.formHasBeenChanged = this.compareFilters(this.changedTaskFilter, this.taskFilter);
     }
 
-    onDelete() {
+    delete() {
         this.taskFilterCloudService.deleteFilter(this.taskFilter);
         this.action.emit({ actionType: EditTaskFilterCloudComponent.ACTION_DELETE, filter: this.taskFilter });
     }
 
-    onSaveAs() {
+    saveAs() {
         const dialogRef = this.dialog.open(TaskFilterDialogCloudComponent, {
             data: {
                 name: this.translateService.instant(this.taskFilter.name)
@@ -373,13 +376,13 @@ export class EditTaskFilterCloudComponent implements OnChanges {
     }
 
     hasFormChanged(action: any): boolean {
-        if (action.actionType === EditTaskFilterCloudComponent.DEFAULT_ACTIONS[0]) {
+        if (action.actionType === EditTaskFilterCloudComponent.SAVE) {
             return !this.formHasBeenChanged;
         }
-        if (action.actionType === EditTaskFilterCloudComponent.DEFAULT_ACTIONS[1]) {
+        if (action.actionType === EditTaskFilterCloudComponent.SAVE_AS) {
             return !this.formHasBeenChanged;
         }
-        if (action.actionType === EditTaskFilterCloudComponent.DEFAULT_ACTIONS[2]) {
+        if (action.actionType === EditTaskFilterCloudComponent.DELETE) {
             return false;
         }
     }
@@ -434,15 +437,15 @@ export class EditTaskFilterCloudComponent implements OnChanges {
             new TaskFilterProperties({
                 label: 'ADF_CLOUD_EDIT_TASK_FILTER.LABEL.STATUS',
                 type: 'select',
-                key: 'state',
-                value: currentTaskFilter.state || this.status[0].value,
+                key: 'status',
+                value: currentTaskFilter.status || this.status[0].value,
                 options: this.status
             }),
             new TaskFilterProperties({
                 label: 'ADF_CLOUD_EDIT_TASK_FILTER.LABEL.ASSIGNMENT',
                 type: 'text',
-                key: 'assignment',
-                value: currentTaskFilter.assignment || ''
+                key: 'assignee',
+                value: currentTaskFilter.assignee || ''
             }),
             new TaskFilterProperties({
                 label: 'ADF_CLOUD_EDIT_TASK_FILTER.LABEL.SORT',
