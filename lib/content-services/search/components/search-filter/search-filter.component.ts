@@ -212,7 +212,7 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
                         if (!responseBucket) {
                             shouldDelete.push(bucket);
                         }
-                        bucket.count = responseBucket ? this.getCountValue(responseBucket) : 0;
+                        bucket.count = this.getCountValue(responseBucket);
                         return bucket;
                     });
                 const hasSelection = this.selectedBuckets
@@ -286,7 +286,7 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
                         if (!responseBucket) {
                             shouldDelete.push(bucket);
                         }
-                        bucket.count = responseBucket ? this.getCountValue(responseBucket) : 0;
+                        bucket.count = this.getCountValue(responseBucket);
                         return bucket;
                     });
                 const hasSelection = this.selectedBuckets
