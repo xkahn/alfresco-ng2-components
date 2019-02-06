@@ -498,6 +498,12 @@ export class EditTaskFilterCloudComponent implements OnChanges {
                 value: currentTaskFilter.owner || ''
             }),
             new TaskFilterProperties({
+                label: 'ADF_CLOUD_EDIT_TASK_FILTER.LABEL.CREATED_DATE',
+                type: 'date',
+                key: 'createdDate',
+                value: ''
+            }),
+            new TaskFilterProperties({
                 label: 'ADF_CLOUD_EDIT_TASK_FILTER.LABEL.DUE_DATE',
                 type: 'date',
                 key: 'dueDate',

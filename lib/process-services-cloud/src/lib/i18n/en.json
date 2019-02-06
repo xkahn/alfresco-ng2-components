@@ -105,15 +105,10 @@
       "APP_NAME": "ApplicationName",
       "PROCESS_DEF_ID": "ProcessDefinitionId",
       "STATUS": "Status",
-      "ASSIGNMENT": "Assignment",
+      "ASSIGNMENT": "Assignee",
       "DIRECTION": "Direction",
       "PROCESS_INSTANCE_ID": "ProcessInstanceId",
-      "DUE_BEFORE": "DueBefore",
-      "DUE_AFTER": "DueAfter",
-      "CLAIMED_DATE_FROM": "ClaimedDateFrom",
-      "CLAIMED_DATE_TO": "ClaimedDateTo",
-      "CREATED_DATE_FORM": "CreatedDateFrom",
-      "CREATED_DATE_TO": "CreatedDateTo",
+      "CREATED_DATE": "CreatedDate",
       "TASK_NAME": "TaskName",
       "PARENT_TASK_ID": "ParentTaskId",
       "PRIORITY": "Priority",
@@ -122,8 +117,7 @@
       "LAST_MODIFIED_TO": "LastModifiedTo",
       "OWNER": "Owner",
       "DUE_DATE": "DueDate",
-      "SORT": "Sort",
-      "START_DATE": "StartDate"
+      "SORT": "Sort"
 
 
     },
