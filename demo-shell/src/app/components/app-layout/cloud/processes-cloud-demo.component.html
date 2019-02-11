@@ -8,7 +8,7 @@
     </adf-cloud-edit-process-filter>
     <div fxLayout="column" fxFlex fxLayoutAlign="space-between" *ngIf="editedFilter">
         <adf-cloud-process-list fxFlex class="adf-cloud-layout-overflow"
-                                [applicationName]="editedFilter.appName"
+                                [appName]="editedFilter.appName"
                                 [initiator]="editedFilter.initiator"
                                 [processDefinitionId]="editedFilter.processDefinitionId"
                                 [processDefinitionKey]="editedFilter.processDefinitionKey"
@@ -22,8 +22,8 @@
                                 (rowsSelected)="onRowsSelected($event)"
                                 #processCloud>
         </adf-cloud-process-list>
-        <adf-pagination 
-            [target]="processCloud" 
+        <adf-pagination
+            [target]="processCloud"
             (changePageSize)="onChangePageSize($event)"
             (nextPage)="resetSelectedRows()"
             (prevPage)="resetSelectedRows()">

@@ -8,7 +8,7 @@
     </adf-cloud-edit-task-filter>
     <div fxLayout="column" fxFlex fxLayoutAlign="space-between" *ngIf="editedFilter">
         <adf-cloud-task-list #taskCloud
-            [applicationName]="editedFilter.appName"
+            [appName]="editedFilter.appName"
             [processDefinitionId]="editedFilter.processDefinitionId"
             [processInstanceId]="editedFilter.processInstanceId"
             [name]="editedFilter.taskName"
